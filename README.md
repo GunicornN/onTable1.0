@@ -6,5 +6,11 @@ la Liste des variables à configurer est dans le fichier app/appName/settings.co
 
 # Create superuser :
 `docker ps`
+
 `docker exec -it  8ccc0f8dff96 bash`
+
 `python /home/app/web/manage.py createsuperuser`
+
+
+# Pour démarrer le projet :
+`docker-compose up --build`
