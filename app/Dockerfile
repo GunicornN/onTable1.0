@@ -52,5 +52,5 @@ USER app
 
 ## Connexion between Django and the DB
 # it run this script when docker up
-ENTRYPOINT ["/home/app/web/entrypoint.sh"]  
+ENTRYPOINT ["/home/app/web/entrypoint.sh"]
 

@@ -11,19 +11,21 @@ services:
             - 5432:5432
         volumes: 
             - ./backups:/opt/backups
+            - ./data:/var/lib/postgresql/data
         networks:
             - db_connexion
         env_file:
             - ./conf/.env.dev
     app:
         build: ./app
+        container_name: django
         expose:
             - 8000
         volumes:
             - static_data:/home/app/web/staticfiles
             - static_data:/vol/media
         env_file:
-            - ./conf/.env.dev     
+            - ./conf/.env.dev
         depends_on:
             - db
         networks:
@@ -33,6 +35,7 @@ services:
     proxy:
         build:
             context: ./proxy
+        container_name: proxy
         volumes:
             - static_data:/home/app/web/staticfiles
             - static_data:/vol/media
@@ -42,6 +45,7 @@ services:
             - app
         networks:
             - default
+
 volumes:
     static_data:
 

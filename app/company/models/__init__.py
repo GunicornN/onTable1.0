@@ -7,3 +7,5 @@ from .qr_codes import *
 
 from .cards import *
 from .tables import *
+
+from .printServer import *

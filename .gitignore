@@ -156,3 +156,5 @@ dmypy.json
 
 # editors
 .vscode/
+
+data/
