@@ -8,7 +8,6 @@ echo "PostgreSQL started"
 # scripts 
 cd $APP_HOME
 
-python manage.py flush --no-input
 python manage.py makemigrations 
 python manage.py migrate
 sudo python manage.py collectstatic --noinput
