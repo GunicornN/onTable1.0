@@ -1,0 +1,49 @@
+{% load static %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load account %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" href="{% static 'img/logo/logo.png' %}">
+
+    <title>Confirmer votre email</title>
+
+    <!-- Custom styles for this template NEW-->
+    <link rel="stylesheet" href="{% static 'css/public/form.css' %}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+
+  <body class="text-center" id="grad">
+    <div class="card w-50">
+      <div class="card-header text-left">
+        <a href="{% url 'homePage' %}" class="text-dark">Accueil</a>
+      </div>
+      <div class="card-body">
+        <h1>{% trans "Confirmez votre adresse mail" %}</h1>
+
+		{% if confirmation %}
+
+		{% user_display confirmation.email_address.user as user_display %}
+
+		<p>Veuillez confirmer que <a href="mailto:{{ confirmation.email_address }}">{{ confirmation.email_address }}</a> est bien votre adresse e-mail.</p>
+
+		<form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+		{% csrf_token %}
+		    <button type="submit" class="btn btn-success">{% trans "Confirmer" %}</button>
+		</form>
+
+		{% else %}
+
+		{% url 'account_email' as email_url %}
+
+		<p>Ce lien pour confirmer votre e-mail est expiré ou est invalide. <a href="{{ email_url }}">Envoyer une nouvelle confirmation</a>.</p>
+
+		{% endif %}
+      </div>
+    </div>
+  </body>
+</html>

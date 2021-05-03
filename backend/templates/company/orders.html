@@ -1,0 +1,58 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} Commandes {% endblock %}
+
+{% block scripts %}
+<!-- Refresh the page each minute -->
+ <meta http-equiv="refresh" content="60">
+
+<!-- Change color of divs depending of the .updatedOn -->
+ <script type="text/javascript">
+    lsTables ={{data}};
+    hour={{time}};
+    window.onload = function() {
+        console.log(context_dict);
+        for (const table in lsTables) {
+            if (table.updatedOn.time == hour ){
+
+            }
+        }
+
+
+}
+<!-- https://css-tricks.com/snippets/jquery/make-entire-div-clickable/ -->
+$("#div-table-{{table.id}}").click(function() {
+  window.location = $(this).find("a").attr("href");
+  return false;
+});
+
+ </script>
+
+
+
+{% endblock %}
+
+
+{% block content%}
+
+{% if not lsOrders %}
+    <p>Aucune commande Récente</p>
+{% else %}
+        {% for table in lsTables %}
+            <div id="div-table-{{table.id}}">
+                <p>Table N°{{table.tableNo}}</p>
+
+                <p>Dernière mise à jour à {{table.updatedOn.time}} </p>
+                <a href="{{}}">Voir +</a>
+            </div>
+
+        {% endfor %}
+
+
+
+{%endif%}
+
+
+
+{% endblock %}

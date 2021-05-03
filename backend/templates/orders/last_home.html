@@ -1,0 +1,67 @@
+{% load static %}
+{% load i18n %}
+
+<!doctype html>
+<html lang="fr">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>{% block title %}{% endblock %}</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="{% static 'css/orders/bootstrap.min.css' %}">
+
+      <!-- bug in this style  -->
+      <!-- <link rel="stylesheet" href="{% static 'css/orders/owl.carousel.min.css' %}"> -->
+      <link rel="stylesheet" href="{% static 'css/orders/animate.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/orders/style.css' %}">
+
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    </head>
+
+    {% block scripts%}{% endblock %}
+
+  <body>
+
+      <section id="mobile-app">
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-sm-8 col-lg-4">
+                      <div class="app-logo">
+                          <a href="{% url 'homePage' %}"><img src="{% static 'images/home/logo.png' %}" alt="" class="img-fluid"> <span>On Table</span></a>
+                      </div>
+
+                        <div class="app-body">
+                            <h2>{{company.name}}</h2>
+
+                            <div class="menu-slider owl-carousel">
+                                {% if documents %}
+                                    {% for document in documents %}
+                                        <div class="menu-box">
+                                            <a class="menu" href="{% url 'OSSeeDocument' company.company_code document.id %}"><h3>{{document.name}}</h3></a>
+                                        </div>
+                                    {% endfor %}
+                            {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/script.js"></script>
+
+    </body>
+</html>

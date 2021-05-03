@@ -1,0 +1,24 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {% trans "Connexion au Restaurant" %} {% endblock %}
+
+{% block content%}
+
+
+<div class="col-sm-12 col-lg-4">
+    <div class="app-logo">
+        <a href="{% url 'homePage' %}"><img src="{% static 'images/home/logo.png' %}" alt="" class="img-fluid"> <span>On Table</span></a>
+    </div>
+    <div class="app-body">
+        <h2>BIENVENUE ! ENTREZ LE CODE POUR ACCÉDEZ À LA CARTE.</h2>
+
+        <form action="." method="post">
+            {% csrf_token %}
+             {{form_connexion.code_connexion}}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+    db:
+        build: 
+            context: ./db
+        image: postgres11-postgis2.5
+        container_name: postgres11-postgis2.5
+        restart: always
+        ports:
+            - 5432:5432
+        volumes: 
+            - ./backups:/opt/backups
+            - ./data:/var/lib/postgresql/data
+        networks:
+            - db_connexion
+        env_file:
+            - ./conf/.env.dev
+    backend:
+        build: ./backend
+        container_name: backend
+        expose:
+            - 8000
+        volumes:
+            - static_data:/home/app/web/staticfiles
+            - static_data:/vol/media
+        env_file:
+            - ./conf/.env.dev
+        depends_on:
+            - db
+        networks:
+            - proxy_backend
+            - db_connexion
+    proxy:
+        build:
+            context: ./proxy
+            dockerfile: Dockerfile.dev
+        container_name: proxy
+        volumes:
+            - static_data:/home/app/web/staticfiles
+            - static_data:/vol/media
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+        networks:
+            - proxy_backend
+
+volumes:
+    static_data:
+networks:
+    proxy_backend:
+    db_connexion:
+        driver: bridge

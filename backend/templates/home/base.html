@@ -1,0 +1,264 @@
+{% load static %}
+{% load i18n %}
+{% load static i18n languages_helpers %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'img/logo/logo.png' %}">
+    <title>OnTable</title>
+    <meta name="Content-Type" content="UTF-8">
+    <meta name="Content-Language" content="fr">
+    <meta name="Description" content="Digitalisez gratuitement vos cartes et menus et rendez les accessibles à vos clients depuis leur smartphone grâce à un QR-Code.">
+    <meta name="Keywords" content="en line, menu, menus, carte, cartes, mobile, téléphone, smartphone, digitale, gratuit, gratuitement">
+    <meta name="Author" content="Alexis DUBANCHET, Henry MONT, Martin CARTERON">
+    <meta name="Identifier-Url" content="onetable.fr">
+    <meta name="Revisit-After" content="15 days">
+    <meta name="Robots" content="all">
+    <meta name="Rating" content="general">
+    <meta name="Distribution" content="global">
+    <meta name="DC.Content-Type" content="UTF-8">
+    <meta name="DC.Content-Language" content="fr">
+    <meta name="DC.Description" content="Website where restaurants, pubs ... can upload their cards / menus online to allow their customers to see directly the card / menu from their phone.">
+    <meta name="DC.Keywords" content="online, menu, menus, carte, cartes, mobile, téléphone, smartphone, digitale">
+    <meta name="DC.Author" content="Alexis DUBANCHET, Henry MONT, Martin CARTERON">
+    <meta name="DC.Identifier-Url" content="onetable.fr">
+    <meta name="DC.Revisit-After" content="15 days">
+    <meta name="DC.Robots" content="all">
+    <meta name="DC.Rating" content="general">
+    <meta name="DC.Distribution" content="global">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <script>
+    // Language Switcher
+    function flanguageSwitcher(lg) {
+        var switcherLg = document.getElementById("selector");
+        var formSwitcher = document.getElementById("langForm");
+        switcherLg.value = lg;
+        formSwitcher.submit();
+        };
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/public/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/public/style.css' %}">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  </head>
+    <body>
+        <header id="header" style="background-image: url('{% static 'img/public/1.jpg' %}');">
+            <div class="container-fluid-fixed"> 
+                <div class="row">
+                    <div class="col-4 col-lg-4">
+                        <div class="header-logo d-block">
+                            <a href="{% url 'homePage' %}" class="logo"><img src="{% static 'img/public/Logo.png' %}" class="img-fluid"> <span>Ontable</span></a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-5"  >
+                        <form action="searchCompany/" method="POST">
+                            {% csrf_token %}
+                            <div class="searchCompany">
+                                <input id="iSearchCompany" placeholder="Chercher un restaurant, une carte,..."type="text" name="iSearchCompany" value="">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-2 col-lg-3 lang">
+                        <h1>
+                            <a class="langselect" onclick="flanguageSwitcher('en')">English</a>
+                            <a class="langselect" onclick="flanguageSwitcher('fr-FR')">Français</a>
+                        </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="header-link nav nav-pills nav-justified">
+                <li class="nav-item buttonshade"><a class="h-100 w-100" href="{% url 'account_login' %}">{% trans "Se connecter" %}</a></li>
+                <li class="nav-item buttonshade"><a class="h-100 w-100" href="{% url 'account_signup' %}">{% trans "S'inscrire" %}</a></li>
+                <li class="nav-item buttonshade"><a class="h-100 w-100" href="{% url 'OSConnexion' %}">{% trans "Entrer un code" %}</a></li>
+            </ul>
+
+        </header>
+
+        <section id="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <footer id="footer">
+            <div class="container">
+                <div class="row row-fb no-gutters">
+                    <div class="col-sm-12 col-lg-4 my-auto">
+                        <div class="footer-box fb-img">
+                            <a class="logo" href="{% url 'homePage' %}"><img src="{% static 'img/public/Logo.png' %}" alt="" class="img-fluid"> <span>Ontable</span></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-box fb-bd">
+                            <a href="mailto:contact@example.com"><p class="mt-4">ONTABLE@PROTONMAIL.COM</p></a>
+                            <div class="socialmedia d-flex justify-content-around mx-3 my-auto pt-2">
+                              <a href="https://m.facebook.com/OnTable-108702967546329/" class="my-auto"><img src="{% static 'img/public/facebook.png' %}" alt=""></a>
+                              <a href="https://www.linkedin.com/company/ontable-menus-digitales" class="my-auto"><img src="{% static 'img/public/linkedin.png' %}" alt=""></a>
+                              <a href="https://www.instagram.com/ontableofficiel/" class="my-auto"><img src="{% static 'img/public/instagram.png' %}" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="footer-box">
+                            <p>
+                                <a href="{% static 'pdf/Politique_de_Confidentialite.pdf' %}">POLITIQUE DE CONFIDENTIALITÉ</a>
+                                <br>
+                                <a href="{% static 'pdf/Conditions_Generales_dUtilisation.pdf' %}"> CONDITIONS D’UTILISATIONS</a>
+                                <br>
+                                <a href="#" data-toggle="modal" data-target="#thanksModal">REMERCIEMENTS</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div class="modal fade" id="thanksModal" tabindex="-1" role="dialog" aria-labelledby="thanksmodal" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{% trans "Remerciements" %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  <h5 class="text-center">{% trans "Projet réalisé par Henry Mont, Martin Carteron et Dubanchet Alexis." %}</h5>
+
+                  {% blocktrans %}Ce projet n'aurait jamais vu le jour sans les précieux conseils, le soutien et le coaching de <strong>Dubanchet Marc</strong>.
+                  Merci également à <strong>Jean-François Marquette</strong>, professeur, pour ses conseils, ses aides, ses précisions.
+                  <br>
+                  Encore merci de votre aide et de vos précieux conseils.{% endblocktrans %}
+                </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Fermer" %}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Hidden Form for languages -->  
+<form type="hidden" id="langForm" action="/i18n/setlang/" method="post">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{% url 'homePage' %}" />
+
+    <select id="selector" style="display:none;"name="language" type="hidden">
+    {% for lang in LANGUAGES %}
+        <option class="lgSelec" type="hidden" value="{{ lang.0 }}">{{ lang.1 }}</option>
+    {% endfor %}
+    </select>
+</form>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+        <script src="{% static 'js/public/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/public/wow.min.js' %}"></script>
+
+        <script>
+            $(document).ready(function() {
+
+                //getting the viewport height
+                let vh = window.innerHeight * 0.01;
+                //setting the value in the --vh custom property to the root of the document
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+                // Navigation scrolls
+                $(".header-lan li a").on('click', function(event) {
+                    var nav = $($anchor.attr('href'));
+                    if (nav.length) {
+                        $('html, body').stop().animate({
+                            scrollTop: $($anchor.attr('href')).offset().top
+                        }, 1500, 'easeInOutExpo');
+
+                        event.preventDefault();
+                    }
+                });
+
+                // Sticky header
+                $(window).scroll(function() {
+                    if ($(window).scrollTop() >= 100) {
+                        $('.header-fixed').addClass('fixed');
+                    } else {
+                        $('.header-fixed').removeClass('fixed');
+                    }
+                });
+                // wow js
+                new WOW().init();
+
+                // Search Restaurants
+                var inputSearchCompany = document.getElementById("iSearchCompany");
+                var ulSearchCompany = document.getElementById("searchListItems");
+
+                function submitForm(value){
+
+                    var settings = {
+                      "url": "http://127.0.0.1:8000/api/companies/?search="+value,
+                      "method": "GET",
+                      "timeout": 0,
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                      console.log(response);
+                    });
+                };
+
+                inputSearchCompany.addEventListener('keyup',function (e){
+                    if (inputSearchCompany.value != ""){
+                         submitForm(inputSearchCompany.value);
+                    }else {
+                        ulSearchCompany.textContent = '';
+                    }
+                });
+
+            });
+
+            
+
+
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,32 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Administration" %} {% endblock %}
+
+
+{% block content%}
+    {% if companies %}
+    <table class="table table-bordered mt-3">
+        <thead class="thead-light">
+            <tr>
+              <th scope="col">Nom de l'entreprise</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Ville</th>
+              <th scope="col">Code Postal</th>
+              <th scope="col">Code de l'entreprise</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in companies  %}
+                <tr>
+                    <th scope="row">{{ company.name }}</th>
+                    <th scope="row">{{ company.address1 }}</th>
+                    <th scope="row">{{ company.city }}</th>
+                    <th scope="row">{{ company.zip_code }}</th>
+                    <th scope="row"><a href="{% url 'OSHome' company.company_code %}">{{ company.company_code }}</a></th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+
+{% endblock %}

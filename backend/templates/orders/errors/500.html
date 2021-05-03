@@ -1,0 +1,15 @@
+{% extends 'orders/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% trans "Erreur du Serveur" %}
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>{% trans "Erreur 500 : Il y a eu un problème." %} </h2>
+    <p>{% trans "Ressayez plus tard, si le problème persiste contactez nous." %}</p>
+
+{% endblock %}

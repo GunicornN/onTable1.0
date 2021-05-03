@@ -1,0 +1,22 @@
+{% extends 'company/base.html' %}
+
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+{{document.name}}
+{% endblock %}
+
+
+{% block content %}
+
+
+    <a href="{% url 'CSUploadPdfs' %}">{% trans "Retour" %}</a>
+
+    <div>
+    	<iframe src="{{ doc.document.url }}#toolbar=0&view=FitH" width="100%" style="height:calc(85vh);"></iframe>
+    </div>
+
+{% endblock %}
+
+{% block page1 %}list-group-item{% endblock %}

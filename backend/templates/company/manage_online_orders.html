@@ -1,0 +1,42 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "Administration" %} {% endblock %}
+
+
+{% block content%}
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-success mt-2 mx-2" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card my-3">
+        <div class="card-header">
+          <h4> Commandes en ligne </h4>
+        </div>
+        <div class="card-body">
+    {% if onlineOrders %}
+        <div class="row">
+            {% for order in onlineOrders  %}
+                <div class="alert alert-success col-auto text-center mx-1" role="alert">
+                    <h3>{{ order.first_name  }} {{ order.last_name  }}</h3>
+                    <form action="{% url 'CSDeleteOnlineOrders' online_order_id=order.id %}" method="POST" class="d-flex justify-content-around">
+                        {% csrf_token %}
+                        <button type="submit" type="button" class="btn btn-danger mx-1"><img class="mr-1" src="{% static 'img/company/trash.png' %}"></button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="alert alert-danger my-2" role="alert">
+            <h5>{% trans "Aucune commande en ligne pour l'instant." %}</h5>
+        </div>
+    {% endif %}
+        </div>
+
+{% endblock %}

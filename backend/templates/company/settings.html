@@ -1,0 +1,105 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Paramètres" %} {% endblock %}
+
+{% block content%}
+<div class="card my-3">
+  <div class="card-header">
+    <h4> {% trans "Paramètres" %} </h4>
+  </div>
+    {% if formSettingsCompany.errors %}
+        {% for field in formSettingsCompany %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error|escape }}
+            </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in formSettingsCompany.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error|escape }}
+            </div>
+        {% endfor %}
+    {% elif messages %}
+        {% for message in messages  %}
+            <div class="alert alert-success" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if not company %}
+        <div class="alert alert-primary" role="alert">
+          {% trans "Veuillez enregistrer votre entreprise, avant d'utiliser notre service." %}
+        </div>
+    {% endif %}
+
+  <div class="card-body">
+    <form class="row" action="." method="post">
+
+        {% csrf_token %}
+
+        <div class="col-md-6 mt-2">
+            <div>{% trans "Nom de l'entreprise" %}</div>
+            <div>{{formSettingsCompany.name}}</div>
+        </div>
+
+        <div class="col-md-6 mt-2">
+            <div>{% trans "Adresse 1" %}</div>
+            <div>{{formSettingsCompany.address1}}</div>
+        </div>
+
+        <div class="col-md-6 mt-2">
+            <div>{% trans "Adresse 2" %}</div>
+            <div>{{formSettingsCompany.address2}}</div>
+        </div>
+
+        <div class="col-md-6 mt-2">
+            <div>{% trans "Ville" %}</div>
+            <div>{{formSettingsCompany.city}}</div>
+        </div>
+
+        <div class="col-md-6 mt-2">
+            <div>{% trans "Code Postal" %}</div>
+            <div>{{formSettingsCompany.zip_code}}</div>
+        </div>
+
+        <div class="my-3">
+            <!-- Delete account modal button -->
+            <button type="button" class="btn btn-danger mr-1 mt-2" data-toggle="modal" data-target="#deleteaccount">
+              {% trans "Supprimer mon compte" %}
+            </button>
+            <button type="submit" class="btn btn-success mt-2">{% trans "Sauvegarder mes préférences" %}</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete account modal -->
+<div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{% trans "Supprimer mon Compte" %}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h6>{% trans "Cette action est irréversible, êtes-vous sûr de vouloir supprimer votre compte ?" %}</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Annuler" %}</button>
+        <form class="form-horizontal" action="{% url 'DeleteAccount' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="delete_account" class="btn btn-danger">{% trans "Supprimer mon Compte" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block page3 %}list-group-item{% endblock %}

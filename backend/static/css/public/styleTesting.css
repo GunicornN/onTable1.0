@@ -1,0 +1,55 @@
+
+/* ---------------------------------------
+			Basics 
+----------------------------------------- */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+
+/* ---------------------------------------
+			Responsive Layout
+----------------------------------------- */
+
+.container{
+    
+}
+
+.logo{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: teal;
+    text-align: center;
+}
+
+.choice{
+    background-color: rgb(213, 175, 217);
+
+    border: solid;
+    border-width: 1px;
+    border-color: royalblue;
+    width: 50%;
+    height: 50%;
+}
+
+.choice *{
+    text-align: center;
+}
+
+#map {
+    height: 100%;
+  }

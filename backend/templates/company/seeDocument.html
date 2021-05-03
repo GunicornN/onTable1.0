@@ -1,0 +1,42 @@
+{% extends 'company/base.html' %}
+{% load customNameTags %}
+{% load i18n %}
+
+{% load static %}
+
+{% block title %}
+{{ document_name }}
+{% endblock %}
+
+
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-success mt-2 mx-2" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="card w-100 mb-4" style="width: 18rem;">
+        <div class="card-header">
+            <h4>{{ document_name }}</h4>
+        </div
+
+        <div class="card-body">
+            
+            {% if cards_images %}
+
+                {% for image in cards_images  %}
+                    <img src="{{ image.picture.url }}" alt="{{ image }}" class="card-img-top">        
+
+                {% endfor %}
+
+            {% endif %}
+            
+        </div>
+        </div>
+
+{% endblock %}
+
+{% block page1 %}list-group-item{% endblock %}

@@ -1,0 +1,101 @@
+{% load static %}
+{% load i18n %}
+
+<!doctype html>
+<html lang="fr">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <title>{% block title %}{% endblock %}</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="{% static 'css/orders/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/orders/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/orders/animate.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/orders/style.css' %}">
+
+      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    </head>
+
+    {% block scripts%}{% endblock %}
+
+  <body>
+
+      <section id="mobile-app">
+          <div class="container">
+            <header class="py-2">
+                <div class="row flex-nowrap justify-content-between align-items-center mx-0">
+                  {% block code%}
+
+                  {% endblock %}
+                {% if customer_infos_form %}
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commentModal">
+                        <img src="{% static 'img/orders/comment.png' %}">
+                    </button>
+                    
+                {% endif %}
+                <h1> TEST : {{ customer_infos_form }}</h1>
+                </div>
+            </header>
+
+              {% if customer_infos_form %}
+                  {% if messages %}
+                      {% for message in messages  %}
+
+                          <div class="alert alert-success" role="alert">
+                              {{message}}
+                          </div>
+                      {% endfor %}
+                  {% endif %}
+              {% endif %}
+
+             <div class="row justify-content-center">
+                  {% block content%}
+
+                  {% endblock %}
+              </div>
+
+          </div>
+      </section>
+
+
+    <!-- Modal -->
+    {% if customer_infos_form %}
+        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                    <h5 class="modal-title" id="commentModalLabel">Donnez-nous plus d'informations</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+              </div>
+              <form class="" action="{% url 'OSCustomerInfo' company.company_code %}" method="post">
+              <div class="modal-body">
+                      {% csrf_token %}
+                      {{ customer_infos_form }}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="submit" type="button" class="btn btn-success mx-1"><img class="mr-1">Envoyer</button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    {% endif %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

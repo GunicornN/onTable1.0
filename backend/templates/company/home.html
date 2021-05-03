@@ -1,0 +1,32 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Accueil" %} {% endblock %}
+
+
+
+{% block content%}
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags}} mt-2" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+    {% endif %}
+    <div class="container-fluid" id="qrCode" >
+        <div class="row mt-4">
+          <div class="col-mid-6">
+            <div class="card w-100 mb-4 scan" style="width: 18rem;">
+                <a  href="{% url 'OSHome' company.company_code %}">
+                    <img class="card-img-top img-fluid" width="500" style="image-rendering: pixelated;"  src="/{{ qrcode.picture.name }}" alt="{{ image }}" >
+                </a>
+              <div class="card-body screen">
+                  <h1>Accédez à vos QR-Codes</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+{% endblock %}

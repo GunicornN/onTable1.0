@@ -1,0 +1,76 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "Administration" %} {% endblock %}
+
+
+{% block content%}
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-success mt-3 ml-0" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if advertisements %}
+        <div class="row mt-3">
+            {% for advertisement in advertisements  %}
+                <div class="alert alert-success col-auto text-center ml-3" role="alert">
+                    <h3>{{ advertisement.url  }}</h3>
+                    <h6>TTL : {{ advertisement.ttl  }}</h6>
+                    <h6>Vues : {{ advertisement.view  }}</h6>
+                    <form action="{% url 'CSDeleteAdvertisement' ad_id=advertisement.id %}" method="POST" class="d-flex justify-content-around">
+                        {% csrf_token %}
+                        <button type="submit" type="button" class="btn btn-danger mx-1"><img class="mr-1" src="{% static 'img/company/trash.png' %}"></button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <div class="alert alert-danger my-2" role="alert">
+            <h5>{% trans "Aucune publicité n'a été ajouté." %}</h5>
+        </div>
+    {% endif %}
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pubmodal">Ajouter une publicité</button>
+        <!-- UploadModal -->
+        <div class="modal fade" id="pubmodal" tabindex="-1" role="dialog" aria-labelledby="uploadpub" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une pub</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="row" enctype="multipart/form-data" action="{% url 'CSManageAds' %}" method="post">
+                    {% csrf_token %}
+                    <div class="col-md-12 mt-2">
+                        <div>Image de la publicité</div>
+                        {{ form.picture }}
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div>Date de fin (jj/mm/aaaa)</div>
+                        {{ form.ttl }}
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div>Lien de la pub</div>
+                        {{ form.url }}
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <div>Entreprises</div>
+                        {{ form.companies }}
+                    </div>
+                    <div class="col-md-12 mt-2 d-flex justify-content-end">
+                        <button type="submit" type="button" class="btn btn-info">Ajouter cette publicité</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+{% endblock %}

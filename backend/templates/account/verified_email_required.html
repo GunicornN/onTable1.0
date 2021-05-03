@@ -1,0 +1,19 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Vérification Nécessaire" %} {% endblock %}
+
+
+
+{% block content%}
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags}} mt-2" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+    {% endif %}
+
+    <h2>{% trans "Confirmation de votre mail nécessaire" %}</h2>
+    <p>{% trans "Veuillez confirmer votre e-mail avant d'utiliser notre service." %}</p>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% load static %}
+{% load i18n %}
+{% load static i18n languages_helpers %}
+
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>{{ company.name }}</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/public/styleTesting.css' %}">
+
+
+  <script type="text/javascript"
+  async defer src="https://maps.googleapis.com/maps/api/js?key=REDACTED_GOOGLE_MAPS_KEY&callback=initMap&libraries=&v=weekly" >
+</script>
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <header class="">
+            <div class="logo">
+                <a class="" href="{% url 'homePage' %}"><img src="{% static 'img/logo/logo_solo.png' %}"></a>
+                <h1>OnTable</h1>
+            </div>
+        </header>
+    
+        <h1>{{ company.name }}</h1>
+        <div class="row">
+            <div class="col-6 choice">
+                <h1>test</h1>
+            </div>
+            <div class="col-6 choice">
+                <h1>test 2</h1>
+            </div>  
+
+                <h1>Map</h1>
+            <div id="map" style="border: 1px solid black;
+                width: 400px; height: 400px;
+                margin-left: 30px; margin-top: 30px;">
+            </div>
+
+        </div>
+
+    </div> 
+<div>
+
+    <div class="address">
+        <h1>Adresse :</h1>
+        <h4>{{ company.address1 }}</h4>
+        <h4>{{ company.city }}</h4>
+        <h4>{{ company.zip_code }}</h4>
+        <div id="map"></div>
+    </div>    
+    {% if pictureCard_formset %}
+        <div class="cards">
+            <form action="." method="POST" id="form-container" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ pictureCard_formset.management_form }}
+                    <input type="text" name="name" id="">
+                    
+                    {% for form in pictureCard_formset %}
+                        <div class="card-form">
+                            {{ form.picture }}
+
+                            <button class="btn-remove-card" type="button">Enlever</button>
+                        </div>
+                    {% endfor %}
+                    
+                <button id="btn-add-card" type="button">Ajouter une nouvelle carte</button>
+                <button type="submit">Envoyer les cartes</button>
+
+            </form>
+        </div>
+
+
+    {% else %}
+        <div class="cards">
+            <a class="btn btn-primary" href="{% url 'OSHome' company.company_code %}">Accéder aux cartes</a>           
+        </div>
+    {% endif %}
+
+
+
+</div>
+  <script type="text/javascript" src="{% static 'js/home/map.js' %}"></script>
+
+  <script>
+
+    window.onload = function(){
+        var pictureInput = document.querySelector(".picture");
+        pictureInput.style = "backgroundImage: url('{% static 'img/public/addPictures.png' %}')";
+
+    
+
+    let cardForm = document.querySelectorAll(".card-form")
+    let container = document.querySelector("#form-container")
+    let addButton = document.querySelector("#btn-add-card")
+    let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+    let formNum = cardForm.length
+    
+    // initialize the regex expr
+    let formRegex = RegExp(`form-(\\d){1}-`,'g')
+    let onclickRegex = RegExp('(\\d){1}','g')
+
+    var lastNameInput = document.querySelectorAll(".document:last-child")
+
+    let buttonsRemove = document.querySelectorAll(".card-form>.btn-remove-card")
+
+    // add first click
+    addButton.addEventListener("click",addForm);
+
+    // remove first click
+    /*
+    buttonsRemove[0].addEventListener("click", function(){
+            buttonsRemove[index].parentNode.remove(); 
+    });
+    */
+
+    function addForm(e){
+        e.preventDefault()
+
+        //clone the first form
+        let newForm = cardForm[0].cloneNode(true)
+
+        // increment the number of form
+        formNum++
+        //change the attribut with the correct number to identify each div 
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`).replace(onclickRegex, `${formNum}`);
+        container.insertBefore(newForm, addButton)
+        
+        totalForms.setAttribute('value', `${formNum}`);
+
+        newForm.childNodes[3].addEventListener("click", function(){
+            newForm.remove();
+            formNum--;
+            totalForms.setAttribute('value', `${formNum}`);
+
+            let cardForm = document.querySelectorAll(".card-form");
+            for (let index = 0; index < cardForm.length; index++) {
+                cardForm[index].childNodes[1].setAttribute('name',`form-${index}-picture`);
+            }
+        });
+    }
+
+    };  
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+{% load static %}
+{% load i18n %}
+{% load static i18n languages_helpers %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'img/logo/logo.png' %}">
+    <title>OnTable</title>
+    <meta name="Content-Type" content="UTF-8">
+    <meta name="Content-Language" content="fr">
+    <meta name="Description" content="Digitalisez gratuitement vos cartes et menus et rendez les accessibles à vos clients depuis leur smartphone grâce à un QR-Code.">
+    <meta name="Keywords" content="en line, menu, menus, carte, cartes, mobile, téléphone, smartphone, digitale, gratuit, gratuitement">
+    <meta name="Author" content="Alexis DUBANCHET, Henry MONT, Martin CARTERON">
+    <meta name="Identifier-Url" content="onetable.fr">
+    <meta name="Revisit-After" content="15 days">
+    <meta name="Robots" content="all">
+    <meta name="Rating" content="general">
+    <meta name="Distribution" content="global">
+    <meta name="DC.Content-Type" content="UTF-8">
+    <meta name="DC.Content-Language" content="fr">
+    <meta name="DC.Description" content="Website where restaurants, pubs ... can upload their cards / menus online to allow their customers to see directly the card / menu from their phone.">
+    <meta name="DC.Keywords" content="online, menu, menus, carte, cartes, mobile, téléphone, smartphone, digitale">
+    <meta name="DC.Author" content="Alexis DUBANCHET, Henry MONT, Martin CARTERON">
+    <meta name="DC.Identifier-Url" content="onetable.fr">
+    <meta name="DC.Revisit-After" content="15 days">
+    <meta name="DC.Robots" content="all">
+    <meta name="DC.Rating" content="general">
+    <meta name="DC.Distribution" content="global">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/orders/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/orders/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  </head>
+    <body>
+        <section id="mobile-app">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-lg-4">
+                        <div class="app-logo">
+                            <a href="{% url 'homePage' %}"><img src="{% static 'images/home/logo.png' %}" alt="" class="img-fluid"> <span>On Table</span></a>
+                        </div>
+                        <div class="app-body">
+                            <h2>Vous  recherchez une carte ?</h2>
+                            {{ error }}
+                            <p>Donnez-nous quelques informations sur le Restaurant</p>
+                            <div class="searchCompany">
+                                <input id="iSearchCompany" placeholder="Chercher un restaurant, une carte,..."type="text" name="" value="">
+                                <ul class="list-group" id="searchListItems">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+      
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+        <script src="{% static 'js/public/bootstrap.min.js' %}"></script>
+
+        <script>
+            $(document).ready(function() {
+                // When the view is called with args
+                var arg = "{{ search }}";
+                if (arg){
+                  submitForm(arg);
+                }
+               
+                // Search Restaurants
+                var inputSearchCompany = document.getElementById("iSearchCompany");
+                var ulSearchCompany = document.getElementById("searchListItems");
+
+                function submitForm(value){
+                    var settings = {
+                        // change this
+                      "url": "http://127.0.0.1:8000/api/companies/?search="+value,
+                      "method": "GET",
+                      "timeout": 0,
+                    };
+
+                    $.ajax(settings).done(function (response) {
+
+                      console.log(response[0]);
+                      ulSearchCompany.textContent = '';
+                      for (idx in response){
+                          var li = document.createElement("li");
+                          var link = document.createElement("a");
+                          link.href = "/company_presentation/"+response[idx].id;
+                          link.innerHTML = response[idx].name + "\n" + response[idx].address1 + "\n" +  response[idx].city;
+                          ulSearchCompany.appendChild(li);
+                          li.appendChild(link);
+                      }
+
+                    });
+                };
+
+                inputSearchCompany.addEventListener('keyup',function (e){
+                    if (inputSearchCompany.value != ""){
+                         submitForm(inputSearchCompany.value);
+                    }else {
+                        ulSearchCompany.textContent = '';
+                    }
+                });
+
+
+            });
+
+        </script>
+
+    </body>
+
+</html>

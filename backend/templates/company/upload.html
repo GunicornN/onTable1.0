@@ -1,0 +1,72 @@
+{% extends 'company/base.html' %}
+{% load customNameTags %}
+{% load i18n %}
+
+{% load static %}
+
+{% block title %}
+{% trans "Ajouter une carte" %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="card my-3">
+      <div class="card-header">
+        <h4 class="mt-2">{% trans "Vos Cartes" %}</h4>
+      </div>
+        {% if messages %}
+            {% for message in messages  %}
+                <div class="alert alert-success mt-2 mx-2" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+      <div class="card-body">
+        {% if lsDocument %}
+            <div class="row">
+                {% for document in lsDocument  %}
+                    <div class="alert alert-success col-auto text-center mx-1" role="alert">
+                        <h4>{{document.name}}</h4>
+                        <a href="{% url 'CSViewDocument' document.name %}" type="button submit" class="btn btn-outline-success mx-1">Voir</a>             
+                        <a href="{% url 'CSDeleteDocument' document.name %}" type="button" class="btn btn-danger mx-1"><img class="mr-1" src="{% static 'img/company/trash.png' %}"></a>
+
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <div class="alert alert-danger my-2" role="alert">
+                <h5>{% trans "Aucun document n'a été ajouté." %}</h5>
+            </div>
+        {% endif %}
+
+        {% if lenDocument < MAX_DOCUMENTS_PER_ACCOUNT %}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadmodal">{% trans "Ajouter" %}</button>
+            <!-- UploadModal -->
+            <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{% trans "Ajoutez vos menus en format PDF, HEIC, PNG, JPEG,..." %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">{% trans "Ajouter" %}</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% else %}
+            <p>{% trans "Vous ne pouvez pas ajouter plus de fichiers." %}</p>
+        {% endif %}
+      </div>
+    </div>
+{% endblock %}
+
+{% block page1 %}list-group-item{% endblock %}

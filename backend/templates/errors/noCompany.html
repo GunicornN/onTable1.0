@@ -1,0 +1,21 @@
+{% extends 'employee/base.html' %}
+
+{% block title %} Profil Non Paramêtré {% endblock %}
+
+
+
+{% block content%}
+
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags}}" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+    {% endif %}
+    <h2>Aucune Entreprise vous a ajouté pour l'instant. </h2>
+    <p> Null</p>
+
+
+{% endblock %}

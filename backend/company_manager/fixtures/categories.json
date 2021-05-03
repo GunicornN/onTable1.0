@@ -1,0 +1,95 @@
+[
+     {
+        "model": "company.categories", 
+        "pk": 1, 
+        "fields": {"name": "snack-bar"}
+    }, 
+    {
+        "model": "company.categories", 
+        "pk": 2, 
+        "fields": {"name": "bistrot"}
+    }, 
+    {
+        "model": "company.categories",
+        "pk": 3, 
+        "fields": {"name": "restaurants routiers"}
+    }, 
+    {   
+        "model": "company.categories", 
+        "pk": 4, 
+        "fields": {"name": "brasserie"}
+    },
+
+    {   
+        "model": "company.categories", 
+        "pk": 5, 
+        "fields": {"name": "gastronomique"}
+    },
+
+    {   
+        "model": "company.categories", 
+        "pk": 6, 
+        "fields": {"name": "fast food"}
+    },
+
+    {   
+        "model": "company.categories", 
+        "pk": 7, 
+        "fields": {"name": "restauration rapide"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 8, 
+        "fields": {"name": "japonais"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 9, 
+        "fields": {"name": "chinois"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 10, 
+        "fields": {"name": "sandwichs"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 11, 
+        "fields": {"name": "salades"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 12, 
+        "fields": {"name": "italien"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 13, 
+        "fields": {"name": "food trucks"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 14, 
+        "fields": {"name": "vegans"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 15, 
+        "fields": {"name": "fooding"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 16, 
+        "fields": {"name": "bar"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 17, 
+        "fields": {"name": "cav à vin"}
+    },
+    {   
+        "model": "company.categories", 
+        "pk": 18, 
+        "fields": {"name": "indien"}
+    }
+]

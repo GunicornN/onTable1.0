@@ -1,0 +1,22 @@
+{% extends 'company/base.html' %}
+
+{% block title %} Profil Non Paramètré {% endblock %}
+
+
+
+{% block content%}
+
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags}}" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+    {% endif %}
+    <h2>Veuillez configurer votre entreprise avant d'utiliser notre service.</h2>
+    <p> Pour cela, allez dans Paramètres dans la barre de navigation à gauche. </p>
+
+
+{% endblock %}
+

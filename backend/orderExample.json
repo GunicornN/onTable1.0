@@ -1,0 +1,35 @@
+{
+    "table_number" : 12,
+    "payment_method" : "CB",
+    "person_name" : "Alexis",
+    "company_slug" : "1AJBSA", 
+    "products":[
+        {
+            "name": "Île flottante aux pralines",
+            "quantity":2
+        },
+        {
+            "name":"Badoit 1L",
+            "quantity":1
+        },
+        {
+
+        }
+    ],
+    "formulas": [
+        {
+            "category_slug" : "",
+            "products":[
+                "PRODUCT_SLUG"
+            ]
+        },
+        {
+            "category_slug" : "",
+            "products":[
+                "slug_entree_prod",
+                "slug_plat_prod",
+                "slug_dessert_prod"
+            ]
+        }
+    ]
+} 

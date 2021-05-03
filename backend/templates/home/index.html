@@ -1,0 +1,136 @@
+{% extends "home/base.html"%}
+{% load static %}
+{% load i18n %}
+
+{% block title %} OnTable {% endblock%}
+
+
+{% block content%}
+<style>
+
+    #language-switcher select {
+        width: auto;
+        background-color: transparent;
+        font-size: 28px;
+        border: 0px solid;
+
+        /*remove arrow*/
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+
+        /*remove focus border*/
+        outline: none;
+    }
+
+</style>
+<div class="content-box">
+    <h2 class="sec-title mb-0">{% trans "UN ENGAGEMENT AUPRÈS DES" %}</h2>
+    <h2 class="sec-title">{% trans "RESTAURATEURS ET RESTAURATRICES" %}</h2>
+
+    <p>{% trans "Durant la période du confinement nous avons imaginé une façon <strong>SIMPLE</strong> pour les restaurateurs / restauratrices de laisser tomber leurs cartes traditionnelles, sources de propagation du virus, pour que celles-ci apparaissent directement dans le téléphone de leurs clients." %}</p>
+    <p>{% trans "Le contexte sanitaire que nous connaissons nous a amenés à développer cette idée, et proposer un service mis à disposition <strong>GRATUITEMENT</strong>, permettant aux restaurateurs de diffuser leurs cartes aux clients via un QR Code." %}</p>
+
+    {% get_current_language as LANGUAGE_CODE %}
+    <div class="w-100 d-flex justify-content-center">
+      <img src="/static/img/public/{{LANGUAGE_CODE}}/2.png" alt="" class="img-fluid wow bounceIn">
+    </div>
+</div>
+
+<div class="content-box">
+    <h2 class="sec-title">{% trans "FACILE À INSTALLER" %}</h2>
+
+    <div class="row service align-items-center pb-3">
+        <div class="col-sm-12 col-lg-6">
+            <!-- 4:3 aspect ratio -->
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/rOxqTYxFRO0"></iframe>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <h3>{% trans "INSCRIVEZ-VOUS GRATUITEMENT SUR NOTRE SITE" %}</h3>
+            <p>{% trans "Quelques clics suffisent pour mettre en place OnTable dans votre établissement." %}</p>
+        </div>
+    </div>
+
+    <div id="en" class="row service align-items-center pb-3">
+        <div class="col-sm-12 col-lg-6 order-last order-lg-1">
+            <h3>{% trans "METTEZ EN LIGNE VOS CARTES ET MENUS" %}</h3>
+            <p>{% trans "Il suffit de mettre en ligne vos cartes/menus en format pdf depuis notre site afin de les rendre disponibles pour vos clients." %}</p>
+        </div>
+        <div class="col-sm-12 col-lg-6 order-first order-lg-2">
+            <img src="{% static 'img/public/3.png' %}" alt="" class="img-fluid wow bounceInRight">
+        </div>
+    </div>
+
+    <div class="row service align-items-center pb-3">
+        <div class="col-sm-12 col-lg-6 d-flex justify-content-center">
+          <div>
+            <img src="{% static 'img/public/4.png' %}" alt="" class="img-fluid wow bounceInLeft">
+          </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <h3>{% trans "METTEZ LE QR-CODE À DISPOSITION DE VOS CLIENTS" %}</h3>
+            <p>{% trans "Pour finir, il ne reste plus qu'à télécharger votre QR-Code depuis l'interface de gestion et à le laisser à la vue de vos clients." %}</p>
+        </div>
+    </div>
+
+    <h2 class="sec-title">{% trans "SIMPLE À UTILISER" %}</h2>
+
+    <div id="fr" class="row service align-items-center pb-3">
+        <div class="col-sm-8 col-lg-8 order-last order-lg-1">
+            <h3>{% trans "FAIRE SON CHOIX N'A JAMAIS ÉTÉ AUSSI SIMPLE" %} </h3>
+            <p>{% trans "Pour voir vos cartes et menus, vos clients n'ont qu'à flasher le QR-Code disponible dans votre établissement ou peuvent se rendre directement sur ontable.fr et entrer le code-établissement." %}</p>
+        </div>
+        <div class="col-sm-4 col-lg-4 order-first order-lg-2 d-flex justify-content-center">
+          <div>
+            <img src="{% static 'img/public/5.png' %}" alt="" class="img-fluid  wow bounceInRight">
+          </div>
+        </div>
+    </div>
+
+    <div class="row service align-items-center pb-3">
+        <div class="col-sm-4 col-lg-4 d-flex justify-content-center">
+          <div>
+            <img src="{% static 'img/public/6.png' %}" alt="" class="img-fluid  wow bounceInLeft">
+          </div>
+        </div>
+        <div class="col-sm-8 col-lg-8">
+            <h3>{% trans "VOS PRODUITS DANS LE SMARTPHONE DE CHAQUE CLIENT" %}</h3>
+            <p>{% trans "Une fois connecté, un client aura accès à vos menus et cartes, il n'aura plus que l'embarras du choix." %}</p>
+        </div>
+    </div>
+
+    <h2 class="sec-title">{% trans "GRATUIT SANS ENGAGEMENT" %}</h2>
+
+    <div class="row service align-items-center pb-3">
+        <div class="col-sm-8 col-lg-8 order-last order-lg-1">
+            <h3>{% trans "NOTRE SERVICE EST GRATUIT" %}</h3>
+            <p>{% trans "OnTable ne peut pas fonctionner sans fonds. En échange de nos services, nous affichons un discret bandeau publicitaire en-dessous de vos menus." %}</p>
+        </div>
+        <div class="col-sm-4 col-lg-4 order-first order-lg-2 d-flex justify-content-center">
+          <div>
+            <img src="{% static 'img/public/7.png' %}" alt="" class="img-fluid  wow bounceInRight">
+          </div>
+        </div>
+    </div>
+
+    <div class="row service align-items-center pb-3">
+        <div class="col-sm-4 col-lg-4 d-flex justify-content-center">
+          <div>
+            <img src="{% static 'img/public/8.png' %}" alt="" class="img-fluid  wow bounceInLeft">
+          </div>
+        </div>
+        <div class="col-sm-8 col-lg-8">
+            <h3>{% trans "ACHETEZ DES STICKERS ET PRÉSENTOIRS" %}</h3>
+            <p>{% trans "Si vous ne désirez pas imprimer vous-même vos QR-Code, nous pouvons le faire pour vous. Nous proposons des stickers et présentoirs personnalisés fabriqués en France." %}</p>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block nav %} data-0-start="background-color:rgba(0,42,72,0);" data-100-start="background-color:rgba(0,42,72,1);" {% endblock %}

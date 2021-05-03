@@ -1,0 +1,19 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+
+{% block title %} {% trans "Non Autorisé" %} {% endblock %}
+
+
+
+{% block content%}
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-{{ message.tags}} mt-2" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+    {% endif %}
+
+    <h2>{% trans "Non Autorisé" %}</h2>
+    <p>{% trans "Vous n'êtes pas autorisé à accéder à cette page." %}</p>
+{% endblock %}

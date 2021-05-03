@@ -1,0 +1,71 @@
+{% extends 'company/base.html' %}
+{% load customNameTags %}
+{% load i18n %}
+
+{% block title %} {% trans "Gestion des Employés" %} {% endblock %}
+
+{% block content%}
+
+
+{% if messages %}
+    {% for message in messages  %}
+        <div class="alert alert-{{ message.tags}}" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+{% endif %}
+
+
+<h1>Gestion de vos employés </h1>
+
+
+<form class="" action="." method="post">
+    {% csrf_token %}
+    <p> {% trans "Ajouter un employé" %} </p>
+
+    <form method="post" action=".">
+          {% csrf_token %}
+          {{ AddEmployeeForm.as_p }}
+          <button name="addAnEmployee" type="submit" class="btn btn-success" >{% trans "Ajouter" %}</button>
+    </form>
+
+</form>
+
+
+<p> {% trans "Vos employés  : " %}</p>
+{% if not lsEmployeeWorkingForTheCompany %}
+    <p>{% trans "Aucun employé a été ajouté pour l'instant." %}</p>
+{% else %}
+    {% for employee in lsEmployeeWorkingForTheCompany%}
+    <p>
+        {{employee.last_name}}
+        <br>
+        {{employee.first_name}}
+    </p>
+    <form class="form-inline" action="." method="post">
+         {% csrf_token %}
+        <button name="{{ employee.id|custom_name_tag:'remove' }}" type="submit" class="btn btn-success" >{% trans "Enlever" %}</button>
+    </form>
+    {% endfor %}
+{% endif%}
+
+
+<p> {% trans "Invitations envoyées :" %}</p>
+{% if not lsOfInvitationsThatSentTheCompany %}
+    <p>{% trans "Aucune Invitation a été envoyée pour l'instant." %}</p>
+{% else %}
+    {% for invitation in lsOfInvitationsThatSentTheCompany %}
+    <div class="">
+        <p>
+            {{invitation.to_user}} [EN ATTENTE]
+        </p>
+        <form class="form-inline" action="." method="post">
+             {% csrf_token %}
+            <button name="{{ invitation.to_user|custom_name_tag:'cancel' }}" type="submit" class="btn btn-success" >{% trans "Annuler l'invitation" %}</button>
+        </form>
+    </div>
+
+    {% endfor %}
+{% endif%}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'company/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %} {% trans "Informations sur vos Clients" %} {% endblock %}
+
+
+{% block content%}
+
+    {% if messages %}
+        {% for message in messages  %}
+            <div class="alert alert-success mt-2 mx-2" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="mx-2 my-4">
+      {% if customers_infos %}
+
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Date de venue</th>
+            <th scope="col">email</th>
+            <th scope="col">Numéro de téléphone</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for customer_info in customers_infos  %}
+                <tr>
+                    <td>{{ customer_info.name  }}</td>
+                    <td>{{ customer_info.surname  }}</td>
+                    <td>{{ customer_info.writed_at  }}</td>
+                    <td>{{ customer_info.email  }}</td>
+                    <td>{{ customer_info.phoneNumber  }}</td>
+                    <td>
+                        <form action="{% url 'CSDeleteCustomersInfos' customer_id=customer_info.id %}" method="POST" class="d-flex justify-content-around">
+                            {% csrf_token %}
+                            <button type="submit" type="button" class="btn btn-danger mx-1"><img class="mr-1" src="{% static 'img/company/trash.png' %}"></button>
+                        </form>
+                    </td>
+                </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+      {% else %}
+          <div class="alert alert-danger my-2" role="alert">
+              <h5>{% trans "Aucune information sur vos clients est disponible pour l'instant." %}</h5>
+          </div>
+      {% endif %}
+    </div>
+
+{% endblock %}

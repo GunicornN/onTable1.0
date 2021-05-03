@@ -1,0 +1,129 @@
+{% extends 'company/base.html' %}
+{% load customNameTags %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} QR-Codes {% endblock %}
+
+{% block content%}
+
+{% if messages %}
+    {% for message in messages  %}
+        <div class="alert alert-{{ message.tags}}" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+{% endif %}
+
+<div class="row mt-4">
+  <div class="col-md-5">
+    <div class="card w-100 mb-4" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'img/company/print.jpg' %}" alt="QR-Code exemple">
+      <div class="card-body">
+        <p class="mr-3">{% trans "Téléchargez et imprimez vos gratuitement QR-Codes." %}</p>
+        <form class="form-inline justify-content-center" action="." method="post">
+          {% csrf_token %}
+          {{formPrintQRCodes.nbr_of_qrcodes}}
+          <button type="submit" name="addManyTables" class="btn btn-success my-1 mx-3">{% trans "Imprimer" %}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div class="card w-100 mb-4" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'img/company/display.jpg' %}" alt="QR-Code exemple">
+      <div class="card-body">
+        <p>{% trans "Achetez des stickers ou des présentoirs fabriqués en France et personnalisez-les." %}</p>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-success my-1" data-toggle="modal" data-target="#commande">{% trans "Demander un devis" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+      <div class="card w-100 mb-4 scan" style="width: 18rem;">
+          <a  href="{% url 'OSHome' company.company_code %}">
+              <img width="500" class="card-img-top img-fluid" style="image-rendering: pixelated;"  src="/{{ qrcode.picture.name }}" alt="{{ image }}" >
+          </a>
+        <div class="card-body">
+          <p class="text-center">{% trans "Visualiser votre QR-Code" %}</p>
+          <div class="d-flex justify-content-center">
+              <a  href="{% url 'OSHome' company.company_code %}">
+                  <button type="button" class="btn btn-success my-1">{% trans "Accéder" %}</button>
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Commande -->
+  <div class="modal fade" id="commande" tabindex="-1" role="dialog" aria-labelledby="commande" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{% trans "Commander" %}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form class="form-inline" action="." method="post">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  {% trans "Prénom" %}
+                  {{formOrderQRCodes.first_name}}
+                </div>
+                <div class="col-md-6">
+                  {% trans "Nom" %}
+                  {{formOrderQRCodes.last_name}}
+                </div>
+                <hr class="w-100 mx-3" />
+                <div class="col-md-6">
+                  {% trans "Adresse" %}
+                  {{formOrderQRCodes.address1}}
+                </div>
+                <div class="col-md-6">
+                  <p class="mb-0">{% trans "Ville" %}</p>
+                  {{formOrderQRCodes.city}}
+                </div>
+                <div class="col-md-6 mt-2">
+                  {% trans "Code Zip" %}
+                  {{formOrderQRCodes.zip_code}}
+                </div>
+                <hr class="w-100 mx-3" />
+                <div class="col-md-6">
+                  {% trans "Nombre de stickers désirés" %}
+                  {{formOrderQRCodes.number_for_choice1}}
+                </div>
+                <div class="col-md-6">
+                  {% trans "Nombre de cartes désirés" %}
+                  {{formOrderQRCodes.number_for_choice2}}
+                </div>
+                <div class="col-md-6 mt-2">
+                  {{formOrderQRCodes.custom_QRCodes}}
+                  {% trans "QR-Codes customisés" %}
+                </div>
+                <hr class="w-100 mx-3" />
+                <div class="col-md-12">
+                  {% trans "Commentaire (dimensions, requête spécifique...)" %}
+                  {{formOrderQRCodes.description}}
+                </div>
+                <div class="col-md-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success mt-3">{% trans "Demander un devis" %}</button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block page2 %}list-group-item{% endblock %}
