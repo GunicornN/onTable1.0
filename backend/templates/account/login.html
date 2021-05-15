@@ -1,4 +1,5 @@
 {% load socialaccount %}
+{% providers_media_js %}
 
 {% load static %}
 {% load crispy_forms_tags %}
@@ -22,7 +23,7 @@
   <body class="text-center" id="grad">
     <div class="card w-50">
       <div class="card-header text-left">
-        <a href="{{ frontend_address }}" class="text-dark">{% trans "Retour" %}</a>
+        <a href="{% url 'homePage' %}" class="text-dark">{% trans "Retour" %}</a>
       </div>
       <div class="card-body">
         {% if messages %}
@@ -44,6 +45,9 @@
           <button class="btn btn-success justify-content-center" type="submit">{% trans "Connexion" %}</button>
         </form>
 
+        <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block btn-social btn-facebook"  style="background-color:#3b5998;color: aliceblue;">
+          Se connecter avec Facebook
+         </a>
 
       </div>
 

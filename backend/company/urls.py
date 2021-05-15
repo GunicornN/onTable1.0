@@ -12,11 +12,11 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register(r'companies', views.CompanyReadViewSet,basename='company')
-router.register(r'documents', views.Document,basename='document') # Change documents for the company 
-router.register(r'companies/(?P<company_pk>\d+)/cards', views.CardsViewSet,basename='cards')
-router.register(r'companies/(?P<company_pk>\d+)/products', views.ProductsViewSet,basename='products')
-router.register(r'companies/(?P<company_pk>\d+)/tables', views.TablesViewSet,basename='tables')
-router.register(r'companies/(?P<company_pk>\d+)/carts', views.CartsViewSet,basename='carts')
+router.register(r'companies/(?P<company_slug>[-\w]+)/documents', views.DocumentViewSet,basename='documents')
+router.register(r'companies/(?P<company_slug>[-\w]+)/cards', views.CardsViewSet,basename='cards')
+router.register(r'companies/(?P<company_slug>[-\w]+)/products', views.ProductsViewSet,basename='products')
+router.register(r'companies/(?P<company_slug>[-\w]+)/tables', views.TablesViewSet,basename='tables')
+router.register(r'companies/(?P<company_slug>[-\w]+)/carts', views.CartsViewSet,basename='carts')
 #router.register(r'customer', views.Document,basename='document')
 
 urlpatterns = [

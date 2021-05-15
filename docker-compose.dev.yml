@@ -5,7 +5,7 @@ services:
         build: 
             context: ./db
         image: postgres11-postgis2.5
-        container_name: postgres11-postgis2.5
+        container_name: ontable10-postgres11-postgis2.5
         restart: always
         ports:
             - 5432:5432
@@ -16,18 +16,36 @@ services:
             - db_connexion
         env_file:
             - ./conf/.env.dev
+    redis:
+        image: "redis:alpine"
+        container_name: ontable10-redis
+    celery_worker:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile.celery
+        container_name: ontable10-celery_worker
+        command: sh -c "celery -A onTableAPI worker -l info"
+        restart: always
+        depends_on: 
+            - redis
+            - backend
+            - db
+        env_file: 
+            - ./conf/.env.dev
+        volumes: 
+            - ./backend/:/usr/src/app/
     backend:
         build: ./backend
-        container_name: backend
-        expose:
-            - 8000
+        container_name: ontable10-backend
         volumes:
             - static_data:/home/app/web/staticfiles
             - static_data:/vol/media
+            - ./backend/:/usr/src/app/
         env_file:
             - ./conf/.env.dev
         depends_on:
             - db
+            - redis
         networks:
             - proxy_backend
             - db_connexion
@@ -35,12 +53,12 @@ services:
         build:
             context: ./proxy
             dockerfile: Dockerfile.dev
-        container_name: proxy
+        container_name: ontable10-proxy
         volumes:
             - static_data:/home/app/web/staticfiles
             - static_data:/vol/media
         ports:
-            - 80:80
+            - 8080:8080
         depends_on:
             - backend
         networks:

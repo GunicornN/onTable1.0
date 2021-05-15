@@ -19,7 +19,13 @@ from rest_framework import status
 #languages
 from django.utils.translation import gettext as _
 
-class Document(ReadOnlyModelViewSet):
+# shortcuts
+from django.shortcuts import get_object_or_404
+
+#Models 
+from company.models import Document 
+
+class DocumentViewSet(ReadOnlyModelViewSet):
     """
     API View for :
     - create document
@@ -39,10 +45,17 @@ class Document(ReadOnlyModelViewSet):
             permission_classes = [] #change this 
         return [permission() for permission in permission_classes]
 
-    def list(self, request,slug=None):
-        input_serializer = PictureCardInputSerializer(data=request.query_params)
-        input_serializer.is_valid(raise_exception=True)
+    def get_queryset(self,*args,**kwargs):         #PROBLEME ICI 
+        if 'slug' in self.kwargs :
+            document = get_object_or_404(Document,slug=self.kwargs.get('slug'),company__slug=self.kwargs.get('company_slug'))
+            return document 
+        else :
+            documents = Document.objects.filter(company__slug=self.kwargs.get('company_slug'))
+            return documents 
+        raise NotFound() 
 
-        picture_card = get_object_or_404(pictureCard, slug=input_serializer.data['slug'])
-        output_serializer = PictureCardOutputSerializer(picture_card)
+    def list(self, request,company_slug=None):
+        queryset = self.get_queryset()
+
+        output_serializer = PictureCardInputSerializer(queryset,many=True,read_only=True)
         return Response(output_serializer.data)

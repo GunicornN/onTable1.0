@@ -25,7 +25,7 @@ class DocumentForm(forms.ModelForm):
 class PictureCardForm(forms.ModelForm):
     class Meta:
         model = pictureCard
-        fields = ('picture',)
+        fields = ('name','picture')
         widgets = {
 
             'picture' : forms.ClearableFileInput(attrs={'class': 'w-100', 
@@ -55,7 +55,7 @@ class PictureCardForm(forms.ModelForm):
             instance.save()
         return instance
 
-    def save(self,company,upload_by,cardName):
+    def save2(self,company,upload_by,cardName):
         file = self.cleaned_data['picture']
         if file.name.endswith('.pdf'):
             #save only document file into media/temp

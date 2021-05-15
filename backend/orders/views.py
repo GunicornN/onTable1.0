@@ -11,7 +11,7 @@ from django.db import transaction
 from django.contrib import messages
 
 #celery tasks
-from company.tasks import convert_from_company_pdf, convert_and_check_company_pdf
+from company_manager.tasks import convert_from_company_pdf, convert_and_check_company_pdf
 
 def CustomerInfo(request,company_code):
     company = get_object_or_404(Company, company_code=company_code)

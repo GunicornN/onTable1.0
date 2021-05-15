@@ -5,7 +5,6 @@ Settings for the dev
 
 """
 from onTableAPI.settings.common import *
-from onTableAPI.settings.celery import *
 
 DEBUG = int(os.environ.get("DEBUG", default=1))
 

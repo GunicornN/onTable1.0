@@ -21,7 +21,7 @@ class ProductInputSerializer(ModelSerializer):
 class ProductSerializer(ModelSerializer):
     class Meta:
         model = Product
-        fields = ['name','description','price','available']
+        fields = ['name','description','price','available','slug']
 
 class ProductPartialInputSerializer(ModelSerializer):
     class Meta:
@@ -79,4 +79,4 @@ class CardOutputSerializer(ModelSerializer):
     categories = CategorySerializer(many=True,read_only=True)
     class Meta:
         model = Card
-        fields = ['name','description','categories']
+        fields = ['name','description','categories','slug']

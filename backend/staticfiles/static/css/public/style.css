@@ -1,0 +1,477 @@
+{% load static %}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Bebas Neue', cursive;
+    font-weight: 400;
+}
+
+a {
+    color: #deafc1;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+a:hover,
+a:focus {
+    color: #deafc1;
+    outline: 0;
+    text-decoration: none;
+}
+
+strong {
+    font-weight: 600;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Header CSS */
+
+#header {
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    /*height: -webkit-fill-available; --only working on ios */
+    position: relative;
+    margin-bottom: 80px;
+}
+
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(4, 33, 55);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(4, 33, 55, 1)), color-stop(25%, rgba(82, 91, 117, 1)), to(rgba(222, 175, 193, 1)));
+    background: linear-gradient(90deg, rgba(4, 33, 55, 1) 0%, rgba(82, 91, 117, 1) 25%, rgba(222, 175, 193, 1) 100%);
+    z-index: 99;
+}
+
+.logo:hover,
+.logo:focus,
+.logo {
+    font-family: 'Bebas Neue', cursive;
+    color: #fff;
+}
+
+.logo img {
+    float: left;
+    width: 80px;
+    margin-right: 5px;
+}
+
+.logo span {
+    font-size: 64px;
+    line-height: 1.2;
+    display: inline-block;
+    padding-top: 5px;
+    float: left;
+}
+
+.footer-box .logo:focus,
+.footer-box .logo:hover,
+.footer-box .logo {
+    color: #062A48;
+}
+
+.header-logo {
+    padding: 15px 0;
+    display: inline-block;
+}
+.fixed .logo img {
+    width: 60px;
+}
+
+.fixed .logo span {
+    font-size: 44px;
+    padding-top: 5px;
+}
+
+.fixed .header-logo {
+    padding: 10px 0;
+}
+
+.fixed .header-lan li a {
+    font-size: 28px
+}
+
+.header-link {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(4, 33, 55);
+    background: -webkit-gradient(linear, left top, right top, from(rgba(4, 33, 55, 1)), color-stop(25%, rgba(82, 91, 117, 1)), to(rgba(222, 175, 193, 1)));
+    background: linear-gradient(90deg, rgba(4, 33, 55, 1) 0%, rgba(82, 91, 117, 1) 25%, rgba(222, 175, 193, 1) 100%);
+}
+
+.header-link li a {
+    font-family: 'Bebas Neue', cursive;
+    color: #fff;
+    font-size: 34px;
+    padding: 20px 5px;
+    display: inline-block;
+    line-height: 1.0;
+    background: transparent;
+}
+
+/*.header-link li a:hover {
+    background: -webkit-linear-gradient(45deg, #042137, #deafc1 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} */
+
+/* Wrapper CSS */
+
+.sec-title {
+    background: -webkit-linear-gradient(45deg, #042137, #deafc1 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 65px;
+    letter-spacing: 3.0px;
+    margin-bottom: 40px;
+}
+
+.content-box {
+    margin-bottom: 60px;
+}
+
+.content-box h2 {
+    background: -webkit-linear-gradient(45deg, #042137, #deafc1 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-size: 65px;
+    letter-spacing: 3.0px;
+    margin-bottom: 40px;
+}
+
+.content-box h3 {
+    font-size: 38px;
+    letter-spacing: 2.5px;
+    margin-bottom: 20px;
+}
+
+.content-box p {
+    font-size: 24px;
+}
+
+.content-box p strong {
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+.service {
+    margin-bottom: 60px;
+}
+
+
+/* Footer CSS */
+
+#footer {
+    margin-bottom: 30px;
+}
+
+.row-fb {
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+.footer-box {
+    padding: 15px 15px;
+    text-align: center;
+    height: 100%;
+}
+
+.fb-img,
+.fb-bd {
+    line-height: 100%;
+}
+
+.fb-bd {
+    border-left: 3px solid #000;
+    border-right: 3px solid #000;
+}
+
+.footer-box .logo {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.footer-box p {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 26px;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+.footer-box a {
+    color: #000;
+}
+
+.footer-box a:hover {
+    color: #deafc1;
+}
+
+
+.fb-bd p {
+    line-height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+
+/* ---------------------------------------
+			Responsive Layout
+----------------------------------------- */
+
+/* Desktop layout */
+
+@media (min-width:1200px) {}
+
+
+/* Big tablet layout */
+
+@media only screen and (min-width:992px) and (max-width:1199px) {}
+
+
+/* Normal tablet layout */
+
+@media only screen and (min-width:768px) and (max-width:991px) {
+    .fb-bd {
+        border: 0;
+        border-right: 3px solid #000;
+    }
+
+    .fb-img {
+        border-bottom: 3px solid #000;
+    }
+
+    .content-box h2,
+    .sec-title {
+        font-size: 46px;
+    }
+
+    .content-box img,
+    .embed-responsive {
+        margin-bottom: 30px;
+    }
+}
+
+/* Normal mobile layout */
+
+@media only screen and (max-width:767px) {
+
+    #header {
+        margin-bottom: 60px;
+    }
+
+    .service,
+    .content-box {
+        margin-bottom: 40px;
+    }
+
+    .content-box img,
+    .embed-responsive {
+        margin-bottom: 20px;
+    }
+
+    .fb-bd {
+        border: 0;
+        border-top: 3px solid #000;
+        border-bottom: 3px solid #000;
+    }
+
+    .logo img {
+        width: 60px;
+    }
+
+    .logo span {
+        font-size: 48px;
+    }
+
+    .footer-box p,
+    .content-box p strong,
+    .header-link li a,
+    .header-lan li a {
+        font-size: 22px
+    }
+
+    .content-box h2,
+    .sec-title {
+        font-size: 34px;
+    }
+
+    .content-box p {
+        font-size: 16px;
+    }
+
+    .fb-img,
+    .fb-bd {
+        line-height: 100%;
+    }
+}
+
+
+/* Width mobile layout */
+
+@media only screen and (min-width:480px) and (max-width:767px) {
+    .fb-bd {
+        border: 0;
+        border-right: 3px solid #000;
+    }
+
+    .fb-img {
+        border-bottom: 3px solid #000;
+    }
+
+    .fb-img,
+    .fb-bd {
+        line-height: 100%;
+    }
+}
+
+.buttonshade:hover{
+  background-color:rgba(0, 0, 0, 0.1);
+}
+
+.langselect:hover{
+  text-decoration: underline;
+}
+
+/* Search Bar for companies
+.searchCompany{
+    -webkit-box-align: center;
+    background-color: darkcyan;
+    border-radius: 10px;
+    display: flex;
+    margin: 2em 0;
+   
+}
+
+.searchCompany input{
+    color : inherit;
+    margin: 2em 0;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+    font-weight: 500;
+
+}
+ */
+ 
+ .searchCompany {
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    border-radius: 7.5px;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 0.5em 0.5em 0.5em 1em;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    width: 100%;
+    margin: 2em 0;
+    padding-right: 10px;
+    
+}
+
+.searchCompany:hover,
+.searchCompany:focus {
+    background: rgb(200, 165, 182);
+}
+
+.searchCompany button,
+.searchCompany input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    outline: 0;
+    
+}
+
+#button i {
+    font-size: 23px;
+}
+
+.searchCompany button {
+    cursor: pointer;
+    padding: 0 0.25em
+}
+
+.searchCompany input {
+    -webkit-box-flex: 1;
+    flex: 1;
+    font-weight: 100%;
+    font-size: 140%;
+}
+
+.searchCompany input:focus {
+    color: rgb(255, 255, 255);
+    -webkit-transition-duration: 1.5s;
+}
+.searchCompany input::placeholder {
+    color: rgb(97, 100, 102);
+    
+   
+}
+
+.searchCompany input:hover::-webkit-input-placeholder{
+    color: rgb(255, 255, 255);
+    font-size: 90%;
+    -webkit-transition-duration: 0.5s;
+}
+
+
+/* Languages */ 
+.lang {
+    text-align: right;
+    
+}
+
+.lang h1 {
+    display: inline-block;
+    font-family: 'Bebas Neue', cursive;
+    color: #fff;
+    font-size: 34px;
+    display: inline-block;
+    line-height: 1.0;
+    cursor: pointer;
+    margin: 1em 0;
+    padding-right: 10%;
+}

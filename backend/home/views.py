@@ -7,7 +7,7 @@ from django.utils.translation import (
 )
 
 #Import forms
-from company.forms import PictureCardFormset
+from company_manager.forms import PictureCardFormset
 
 #languages
 from django.utils.translation import gettext as _

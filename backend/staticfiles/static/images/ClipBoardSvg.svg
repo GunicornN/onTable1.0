@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 197 315" width="197" height="315">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #ffff00 } 
+		.shp1 { fill: #ffffff } 
+		.shp2 { fill: #ffffff;stroke: #0000ff;stroke-width: 4.4 } 
+		.shp3 { fill: #808080 } 
+		.shp4 { fill: #ff0000 } 
+		.shp5 { fill: none;stroke: #ff0000;stroke-width: 7.7 } 
+		.shp6 { fill: #00ff00 } 
+	</style>
+	<path id="OuterRect" class="shp0" d="M0 57L197 57L197 315L0 315L0 57Z" />
+	<path id="InnerRect" class="shp1" d="M23 80L177 80L177 285L23 285L23 80Z" />
+	<path id="Box3" class="shp2" d="M38 104L71 104L71 137L38 137L38 104Z" />
+	<path id="Box2" class="shp2" d="M38.5 164.5L71.5 164.5L71.5 197.5L38.5 197.5L38.5 164.5Z" />
+	<path id="Box1" class="shp2" d="M38.5 222.5L71.5 222.5L71.5 255.5L38.5 255.5L38.5 222.5Z" />
+	<path id="BigBox1" class="shp3" d="M80 129L162.5 129L162.5 144L80 144L80 129Z" />
+	<path id="BigBox1 copy 2" class="shp3" d="M80 237L162.5 237L162.5 252L80 252L80 237Z" />
+	<path id="Clip1" class="shp4" d="M35 49L162 49L162 72L35 72L35 49Z" />
+	<path id="Clip2" class="shp4" d="M55 31L146 31L146 57L55 57L55 31Z" />
+	<path id="Shape 1" class="shp5" d="M100.5 45C90.27 45 82 36.73 82 26.5C82 16.27 90.27 8 100.5 8C110.73 8 119 16.27 119 26.5C119 36.73 110.73 45 100.5 45Z" />
+	<path id="BigBox1 copy" class="shp3" d="M80 181L162.5 181L162.5 196L80 196L80 181Z" />
+	<path id="Check1" class="shp6" d="M39 117.08L43 114.08L56.5 132.08L52.5 135.08L39 117.08ZM56.44 135.15L52.56 132L81.81 96L85.69 99.15L56.44 135.15Z" />
+	<path id="Check1 copy" class="shp6" d="M39 179.08L43 176.08L56.5 194.08L52.5 197.08L39 179.08ZM56.44 197.15L52.56 194L81.81 158L85.69 161.15L56.44 197.15Z" />
+	<path id="SmallBox1" class="shp3" d="M82 107.5L129 107.5L129 122.5L82 122.5L82 107.5Z" />
+	<path id="SmallBox1 copy 2" class="shp3" d="M82 218.5L129 218.5L129 233.5L82 233.5L82 218.5Z" />
+	<path id="SmallBox1 copy" class="shp3" d="M82 161.5L129 161.5L129 176.5L82 176.5L82 161.5Z" />
+</svg>

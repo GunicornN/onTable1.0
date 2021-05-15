@@ -74,6 +74,9 @@ class CartOutputSerializer(ModelSerializer):
 
     # https://makina-corpus.com/blog/metier/2015/django-rest-framework-les-serializer-et-les-exceptions-partie-1
 
+
+    ## TODO : Rajouter le champ numéro de TABLE 
+    
     class Meta:
         model = Cart
         fields = [

@@ -1,0 +1,21 @@
+FROM python:3.8-slim
+
+WORKDIR /usr/src/app
+
+## Install depencies 
+RUN pip install --upgrade pip
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+## GDAL for spatial db 
+RUN apt-get update
+RUN apt-get --assume-yes install libgdal-dev
+RUN export CPLUS_INCLUDE_PATH=/usr/include/gdal
+RUN export C_INCLUDE_PATH=/usr/include/gdal
+
+#Install netcat 
+RUN apt install -y netcat
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1

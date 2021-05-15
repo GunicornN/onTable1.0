@@ -168,8 +168,11 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+#print(STATIC_ROOT)
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__)) #useless ? 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
 
 # ------------------------------------------------------------------------------
 # CUSTOM USER MODEL CONFIGS
@@ -231,13 +234,13 @@ REST_FRAMEWORK = {
 # ------------------------------------------------------------------------------
 # Celery settings
 # ------------------------------------------------------------------------------
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_NAME = 'onTableAPI'
-CELERY_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL",'redis://redis:6379')
+CELERY_NAME = os.environ.get("CELERY_NAME",'onTableAPI')
+CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://redis:6379')
 
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = os.environ.get("CELERY_ACCEPT_CONTENT",['application/json'])
+CELERY_RESULT_SERIALIZER = os.environ.get("CELERY_RESULT_SERIALIZER",'json')
+CELERY_TASK_SERIALIZER = os.environ.get("CELERY_TASK_SERIALIZER",'json')
 
 # ------------------------------------------------------------------------------
 # FACEBOOK API settings

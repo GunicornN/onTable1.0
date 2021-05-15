@@ -43,7 +43,7 @@ def model_form_upload(request):
     current_user = request.user
     current_company = get_object_or_404(Company,id=current_user.company_id)
 
-    lsDocument = pictureCard.objects.cards_from_company(current_company)
+    lsDocument = pictureCard.objects.get_cards_from_company(current_company)
     if request.method == 'POST':
         form = PictureCardForm(request.POST, request.FILES)
         if len(lsDocument)  >= settings.MAX_DOCUMENTS_PER_ACCOUNT:
@@ -58,12 +58,12 @@ def model_form_upload(request):
                 else :
                     # If the document doesn't exist, respect the max size, then create this new document
                     with transaction.atomic():
-                        form.save(company=current_company,upload_by=current_company.name)
+                        form.save(company=current_company,upload_by=current_company.name,)
                         messages.success(request, _('Votre document est entrain d\'être ajouté.'))
     else:
         form = PictureCardForm()
 
-    lsDocument = pictureCard.objects.cards_from_company(current_company)
+    lsDocument = pictureCard.objects.get_cards_from_company(current_company)
     context['lsDocument'] = lsDocument
     context['form'] = form
     context['MAX_DOCUMENTS_PER_ACCOUNT'] = settings.MAX_DOCUMENTS_PER_ACCOUNT
@@ -79,7 +79,7 @@ def delete_upload(request,document_name):
     current_company = get_object_or_404(Company,id=current_user.company_id)
     try:
         with transaction.atomic():
-            pictures = pictureCard.objects.images_from_company_card(company=current_company,card_name=document_name)
+            pictures = pictureCard.objects.get_images_from_company_card(company=current_company,card_name=document_name)
             for picture in pictures :
                 picture.delete()
         messages.info(request, _("Le Document a bien été supprimé."))
@@ -96,7 +96,7 @@ def view_document(request,document_name):
     current_user = request.user
 
     current_company = get_object_or_404(Company,id=current_user.company_id)
-    cards_images = pictureCard.objects.images_from_company_card(company=current_company,card_name=document_name)
+    cards_images = pictureCard.objects.get_images_from_company_card(company=current_company,card_name=document_name)
 
     context['company']  = current_company
     context['document_name']  = document_name

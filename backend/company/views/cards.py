@@ -37,7 +37,7 @@ class CardsViewSet(ModelViewSet):
 
     """
     queryset = Card.objects.all()
-    serializer_class = CardInputSerializer #Change this ? 
+    serializer_class = CardOutputSerializer
     lookup_field = 'slug'
 
     def get_permissions(self):
@@ -54,13 +54,13 @@ class CardsViewSet(ModelViewSet):
 
     def get_queryset(self,*args,**kwargs):         #PROBLEME ICI 
         if 'slug' in self.kwargs :
-            card = get_object_or_404(Card,slug=self.kwargs.get('slug'))
+            card = get_object_or_404(Card,slug=self.kwargs.get('slug'),company__slug=self.kwargs.get('company_slug'))
             return card 
 
             #categories = card.categories.all() # get all categories obj via une cardinalité avec l'obj carte 
             #return categories
         else :
-            cards = Card.objects.filter(company=self.kwargs.get('company_slug'))
+            cards = Card.objects.filter(company__slug=self.kwargs.get('company_slug'))
             return cards 
         raise NotFound() 
 
@@ -77,7 +77,7 @@ class CardsViewSet(ModelViewSet):
         return Response(serializer.data) 
 
     def create(self,request,company_slug=None):
-        company = get_object_or_404(Company,id=company_slug)
+        company = get_object_or_404(Company,slug=company_slug)
         input_serializer = CardInputSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True) #test if request.data is correct
         # Enregistrer l'objet :
@@ -133,10 +133,10 @@ class ProductsViewSet(ModelViewSet):
         Return object or objects depending on passed parameters
         """
         if 'slug' in self.kwargs:     #If object pk 
-            product = get_object_or_404(Product,slug=self.kwargs.get('slug'))
+            product = get_object_or_404(Product,slug=self.kwargs.get('slug'),company__slug=self.kwargs.get('company_slug'))
             return product 
         else :               #If no slug then there are not product index   
-            products = Product.objects.filter(company=self.kwargs.get('company_slug'))   #Only the pk of the company is passed
+            products = Product.objects.filter(company__slug=self.kwargs.get('company_slug'))   #Only the pk of the company is passed
             return  products
         raise NotFound()
 
@@ -151,7 +151,7 @@ class ProductsViewSet(ModelViewSet):
         return Response(serializer.data)
 
     def create(self,request,company_slug=None):                        
-        company = get_object_or_404(Company,id=company_slug)
+        company = get_object_or_404(Company,slug=company_slug)
         input_serializer = ProductInputSerializer(request.data)
         input_serializer.is_valid(raise_exception=True)
         input_serializer.save(available=True,company=company)

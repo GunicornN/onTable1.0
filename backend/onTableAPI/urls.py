@@ -1,24 +1,33 @@
-#onTableAPI/urls.py
-from django.urls import path, include
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+#Home Page
+from home import views
+
+from django.utils.translation import gettext_lazy as _
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
-    # ADMIN DOCS 
-    path('admin/doc/', include('django.contrib.admindocs.urls')),
-    path('admin/', admin.site.urls),
+     url(r'^$',views.homePage_view,name="homePage"),
+     url(r'^searchCompany/(?P<search>[-\w]+)/$',views.searchCompany,name="searchCompany"),
+     url(r'^searchCompany/$',views.searchCompany,name="searchCompany"),
+     url (r'^company_presentation/(?P<pk>[0-9]+)/$',views.company_presentation_view,name="companyPresentation"),
 
-    # API 
-    path(r'api/',include('company.urls'),name="api"),
+     url(r'^CGU/$',views.CGU_view,name="CGU"),
+     url(r'^privacyPolicy/$',views.privacy_policy_view,name="privacyPolicy"),
 
-    # REST-AUTH/ 
-    url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+     path(r'company/',include('company.urls'),name="companySide"),
+     path(r'orders/',include('orders.urls'),name="ordersSide"),
+     path('accounts/', include('allauth.urls')),
 
-    # Company Manager 
-    url(r'company_manager/',include('company_manager.urls'),name="company_manager"),
+     #trad
+     url(r'^i18n/', include('django.conf.urls.i18n')),
 
-    # Allauth Authentification 
-    path('accounts/', include('allauth.urls')),
-]
+     #admin
+     path('admin/', admin.site.urls),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'home.views.view_404'
+handler500 = 'home.views.view_500'

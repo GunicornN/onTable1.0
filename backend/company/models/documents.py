@@ -24,10 +24,12 @@ class pictureCardManager(models.Manager):
 class pictureCard(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    
     upload_by = models.CharField(max_length=20,default='company')
     picture = models.FileField(upload_to='images/', blank=True)
-
+    pdf_linked_to = models.IntegerField(null=True,default=None)  # NULL allowed, but must be filled out in a form
     #Manager 
     objects = pictureCardManager()
     class Meta:

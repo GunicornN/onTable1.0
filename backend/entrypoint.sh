@@ -7,6 +7,7 @@ cd $APP_HOME
 
 python manage.py makemigrations 
 python manage.py migrate
+python manage.py create_groups
 python manage.py collectstatic --noinput
 
 # init db 

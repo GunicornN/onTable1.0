@@ -1,6 +1,7 @@
 Django
 djangorestframework
 celery
+redis
 django-filter
 django-rest-auth
 requests
@@ -20,3 +21,4 @@ PyPDF2
 bs4
 fpdf
 pyqrcode
+pypng

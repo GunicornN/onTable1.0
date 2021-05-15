@@ -154,6 +154,8 @@ class Company(models.Model):
             self.location = GEOSGeometry(Point(geocoding[0],geocoding[1]),srid=4326)
         if not self.slug :
             self.slug = slugify(self.name[:30])+'-'+slugify(self.zip_code)
+        if self.id and not self.company_code :
+            self.set_company_code()
         super(Company, self).save(*args, **kwargs)
 
     def check_if_profil_completed(self):
