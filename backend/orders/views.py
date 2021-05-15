@@ -30,7 +30,7 @@ def company_home(request,company_code):
     #WRITE THIS AGAIN
     context = {}
     company = get_object_or_404(Company, company_code=company_code)
-    ls_cards = pictureCard.objects.cards_from_company(company)
+    ls_cards = pictureCard.objects.get_cards_from_company(company)
     ls_ads = Advertisement.objects.filter(companies__id=company.id)
 
     current_ad = company.current_ad
@@ -59,7 +59,7 @@ def company_cards(request,company_code,document_name):
     context = {}
 
     company = get_object_or_404(Company,company_code=company_code)
-    cards_images = pictureCard.objects.images_from_company_card(company=company,card_name=document_name)
+    cards_images = pictureCard.objects.get_images_from_company_card(company=company,card_name=document_name)
 
     """
     if not images_from_pdf:
