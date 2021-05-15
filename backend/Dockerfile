@@ -35,6 +35,9 @@ RUN mkdir -p $APP_HOME
 # STATIC files inside docker image 
 RUN mkdir -p $APP_HOME/staticfiles
 
+# Media files  
+COPY media/ /vol/media
+
 ## Entrypoint 
 # copy entrypoint.sh
 COPY ./entrypoint.sh $APP_HOME
