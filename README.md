@@ -108,6 +108,37 @@ modifier les ports SSH
 Port 80 à laisser sur un port standard
 Pare-feu à gérer 
 
+
+### NGINX configuration : 
+
+#### Test Nginx configuration
+
+`service nginx configtest`
+
+#### Check Nginx version
+
+`service nginx -V`
+
+#### View server status
+
+`service nginx status`
+
+#### Reload Nginx
+
+`service nginx reload`
+
+#### Start, Stop, Restart Nginx
+
+`service nginx start`
+
+`service nginx stop`
+
+`service nginx reload`
+
+
+Enlever la version de nginx : 
+https://www.tecmint.com/hide-nginx-server-version-in-linux/
+
 ___ 
 # Github Commands 
 ## fetch the changes from the remote

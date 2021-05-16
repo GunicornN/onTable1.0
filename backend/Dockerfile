@@ -36,7 +36,7 @@ RUN mkdir -p $APP_HOME
 RUN mkdir -p $APP_HOME/staticfiles
 
 # Media files  
-COPY media/ /vol/media
+COPY ./media/ /vol/media/
 
 ## Entrypoint 
 # copy entrypoint.sh
