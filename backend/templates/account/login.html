@@ -1,6 +1,3 @@
-{% load socialaccount %}
-{% providers_media_js %}
-
 {% load static %}
 {% load crispy_forms_tags %}
 {% load i18n %}
@@ -44,11 +41,6 @@
 
           <button class="btn btn-success justify-content-center" type="submit">{% trans "Connexion" %}</button>
         </form>
-
-        <a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block btn-social btn-facebook"  style="background-color:#3b5998;color: aliceblue;">
-          Se connecter avec Facebook
-         </a>
-
       </div>
 
       <div class="card-footer d-flex justify-content-between">
