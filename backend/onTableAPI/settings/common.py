@@ -193,6 +193,8 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+LOGIN_REDIRECT_URL = 'CSHome' 
+
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
