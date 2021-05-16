@@ -64,20 +64,6 @@
                             <img class="mr-1" src="{% static 'img/company/settings.png' %}"> {% trans "Informations sur vos clients" %}
                         </a>
                     </li>
-
-                    {% if request.user|has_group:"administratorGroup" %}
-                        <li class="nav-item">
-                            <a class="nav-link menulist {% block page5 %}{% endblock %}" href="{% url 'CSModeration' %}">
-                                <img class="mr-1" src="{% static 'img/company/settings.png' %}"> {% trans "Administration" %}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link menulist {% block page6 %}{% endblock %}" href="{% url 'CSManageAds' %}">
-                                <img class="mr-1" src="{% static 'img/company/settings.png' %}"> {% trans "Publicité" %}
-                            </a>
-                        </li>
-
-                    {% endif %}
                 </ul>
 	            <!-- Button trigger modal -->
 				<button type="button" class="btn btn-outline-danger fixed-bottom mb-2 ml-2" data-toggle="modal" data-target="#logoutmodal" style="width:15%; min-width: 150px;">

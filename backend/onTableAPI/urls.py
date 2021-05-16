@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
 #Home Page
 from home import views
 
@@ -18,7 +19,7 @@ urlpatterns = [
      url(r'^CGU/$',views.CGU_view,name="CGU"),
      url(r'^privacyPolicy/$',views.privacy_policy_view,name="privacyPolicy"),
 
-     path(r'company/',include('company.urls'),name="companySide"),
+     path(r'company/',include('company_manager.urls'),name="companySide"),
      path(r'orders/',include('orders.urls'),name="ordersSide"),
      path('accounts/', include('allauth.urls')),
 

@@ -54,6 +54,9 @@ On accède au container, à la BDD onTable. En developpment, aucun mot de passe 
 On accède au container NGINX via /bin/ash ( aucune idée de pourquoi ils utilisent Almquist shell )
 `docker exec -it 86ab91f5e010 /bin/ash`
 
+## Nettoyer docker :
+
+`docker system prune`
 ___
 
 # Configuration Docker 
