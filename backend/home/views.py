@@ -48,7 +48,7 @@ def addCardToCompany(request,company_id):
 
     company = get_object_or_404(Company,id=pk)
     #Check if there are documents imported by the Restaurant
-    company_documents = pictureCard.objects.cards_from_company(company=company)
+    company_documents = pictureCard.objects.get_cards_from_company(company=company)
     if not company_documents and company_documents[0].upload_by == 'company':
         messages.info(request, _("Vous ne pouvez pas ajouter de documents."))
 
@@ -79,7 +79,7 @@ def company_presentation_view(request,pk):
     context = {}
     current_company = get_object_or_404(Company,id=pk)
 
-    company_pictureCard = pictureCard.objects.cards_from_company(company=current_company).exclude(upload_by='unknown')
+    company_pictureCard = pictureCard.objects.get_cards_from_company(company=current_company).exclude(upload_by='unknown')
 
     #test if the company have not upload documents 
     if not company_pictureCard:

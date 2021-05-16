@@ -31,6 +31,7 @@ class pictureCard(models.Model):
     picture = models.FileField(upload_to='images/', blank=True)
     pdf_linked_to = models.IntegerField(null=True,default=None)  # NULL allowed, but must be filled out in a form
     #Manager 
+    
     objects = pictureCardManager()
     class Meta:
         verbose_name = 'Image'
