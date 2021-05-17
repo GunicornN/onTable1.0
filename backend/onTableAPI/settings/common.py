@@ -70,8 +70,8 @@ INSTALLED_APPS = [
     'company',
     'company_manager',
 
-
     'django_extensions', #Testing 
+    'django_celery_results'
 ]
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
@@ -243,7 +243,11 @@ CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://redis:6379')
 CELERY_ACCEPT_CONTENT = os.environ.get("CELERY_ACCEPT_CONTENT",['application/json'])
 CELERY_RESULT_SERIALIZER = os.environ.get("CELERY_RESULT_SERIALIZER",'json')
 CELERY_TASK_SERIALIZER = os.environ.get("CELERY_TASK_SERIALIZER",'json')
+CELERY_TIMEZONE = 'Europe/Paris'
+CELERY_ENABLE_UTC = True
 
+CELERY_RESULT_BACKEND =  'django-db'
+CELERY_RESULT_BACKEND = 'django-cache'
 # ------------------------------------------------------------------------------
 # FACEBOOK API settings
 # ------------------------------------------------------------------------------

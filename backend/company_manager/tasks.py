@@ -50,7 +50,7 @@ def convert_all_pdf_from_company(companyCode):
             pages = convert_from_path(document.document.path)
             for page in range(0,len(pages)) :
                 name = str((document.document.name.split('/')[-1]).split('.')[-2]) + str(page) + '.jpeg'
-                pages[page].save('media/images/'+name, 'JPEG')
+                pages[page].save(os.path.join(settings.MEDIA_ROOT,'images/{}'.format(name)), 'JPEG')
 
                 with transaction.atomic():
                     p = pictureCard(name=nameOfCard,company=company,picture=name,pdf_linked_to=document)
@@ -69,7 +69,7 @@ def convert_from_company_pdf(nameOfCard,companyCode):
         pages = convert_from_path(document.document.path, fmt='jpeg',output_folder=path)
         for page in range(0,len(pages)) :
             name = str((document.document.name.split('/')[-1]).split('.')[-2]) + str(page) + '.jpeg'
-            pages[page].save('media/images/'+name, 'JPEG')
+            pages[page].save(os.path.join(settings.MEDIA_ROOT,'images/{}'.format(name)), 'JPEG')
 
             with transaction.atomic():
                 p = pictureCard(name=nameOfCard,company=company,picture=name,pdf_linked_to=document)
@@ -91,7 +91,7 @@ def convert_and_check_company_pdf(nameOfCard,companyCode,files_upload_count):
             pages = convert_from_path(document.document.path, fmt='jpeg',output_folder=path)
             for page in range(files_upload_count,pages_count) :
                 name = str((document.document.name.split('/')[-1]).split('.')[-2]) + str(page) + '.jpeg'
-                pages[page].save('media/images/'+name, 'JPEG')
+                pages[page].save(os.path.join(settings.MEDIA_ROOT,'images/{}'.format(name)), 'JPEG')
                 with transaction.atomic():
                     p = pictureCard(name=nameOfCard,company=company,picture=name,pdf_linked_to=document)
                     p.save()
@@ -107,20 +107,22 @@ def convert_pdf_to_jpeg(pathFile,companyCode,cardName,upload_by):
     Convert one pdf to images:
     e.g. : documentRelais.pdf -> documentRelais0.jpeg, documentRelais1.jpeg
     """
+    print("--------")
+    print("convert_pdf_to_jpeg ")
     company = Company.objects.get(company_code=companyCode)
-
+    print("2")
     with tempfile.TemporaryDirectory() as path:
         pages = convert_from_path(pathFile, fmt='jpeg',output_folder=path)
         for page in range(0,len(pages)) :
             name = 'images/'+ str((pathFile.split('/')[-1]).split('.')[-2]) + str(page) + '.jpeg'
-            pages[page].save('media/' + name, 'JPEG')
+            pages[page].save(os.path.join(settings.MEDIA_ROOT,name), 'JPEG')
 
             with transaction.atomic():
                 #Create images
                 p = pictureCard(name=cardName,company=company,picture=name,upload_by=upload_by)
                 p.picture.name = name
                 p.save()
-
+    print("3")
     # It remove the pdf after generating images
     os.remove(pathFile)
 

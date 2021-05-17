@@ -25,10 +25,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-#PDF VIEWVER : ?????
-from django.conf import settings
-
-
 from django.conf import settings
 
 #languages
@@ -37,7 +33,6 @@ from django.utils.translation import gettext as _
 
 @verified_email_required
 @login_required(login_url="account_login")
-@allowed_users(allowed_roles=["companyGroup"])
 def model_form_upload(request):
     context = {}
     current_user = request.user
@@ -73,7 +68,6 @@ def model_form_upload(request):
 
 @verified_email_required
 @login_required(login_url="account_login")
-@allowed_users(allowed_roles=["companyGroup"])
 def delete_upload(request,document_name):
     current_user = request.user
     current_company = get_object_or_404(Company,id=current_user.company_id)
@@ -90,7 +84,6 @@ def delete_upload(request,document_name):
 
 @verified_email_required
 @login_required(login_url="account_login")
-@allowed_users(allowed_roles=["companyGroup"])
 def view_document(request,document_name):
     context = {}
     current_user = request.user

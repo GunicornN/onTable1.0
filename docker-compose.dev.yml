@@ -19,6 +19,9 @@ services:
     redis:
         image: "redis:alpine"
         container_name: ontable10-redis
+        networks: 
+            - redis_backend_connexion
+            - redis_celery_connexion
     celery_worker:
         build:
             context: ./backend
@@ -34,12 +37,16 @@ services:
             - ./conf/.env.dev
         volumes: 
             - ./backend/:/usr/src/app/
+            - media_data:/vol/media/
+        networks: 
+            - redis_celery_connexion
+            - db_connexion
     backend:
         build: ./backend
         container_name: ontable10-backend
         volumes:
             - static_data:/home/app/web/staticfiles
-            - static_data:/vol/media
+            - media_data:/vol/media/
             - ./backend/:/usr/src/app/
         env_file:
             - ./conf/.env.dev
@@ -49,6 +56,7 @@ services:
         networks:
             - proxy_backend
             - db_connexion
+            - redis_backend_connexion
     proxy:
         build:
             context: ./proxy
@@ -56,7 +64,7 @@ services:
         container_name: ontable10-proxy
         volumes:
             - static_data:/home/app/web/staticfiles
-            - static_data:/vol/media
+            - media_data:/vol/media/
         ports:
             - 8080:8080
         depends_on:
@@ -66,7 +74,10 @@ services:
 
 volumes:
     static_data:
+    media_data:
 networks:
+    redis_backend_connexion:
+    redis_celery_connexion:
     proxy_backend:
     db_connexion:
         driver: bridge

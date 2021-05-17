@@ -47,7 +47,15 @@ Ici, on utilise non pas bash, mais psql, l'interface en mode texte pour Postgres
 On accède au container, à la BDD onTable. En developpment, aucun mot de passe n'est requis.  
 `docker exec -it 499245507d18 psql -U user -d onTable -W `
 
-### Afficher la liste des tables de la BDD
+## Acceder au container de redis 
+
+`docker exec -it 566c3b041e62 redis-cli`
+
+## Accéder à la configuration d'un container 
+
+`docker inspect name_container`
+
+## Afficher la liste des tables de la BDD
 `\dt`
 
 ## Accéder à Nginx/Alpine ou à sa configuration 

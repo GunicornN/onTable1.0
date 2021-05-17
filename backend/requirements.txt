@@ -22,3 +22,5 @@ bs4
 fpdf
 pyqrcode
 pypng
+django-celery-results
+

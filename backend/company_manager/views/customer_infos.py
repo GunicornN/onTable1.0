@@ -29,7 +29,6 @@ from django.utils.translation import gettext as _
 
 @verified_email_required
 @login_required(login_url="account_login")
-@allowed_users(allowed_roles=["companyGroup"])
 def manage_customer_infos_view(request):
     """
     View with forms that ask how many QRCodes the Company want

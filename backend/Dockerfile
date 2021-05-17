@@ -26,6 +26,9 @@ ENV PYTHONUNBUFFERED 1
 # RUN groupadd app &&
 RUN   useradd -m -p p00am2ze1hekaaj7181 app
 
+# change to the app user
+#USER app
+
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 
@@ -48,9 +51,6 @@ COPY . $APP_HOME
 # chown all the files to the app user (-Recursive)
 RUN chown -R app $APP_HOME
 RUN chown -R app /home/app/web/
-
-# change to the app user
-USER app
 
 ## Connexion between Django and the DB
 # it run this script when docker up

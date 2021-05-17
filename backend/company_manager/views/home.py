@@ -36,7 +36,6 @@ from django.core.mail import send_mail
 
 @verified_email_required
 @login_required(login_url="account_login")
-@allowed_users(allowed_roles=["companyGroup"])
 def homePage_view(request):
     context = {}
     current_user = request.user
@@ -48,7 +47,11 @@ def homePage_view(request):
     if not iCompany.check_if_profil_completed():
         return render(request, 'errors/noCompleted.html',context)
 
-    qrcode = get_qrCode(iCompany)
-    context['qrcode'] = qrcode
+    try :
+        qrcode = get_qrCode(iCompany)
+        context['qrcode'] = qrcode
+    except FileNotFoundError:
+        context['qrcode'] = None 
+    
     context['company'] = iCompany
     return render(request, 'company/home.html',context)

@@ -46,7 +46,10 @@ class PictureCardForm(forms.ModelForm):
             file_path = fs.path(filename)
 
             #transform it into pdf
-            convert_pdf_to_jpeg.delay(file_path,company.company_code,cardName,upload_by)    
+            print("------")
+            print("CONVERT PDF :")
+            convert_pdf_to_jpeg.delay(file_path,company.company_code,cardName,upload_by) 
+            print("-------")   
             return  
         else :
             instance = super(PictureCardForm, self).save(commit=False)
