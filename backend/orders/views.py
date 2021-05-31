@@ -61,6 +61,10 @@ def company_cards(request,company_code,document_name):
     company = get_object_or_404(Company,company_code=company_code)
     cards_images = pictureCard.objects.get_images_from_company_card(company=company,card_name=document_name)
 
+    if 'images' in cards_images[0].picture.name:
+        images_media_files =  True
+    else : 
+        images_media_files = False
     """
     if not images_from_pdf:
         convert_from_company_pdf.delay(document.name,company.company_code)
@@ -68,6 +72,7 @@ def company_cards(request,company_code,document_name):
         convert_and_check_company_pdf.delay(document.name,company.company_code,len(images_from_pdf))
     """
     
+    context['images_media_files']  = images_media_files
     context['company']  = company
     context['customer_infos_form'] = CustomerInfosForm()
     context['cards_images']  = cards_images

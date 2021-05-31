@@ -292,10 +292,8 @@ if DEBUG:
 # ------------------------------------------------------------------------------
 # Captcha by Google
 # ------------------------------------------------------------------------------
-#https://www.google.com/recaptcha/admin/site/352438463/settings
 RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY","foo")
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY","foo")
-
 RECAPTCHA_USE_SSL = True     # Defaults to False
 
 # ------------------------------------------------------------------------------

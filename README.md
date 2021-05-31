@@ -19,6 +19,7 @@ Pour cela, il faut récupérer l'identifiant du container via :
 `docker ps`
 
 Voici un exemple de mes containers lancés :
+
 ```
 CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                    NAMES
 ef8021bfb8c0   ontable_proxy           "/docker-entrypoint.…"   13 minutes ago   Up 10 minutes   0.0.0.0:80->80/tcp       proxy
@@ -186,4 +187,29 @@ Links :
 
 
 
-FAIL2BAN : https://buzut.net/installer-et-parametrer-fail2ban/
+# Security 
+
+## Utiliser des outils sécurisés
+Enlever les packages qui sont pas sécurisés
+`sudo apt-get --purge remove xinetd nis yp-tools tftpd atftpd tftpd-hpa telnetd rsh-server rsh-redone-server`
+
+
+## Fail2Ban 
+Contre les brutes force de bots ou d'utilisateurs 
+
+Fail2ban est une application qui analyse les logs de divers services (SSH, Apache, FTP…) en cherchant des correspondances entre des motifs définis dans ses filtres et les entrées des logs. Lorsqu'une correspondance est trouvée, une ou plusieurs actions sont exécutées. Fail2ban cherche des tentatives répétées de connexions infructueuses dans les fichiers journaux et procède à un bannissement en ajoutant une règle au pare-feu pour bannir l'adresse IP de la source.
+
+Installer fail2Ban : `sudo apt install fail2ban`
+
+Quelques liens : 
+https://www.julienmousqueton.fr/fail2ban-pour-nginx/
+
+https://buzut.net/installer-et-parametrer-fail2ban/
+
+## SELinux 
+SELinux (Security Enhanced Linux) est un système de contrôle d'accès obligatoire (Mandatory Access Control).Concrètement, le noyau interroge SELinux avant chaque appel système pour savoir si le processus est autorisé à effectuer l'opération concernée.
+
+SELinux s'appuie sur un ensemble de règles (policy) pour autoriser ou interdire une opération. Ces règles sont assez délicates à créer, mais heureusement deux jeux de règles standards (targeted et strict) sont fournies pour éviter le plus gros du travail de configuration.
+
+Installation : `apt install selinux-basics selinux-policy-default`
+

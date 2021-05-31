@@ -56,11 +56,20 @@
     <main role="main" class="container w-100">
     {% if cards_images %}
 	    <div class="card-body px-0 py-0">
-	      {% for img in cards_images %}
-	          <div class="">
-	              <img src="/media/images/{{ img.picture.name }}" alt="{{ image }}" class="w-100">
-                
-	          </div>
+        {% for img in cards_images %}
+        
+            {% if images_media_files %}
+              <div class="">
+                  <img src="/media/{{ img.picture.name }}" alt="{{ image }}" class="w-100">
+                  
+              </div>
+            {% else %}
+            <div class="">
+              <img src="/media/images/{{ img.picture.name }}" alt="{{ image }}" class="w-100">
+              
+          </div>
+
+            {% endif %}
 	      {% endfor %}
 	    </div>
 	{% else %}
