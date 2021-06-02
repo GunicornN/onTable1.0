@@ -1,0 +1,58 @@
+version: '3.3'
+
+services:
+    db:
+        build: 
+            context: ./db
+        image: postgres11-postgis2.5
+        container_name: ontable10-postgres11-postgis2.5
+        restart: always
+        ports:
+            - 5432:5432
+        volumes: 
+            - ./backups:/opt/backups
+            - ./data:/var/lib/postgresql/data
+        networks:
+            db_celery_connexion:
+            django_dev_connexion :
+                ipv4_address: "172.16.1.2"
+        env_file:
+            - ./conf/.env.dev
+    redis:
+        image: "redis:alpine"
+        container_name: ontable10-redis
+        networks: 
+            redis_celery_connexion:
+            django_dev_connexion:
+                ipv4_address: "172.16.1.3"
+    celery_worker:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile.celery
+        container_name: ontable10-celery_worker
+        command: sh -c "celery -A onTableAPI worker -l info"
+        restart: always
+        depends_on: 
+            - redis
+            - db
+        env_file: 
+            - ./conf/.env.dev
+        volumes: 
+            - ./backend/:/usr/src/app/
+            - media_data:/vol/media/
+        networks: 
+            - redis_celery_connexion
+            - db_celery_connexion
+
+volumes:
+    media_data:
+
+networks:
+    connexion_backend: 
+    redis_celery_connexion:
+    django_dev_connexion:
+        ipam: 
+            driver: default
+            config: 
+                - subnet : "172.16.1.0/24"
+    db_celery_connexion:

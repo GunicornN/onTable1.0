@@ -5,7 +5,8 @@ SITE_ID = 2
 # ------------------------------------------------------------------------------
 # Main settings 
 # ------------------------------------------------------------------------------
-
+# Debug = 0     ->  Prod
+# Debug = 1     -> Dev 
 DEBUG = int(os.environ.get("DEBUG", default=1))
 
 SECRET_KEY = os.environ.get("SECRET_KEY","REDACTED_SECRET_KEY")
@@ -24,7 +25,7 @@ DATABASES = {
         "NAME": os.environ.get("SQL_DATABASE", "onTable"),
         "USER": os.environ.get("SQL_USER", "user"),
         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_HOST", "0.0.0.0"),
+        "HOST": os.environ.get("SQL_HOST", "172.16.1.2"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
@@ -236,9 +237,9 @@ REST_FRAMEWORK = {
 # ------------------------------------------------------------------------------
 # Celery settings
 # ------------------------------------------------------------------------------
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL",'redis://redis:6379')
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL",'redis://172.16.1.3:6379')
 CELERY_NAME = os.environ.get("CELERY_NAME",'onTableAPI')
-CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://redis:6379')
+CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://172.16.1.3:6379')
 
 CELERY_ACCEPT_CONTENT = os.environ.get("CELERY_ACCEPT_CONTENT",['application/json'])
 CELERY_RESULT_SERIALIZER = os.environ.get("CELERY_RESULT_SERIALIZER",'json')
