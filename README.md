@@ -185,8 +185,6 @@ Links :
 - https://soshace.com/dockerizing-django-with-postgres-redis-and-celery/
 - https://nickjanetakis.com/blog/dockerize-a-flask-celery-and-redis-application-with-docker-compose
 
-
-
 # Security 
 
 ## Utiliser des outils sécurisés
