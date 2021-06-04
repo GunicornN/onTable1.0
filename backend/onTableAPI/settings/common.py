@@ -238,9 +238,9 @@ REST_FRAMEWORK = {
 # ------------------------------------------------------------------------------
 # Celery settings
 # ------------------------------------------------------------------------------
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL",'redis://172.16.1.3:6379')
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL",'redis://redis:6379')
 CELERY_NAME = os.environ.get("CELERY_NAME",'onTableAPI')
-CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://172.16.1.3:6379')
+CELERY_BACKEND = os.environ.get("CELERY_BACKEND",'redis://redis:6379')
 
 CELERY_ACCEPT_CONTENT = os.environ.get("CELERY_ACCEPT_CONTENT",['application/json'])
 CELERY_RESULT_SERIALIZER = os.environ.get("CELERY_RESULT_SERIALIZER",'json')
