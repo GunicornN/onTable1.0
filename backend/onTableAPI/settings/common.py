@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'django_extensions', #Testing 
     'django_celery_results'
 ]
+
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -306,3 +307,21 @@ SERVER_EMAIL = os.environ.get("SERVER_EMAIL","test@protonmail.com")
 # FRONTEND 
 # ------------------------------------------------------------------------------
 FRONTEND_ADDRESS = os.environ.get("FRONTEND_ADDRESS","http://localhost:8080/")
+
+
+
+# ------------------------------------------------------------------------------
+# Control Differents mods  
+# ------------------------------------------------------------------------------
+if DEBUG :
+    print("Django est en mode development.")
+else :
+    print("Django en mode prod")
+
+# Add Access-Control-Allow-Origin' in dev mode 
+if DEBUG: 
+    INSTALLED_APPS.append('corsheaders') 
+    MIDDLEWARE.append('corsheaders.middleware.CorsMiddleware')
+    MIDDLEWARE.append('django.middleware.common.CommonMiddleware')
+    CORS_ORIGIN_ALLOW_ALL = True
+    ALLOWED_HOSTS=['*']

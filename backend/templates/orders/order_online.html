@@ -1,0 +1,147 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %} {{company.name}} {% endblock %}
+
+{% block code %}
+
+{% endblock %}
+
+{% block restaurant_name %}{{company.name}}{% endblock %}
+
+{% block content%}
+
+    <div>
+        <h1>Commander en ligne</h1>
+    </div>
+    
+    <div id="order" style="background-color: blueviolet;">
+        <router-link to="/product/">
+            Commander
+        </router-link>
+
+        <item-list>
+    </div>
+
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <script src="https://unpkg.com/vuex"></script> <!-- MAYBE REMOVE THIS -->
+
+    <!-- Vue templates -->
+
+    <!-- Vue : PRODUCT ITEM -->
+    <template id="item">
+        <div class="item">
+            <div class="product-name">
+                {{ product.name }}
+            </div>
+            <div>
+                Modifier le nombre de produits
+                <input style="background-color: aquamarine;" type="number" min="0" max="10">
+            </div>
+            <div>
+                <button>Ajouter</button>
+            </div>
+        </div>
+    </template>
+
+     <!-- Vue : ITEM LIST -->
+    <template id="item-list-template">
+        <div>
+            <h1>Liste des produits du restaurant</h1> 
+            On récupere les produits et on les affiche ici 
+
+            {{ items }}
+            <ul>
+                <li v-for="item in item" :key="item.id">
+                    {{ item.name }}
+                </li>
+              </ul>
+        </div>
+    </template>
+
+     <!-- Vue : CART ITEM -->
+    <template id="cart-list-template">
+        <div>
+            <h1>Panier</h1>
+            <div>
+                Affiche le panier càd la liste des produits commandés
+
+                Bouton Commander qui envoie la commande
+            </div>
+        </div>
+    </template>
+
+    <!-- Vue : CART LIST -->
+    <template id="cart-item-template">
+        <div>
+            <h1>Panier</h1>
+            <div>
+                Affiche le panier càd la liste des produits commandés
+
+                Bouton Commander qui envoie la commande
+            </div>
+        </div>
+    </template>
+
+   <!-- Vue app -->
+   <script>
+    // store
+    // https://www.sitepoint.com/web-app-prototype-django-vue/
+
+    const store = new Vuex.Store({
+      state: {
+          items: [
+          {% for product in products %}
+              {
+                name: '{{ product.name }}',
+                slug: '{{ product.slug }}',
+              },
+          {% endfor %}
+          ]
+      },
+      getters: {
+        getItemBySlug: (state) => (slug) => {
+            return state.items.find(items => items.slug === slug)
+        }
+      }
+    })
+
+    // components
+    ItemsList = Vue.component('item-list', {
+      data: function () { return { items: store.state.items } },
+      template: '#item-list-template',
+      mounted(){
+          console.log("items :")
+          console.log(this.items)
+      }
+    });
+
+
+
+    // router
+    const routes = [
+      { component: ItemsList, path: 'item/' }
+    ]
+
+    const router = new VueRouter({
+      mode: 'history',
+      routes: routes,
+    })
+
+    // app
+    const myapp = new Vue({
+        router,
+        store,
+    }).$mount('#order');
+  </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+{% endblock %}

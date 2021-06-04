@@ -14,8 +14,8 @@ urlpatterns = [
      url(r'^$',views.homePage_view,name="homePage"),
      url(r'^searchCompany/(?P<search>[-\w]+)/$',views.searchCompany,name="searchCompany"),
      url(r'^searchCompany/$',views.searchCompany,name="searchCompany"),
-     url (r'^company_presentation/(?P<pk>[0-9]+)/$',views.company_presentation_view,name="companyPresentation"),
-
+     url(r'^company_presentation/(?P<pk>[0-9]+)/$',views.company_presentation_view,name="companyPresentation"),
+     
      url(r'^CGU/$',views.CGU_view,name="CGU"),
      url(r'^privacyPolicy/$',views.privacy_policy_view,name="privacyPolicy"),
 
@@ -28,6 +28,9 @@ urlpatterns = [
 
      #admin
      path('admin/', admin.site.urls),
+
+     #api
+     path(r'api/',include('company.urls'),name="apiSide"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'home.views.view_404'

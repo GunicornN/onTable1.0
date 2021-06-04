@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onTableAPI.settings.development')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'onTableAPI.settings.development') # <-- Change in wsgi.py to switch on another mode
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

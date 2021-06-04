@@ -6,12 +6,13 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    re_path(r'^$',views.connexion_view,name="OSConnexion"),
-    re_path(r'connexion/',views.connexion_view,name="OSConnexion"),
+    re_path(r'^$',views.connexion_view,name="OSConnexion"), # Bizarre ? 
+    re_path(r'connexion/',views.connexion_view,name="OSConnexion"), # Bizarre ? 
     re_path(r'^(?P<company_code>[-\w]+)/$',views.company_home,name="OSHome"),
     re_path(r'^customerInfo/(?P<company_code>[-\w]+)/$',views.CustomerInfo,name="OSCustomerInfo"),
     re_path(r'^(?P<company_code>[-\w]+)/(?P<document_name>.*)/$',views.company_cards,name="OSSeeDocument"),
-
+    path(r'^company_order/(?P<slug>[-\w]+)/$',views.order_online,name="OSOrderOnline"),
+    path(r'^company_order/(?P<slug>[-\w]+)/$',views.debug_404,name="test")
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

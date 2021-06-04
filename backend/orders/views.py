@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from company.models import Company, pictureCard, Advertisement, Customer
+
 from .forms import ConnexionForm, CustomerInfosForm
 
 from django.http import HttpResponseRedirect
@@ -12,6 +12,9 @@ from django.contrib import messages
 
 #celery tasks
 from company_manager.tasks import convert_from_company_pdf, convert_and_check_company_pdf
+
+# models 
+from company.models import Company, pictureCard, Advertisement, Customer, Product
 
 def CustomerInfo(request,company_code):
     company = get_object_or_404(Company, company_code=company_code)
@@ -53,7 +56,27 @@ def company_home(request,company_code):
     context['ls_cards'] =ls_cards
     return render(request, 'orders/home.html',context)
 
+# TO DO
+def order_online(request,slug):
+    context = {}
+    company = get_object_or_404(Company,slug=slug)
+    products = Product.objects.filter(company=company)
 
+    context['company'] = company
+    context['products'] = products
+    
+    print(products)
+    return render(request,'orders/order_online.html',context)
+
+# DEBUGING 
+def debug_404(request,slug):
+    context = {}
+    company = get_object_or_404(Company,slug=slug)
+    products = Product.objects.filter(company=company)
+
+    context['company'] = company
+    context['products'] = products
+    return render(request,'orders/order_online.html',context)
 
 def company_cards(request,company_code,document_name):
     context = {}
