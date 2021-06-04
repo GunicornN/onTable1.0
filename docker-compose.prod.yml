@@ -15,7 +15,7 @@ services:
         networks:
             - db_connexion
         env_file:
-            - ./conf/.env.dev
+            - ./conf/.env.prod
     redis:
         image: "redis:alpine"
         container_name: ontable10-redis
@@ -34,7 +34,7 @@ services:
             - backend
             - db
         env_file: 
-            - ./conf/.env.dev
+            - ./conf/.env.prod
         volumes: 
             - ./backend/:/usr/src/app/
             - media_data:/vol/media/
@@ -49,7 +49,7 @@ services:
             - media_data:/vol/media/
             - ./backend/:/usr/src/app/
         env_file:
-            - ./conf/.env.dev
+            - ./conf/.env.prod
         depends_on:
             - db
             - redis
