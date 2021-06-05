@@ -71,7 +71,21 @@ services:
             - backend
         networks:
             - proxy_backend
-
+    tornado:
+        build: 
+            context: ./tornado
+        command: python main.py
+        container_name: tornado
+        environment:
+        - BDD_HOST=bdd
+        - BDD_NAME=onTable
+        - BDD_USER=user
+        - BDD_PASSWORD=password
+        - WEBSOCKET_PORT=8090
+        volumes:
+        - .:/code
+        ports:
+        - "8080:8080"
 volumes:
     static_data:
     media_data:
