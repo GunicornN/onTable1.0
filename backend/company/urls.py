@@ -22,6 +22,6 @@ router.register(r'companies/(?P<company_slug>[-\w]+)/carts', views.CartsViewSet,
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('user/token/',views.CompanyOfUser)
+    url('user/token/', views.CompanyOfUser.as_view()),
 ]
 

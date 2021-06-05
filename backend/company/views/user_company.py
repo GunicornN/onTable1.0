@@ -7,9 +7,24 @@ from company.models import Company
 
 from rest_framework.response import Response
 
-@api_view(['GET'])
-def CompanyOfUser(request):
-    # Récupérer un Restaurant à partir du token
-    company = request.user.company
-    serializer = CompanyOutputSerializer(company)
-    return Response(serializer.data)
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework import generics
+
+class CompanyOfUser(RetrieveModelMixin,generics.GenericAPIView):
+    """
+    ViewSet for :
+    - Get Company Infos 
+    - Get Company Picture 
+    """
+    queryset = Company.objects.all()
+
+    def get(self,request):
+        if request.user:
+            # Récupérer un Restaurant à partir du token
+             company = request.user.company
+             serializer = CompanyOutputSerializer(company)
+             return Response(serializer.data, status=200)
+        else:
+             content = {'message': "No Unauthenticated, can\'t access to Company details."}
+             return Response(content, status=401)
+
