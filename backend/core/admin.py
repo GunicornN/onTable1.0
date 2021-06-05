@@ -8,6 +8,4 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from django.contrib.auth.models import User
 
-
-#admin.site.unregister(User)
-admin.site.register(User,CustomUser)
+admin.site.register(CustomUser)
