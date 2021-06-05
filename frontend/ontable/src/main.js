@@ -11,12 +11,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
-Vue.use(router) // on lie le router à la vue
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+
 new Vue({
   store,
-  router,
+  router: router,
   render: h => h(App)
 }).$mount('#app')

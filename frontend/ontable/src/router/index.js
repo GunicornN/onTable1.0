@@ -1,6 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createWebHistory, createRouter } from "vue-router";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import OrderView from '../views/OrderView.vue'
 import CompanyDetailsView from '../views/CompanyDetailsView.vue'
+import Home from '../views/Home.vue'
+
+Vue.use(VueRouter)
 
 // création des routes
 /*
@@ -22,6 +27,11 @@ import CompanyDetailsView from '../views/CompanyDetailsView.vue'
 */
 const routes = [
     {
+        name: 'Home',
+        path: '/',
+        component : Home
+    },
+    {
         name: 'Order',
         path: '/orders/:company_slug',
         component: OrderView
@@ -31,14 +41,20 @@ const routes = [
         path: '/companies/',
         component : CompanyDetailsView
     },
-
 ]
 
-// creation du router 
-
 const router = createRouter({
-    history: createWebHistory,
+    history: createWebHistory(),
     routes
-})
+  });
+export default router;
 
-export default router
+/*
+export const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+*/
+
+
