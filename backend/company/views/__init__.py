@@ -4,3 +4,4 @@ from .company import *
 from .cards import *
 from .tables import *
 from .carts import *
+from .user_company import *

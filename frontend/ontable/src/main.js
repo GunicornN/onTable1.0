@@ -21,8 +21,12 @@ new Vue({
 }).$mount('#app')
 */
 
-
-
+const app = new Vue({
+  router,
+  render: function(createElement){
+      return createElement(App)
+  }
+}).$mount('#app')
 
 const app = createApp(App).use(store)
 app.use(router)

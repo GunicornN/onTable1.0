@@ -11,6 +11,7 @@ from rest_framework.routers import DefaultRouter
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
 
+
 router.register(r'companies', views.CompanyReadViewSet,basename='company')
 router.register(r'companies/(?P<company_slug>[-\w]+)/documents', views.DocumentViewSet,basename='documents')
 router.register(r'companies/(?P<company_slug>[-\w]+)/cards', views.CardsViewSet,basename='cards')
@@ -21,5 +22,6 @@ router.register(r'companies/(?P<company_slug>[-\w]+)/carts', views.CartsViewSet,
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('user/token/',views.CompanyOfUser)
 ]
 
