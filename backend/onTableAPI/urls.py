@@ -31,6 +31,7 @@ urlpatterns = [
 
      #api
      path(r'api/',include('company.urls'),name="apiSide"),
+     url(r'^rest-auth/', include('rest_auth.urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'home.views.view_404'
