@@ -1,11 +1,12 @@
 <template>
     <div>
-        Entreprise
+        <h1>Company List</h1>
     </div>
 </template>
 
+
 <script>
 export default {
-    name: "CompanyView"
+    name: "CompanyListView"
 }
 </script>
