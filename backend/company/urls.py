@@ -18,6 +18,7 @@ router.register(r'companies/(?P<company_slug>[-\w]+)/cards', views.CardsViewSet,
 router.register(r'companies/(?P<company_slug>[-\w]+)/products', views.ProductsViewSet,basename='products')
 router.register(r'companies/(?P<company_slug>[-\w]+)/tables', views.TablesViewSet,basename='tables')
 router.register(r'companies/(?P<company_slug>[-\w]+)/carts', views.CartsViewSet,basename='carts')
+router.register(r'companies/(?P<company_slug>[-\w]+)/orders', views.OrderStatus,basename='orders')
 #router.register(r'customer', views.Document,basename='document')
 
 urlpatterns = [

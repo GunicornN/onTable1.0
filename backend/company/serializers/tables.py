@@ -2,7 +2,7 @@
 
 from django.db import models
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ListSerializer
 from rest_framework import serializers
 from company.models import Table, Company
 
@@ -19,7 +19,7 @@ class TableSerializer(ModelSerializer):
     """
     class Meta :
         model = Table
-        fields = '__all__'
+        fields = ['table_no','updated_on','table_code']
 
 class TableInputSerializer(ModelSerializer):
     """
@@ -41,8 +41,7 @@ class TableInputSerializer(ModelSerializer):
             # Si la vérification échoue, alors crée l'objet 
             return Table.objects.create(**validated_data)
             
-        
-
-
+class TableListSerializer(ListSerializer):
+    child = TableSerializer()
 
     

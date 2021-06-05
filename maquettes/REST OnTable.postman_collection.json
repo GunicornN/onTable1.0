@@ -9,6 +9,121 @@
 			"name": "user",
 			"item": [
 				{
+					"name": "Tables",
+					"item": [
+						{
+							"name": "Accéder à une commande en particulier",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/<pk>/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"companies",
+										"<company_slug>",
+										"orders",
+										"<pk>",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finaliser une commande ",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/<pk>/finalize_order/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"companies",
+										"<company_slug>",
+										"orders",
+										"<pk>",
+										"finalize_order",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Accéder à toutes les commandes ",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"companies",
+										"<company_slug>",
+										"orders",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Accéder aux commandes passées",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/orders_placed/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"companies",
+										"<company_slug>",
+										"orders",
+										"orders_placed",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Register ",
 					"request": {
 						"method": "POST",
@@ -70,7 +185,7 @@
 								},
 								{
 									"key": "password",
-									"value": "passwor",
+									"value": "password",
 									"type": "text"
 								}
 							]
@@ -136,6 +251,21 @@
 				{
 					"name": "Logout",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 44c9cd3885bfc4cf683d5e6bfa331af73aa8bce5",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -198,9 +328,31 @@
 				},
 				{
 					"name": "Récupérer un Restaurant à partir du token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 36162a347b1c8bc3caaaae8f2019b2fc6df36cab",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/user/token/",
 							"protocol": "http",
@@ -236,7 +388,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/?page=2",
+							"raw": "http://127.0.0.1:8000/api/companies/?page=1",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -253,7 +405,7 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -290,10 +442,13 @@
 				{
 					"name": "Get companies which corresponding with category nearbest companies ",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/category/?latitude&longitude",
+							"raw": "http://127.0.0.1:8000/api/companies/category/?latitude=0&longitude=0",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -311,11 +466,11 @@
 							"query": [
 								{
 									"key": "latitude",
-									"value": null
+									"value": "0"
 								},
 								{
 									"key": "longitude",
-									"value": null
+									"value": "0"
 								}
 							]
 						},
@@ -326,6 +481,9 @@
 				{
 					"name": "Get nearbest companies ",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -520,7 +678,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "Token 192d63c20d8780724a8d2515b0c43bf6fd605f5b",
+									"value": "Token 44c9cd3885bfc4cf683d5e6bfa331af73aa8bce5",
 									"type": "string"
 								},
 								{
@@ -537,7 +695,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/0/cards/",
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/cards/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -549,7 +707,7 @@
 							"path": [
 								"api",
 								"companies",
-								"0",
+								"23-linattendu-69006",
 								"cards",
 								""
 							]
@@ -561,10 +719,13 @@
 				{
 					"name": "Lister les cartes d'une entreprise ",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/0/cards/",
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/cards/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -576,7 +737,7 @@
 							"path": [
 								"api",
 								"companies",
-								"0",
+								"23-linattendu-69006",
 								"cards",
 								""
 							]
@@ -587,10 +748,13 @@
 				{
 					"name": "Récupérer une carte en particulier",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/0/cards/0",
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/cards/entree",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -602,9 +766,9 @@
 							"path": [
 								"api",
 								"companies",
-								"0",
+								"23-linattendu-69006",
 								"cards",
-								"0"
+								"entree"
 							]
 						}
 					},
@@ -625,7 +789,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/products/1/",
+							"raw": "http://127.0.0.1:8000/api/companies/gourmet-bar-lyon-confluence-69001/products/avocado-toast/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -637,9 +801,9 @@
 							"path": [
 								"api",
 								"companies",
-								"AHA",
+								"gourmet-bar-lyon-confluence-69001",
 								"products",
-								"1",
+								"avocado-toast",
 								""
 							]
 						}
@@ -692,7 +856,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/products/",
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/products/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -704,7 +868,7 @@
 							"path": [
 								"api",
 								"companies",
-								"AHA",
+								"23-linattendu-69006",
 								"products",
 								""
 							]
@@ -787,7 +951,7 @@
 					"response": []
 				},
 				{
-					"name": "Supprimer un produit",
+					"name": "Supprimer un produit [Pas Correct]",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -820,7 +984,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/products/",
+							"raw": "http://127.0.0.1:8000/api/companies/gourmet-bar-lyon-confluence-69001/products/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -832,7 +996,7 @@
 							"path": [
 								"api",
 								"companies",
-								"AHA",
+								"gourmet-bar-lyon-confluence-69001",
 								"products",
 								""
 							]
@@ -872,7 +1036,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/carts/",
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/documents/carts/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -884,7 +1048,8 @@
 							"path": [
 								"api",
 								"companies",
-								"AHA",
+								"23-linattendu-69006",
+								"documents",
 								"carts",
 								""
 							]
@@ -951,15 +1116,15 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/carts/1/",
+							"raw": "http://0.0.0.0:80/api/companies/AHA/carts/1/",
 							"protocol": "http",
 							"host": [
-								"127",
 								"0",
 								"0",
-								"1"
+								"0",
+								"0"
 							],
-							"port": "8000",
+							"port": "80",
 							"path": [
 								"api",
 								"companies",
@@ -1009,6 +1174,41 @@
 								"AHA",
 								"carts",
 								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Documents / QRCodes",
+			"item": [
+				{
+					"name": "Récupérer les cartes (Images) d'un Restaurant",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/23-linattendu-69006/documents/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"23-linattendu-69006",
+								"documents",
 								""
 							]
 						}

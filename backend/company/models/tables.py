@@ -124,6 +124,8 @@ class PrintStatus(models.Model):
     # 1 = printed
     # 2 = error
     # 3 = make duplicata (aka re-print)
+    # 100 = Commande finalisée
+
     status = models.IntegerField(choices=CHOICES_PRINT_STATUS,default=0)
 
     # date and time of creation in db

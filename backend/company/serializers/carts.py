@@ -5,8 +5,7 @@ from django.db import models
 from rest_framework.serializers import ModelSerializer, Serializer, ListSerializer
 from rest_framework import serializers
 from company.models import Cart, Cart_Items
-
-
+from company.serializers import TableListSerializer
 
 # -------------------------------------------------
 #              Cart PRODUCTS Serializer
@@ -76,7 +75,8 @@ class CartOutputSerializer(ModelSerializer):
 
 
     ## TODO : Rajouter le champ numéro de TABLE 
-    
+    table = TableListSerializer()
+
     class Meta:
         model = Cart
         fields = [
@@ -101,8 +101,6 @@ class CartInputSerializer(ModelSerializer):
             'table_number','payment_method','person_name','company_slug','products','formulas'
         ]
     
-    def create(self,*args,**kwargs):
-        pass
 
 
 
