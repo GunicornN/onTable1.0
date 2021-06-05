@@ -21,14 +21,8 @@ class Table(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     updated_on = models.DateTimeField(auto_now_add=True, blank=True) #added
 
-    slug = models.SlugField(max_length = 250, null = True, blank = True)
-
     def __str__(self):
         return f"Table:{self.table_no}"
-
-    def save(self,*args,**kwargs):
-        self.slug = slugify(self.name)
-        super(Table, self).save(*args, **kwargs)
 
 class Cart(models.Model):
     person_name = models.CharField(max_length=45)

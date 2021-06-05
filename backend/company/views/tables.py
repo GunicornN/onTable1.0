@@ -13,7 +13,7 @@ from rest_framework import status
 
 # Models 
 from rest_framework.viewsets import ModelViewSet
-from company.models import Company, Table, PrintStatus
+from company.models import Company, Table, PrintStatus, Cart
 
 # routage
 from rest_framework.decorators import action
@@ -32,16 +32,19 @@ from django.utils.translation import gettext as _
 # Exceptions 
 from rest_framework.exceptions import NotFound 
 
+# time
+from datetime import *
+
 class OrderStatus(ModelViewSet):
     queryset = PrintStatus.objects.all()
     serializer_class = CartOutputSerializer
     permission_classes = [IsAuthenticatedAndOwner]
 
     def get_queryset(self):
-        if 'table_number' in self.kwargs : # cart_slug pour accéder au status d'une commande
+        if 'pk' in self.kwargs : # cart_slug pour accéder au status d'une commande
             # Si la requete possède pk dans son url, c'est pour accéder à une Table particulière
             company = get_object_or_404(Company,slug=self.kwargs.get('company_slug'))
-            table = get_object_or_404(Table,table_no=self.kwargs.get('table_number'),company=company.id)
+            table = get_object_or_404(Table,table_no=self.kwargs.get('pk'),company=company.id)
             order_status = get_object_or_404(PrintStatus,cart_id=table.id)
             return order_status 
         else : 
@@ -52,21 +55,27 @@ class OrderStatus(ModelViewSet):
             raise NotFound()
 
     @action(detail=False,methods=['GET'])
-    def orders_placed(self,request,company_slug):
+    def placed(self,request,company_slug):
         # commandes passées, qui ont été traitées, le client est parti
         # on recupere dans la queryset une liste de tables 
         filter_date = datetime.today() - timedelta(hours=1)
-        table = self.get_queryset().filter(cart_id__status=100,cart_id__created_on=filter_date)
-
+        table = self.get_queryset()
+        orders = Cart.objects.filter(table__in=table).exclude(printstatus__status=100,created_on__gt=filter_date)
+        
         # le serializer retourne le nom du client, la table, ce qu'il a commandé, le prix 
-        output_serializer = CartOutputSerializer(table,many=True,read_only=True)
+        output_serializer = CartOutputSerializer(orders,many=True,read_only=True)
         # on a besoin de récupérer les order_status 
         # puis on filtre toutes celles qui ont un status=100
         return Response(output_serializer.data)
 
+    def list(self,request,company_slug):
+        queryset = self.get_queryset()
+        serializer = TableSerializer(queryset,many=True,read_only=True)
+        return Response(serializer.data)
+        
     @action(detail=True,methods=['GET'])
-    def finalize_order(self,request,company_slug,table_number):
-        order_status = self.get_queryset().filter(status=100)
+    def finalize(self,request,company_slug,pk):
+        order_status = self.get_queryset()
         order.status = 100
         order_status.save() # celle-ci
         return Response(status=status.HTTP_204_NO_CONTENT)

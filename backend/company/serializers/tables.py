@@ -17,6 +17,7 @@ class TableSerializer(ModelSerializer):
     """
     Serialise une table d'un restaurant passé en parametre
     """
+
     class Meta :
         model = Table
         fields = ['table_no','updated_on','table_code']
@@ -41,7 +42,7 @@ class TableInputSerializer(ModelSerializer):
             # Si la vérification échoue, alors crée l'objet 
             return Table.objects.create(**validated_data)
             
-class TableListSerializer(ListSerializer):
-    child = TableSerializer()
+
+
 
     
