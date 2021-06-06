@@ -1,4 +1,5 @@
 # Commandes de base 
+
 ## Run
 Pour exécuter l'application, docker et docker-compose doivent être installés sur votre système. Pour les instructions d'installation, reportez-vous à la [documentation Docker]( https://docs.docker.com/compose/install/ ).
 
@@ -211,3 +212,7 @@ SELinux s'appuie sur un ensemble de règles (policy) pour autoriser ou interdire
 
 Installation : `apt install selinux-basics selinux-policy-default`
 
+
+-------------
+## LANCER LE SCRIPT triggers.sql dans la bdd pour fct avec thomas
+-------------

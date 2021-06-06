@@ -14,6 +14,7 @@ services:
             - ./data:/var/lib/postgresql/data
         networks:
             - db_connexion
+            - tornado_db_connexion
         env_file:
             - ./conf/.env.prod
     redis:
@@ -76,22 +77,25 @@ services:
             context: ./tornado
         command: python main.py
         container_name: tornado
-        environment:
-        - BDD_HOST=bdd
-        - BDD_NAME=onTable
-        - BDD_USER=user
-        - BDD_PASSWORD=password
-        - WEBSOCKET_PORT=8090
+        env_file:
+            - ./conf/.env.prod
+        
         volumes:
         - .:/code
         ports:
-        - "8080:8080"
+        - "8090:8090"
+        depends_on:
+            - db
+        networks:
+            - tornado_db_connexion
 volumes:
     static_data:
     media_data:
+
 networks:
     redis_backend_connexion:
     redis_celery_connexion:
     proxy_backend:
+    tornado_db_connexion:
     db_connexion:
         driver: bridge

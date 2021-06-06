@@ -24,6 +24,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir -p /docker-entrypoint-initdb.d
 COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/postgis.sh
 
+ENTRYPOINT [ "start.sh" ]
+
 # create volume for backups
 VOLUME ["/opt/backups"]
 
