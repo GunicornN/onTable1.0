@@ -60,14 +60,17 @@ class CartFormulaListInputSerializer(ListSerializer):
 #               Cart Serializer
 # -------------------------------------------------
 
-class CartItemAndFormulasOutputSerializer(ModelSerializer):
-    items = CartItemSerializer
-    formulas = CartFormulaSerializer
+class ItemSerializer(ModelSerializer):
+    class Meta :
+        model = Product
+        fields = ['slug']
+
+class CartItemSerializer2(ModelSerializer):
+    items = ItemSerializer
 
     class Meta :
         model = Cart_Items
-        depth = 2
-        fields = ['items','formulas']
+        fields = ['items','price','vat']
 
 class CartOutputSerializer(ModelSerializer):
     # GET : list 
@@ -80,18 +83,12 @@ class CartOutputSerializer(ModelSerializer):
 
     # https://makina-corpus.com/blog/metier/2015/django-rest-framework-les-serializer-et-les-exceptions-partie-1
 
-
-    ## TODO : Rajouter le champ numéro de TABLE 
-    cart_items = CartItemAndFormulasOutputSerializer
-
     class Meta:
         model = Cart
         fields = [
             'person_name','total_amount','paid_amount',
-            'discount','payment_method','created_on','paid_on','table','cart_items','id'
-        ]      
-
-
+            'discount','payment_method','created_on','paid_on','table','id',
+        ]
 
 class CartInputSerializer(ModelSerializer):
     # POST create 
@@ -137,6 +134,7 @@ class CartInputSerializer(ModelSerializer):
             new_cart_product = Cart_Items()
             new_cart_product.cart = cart
             new_cart_product.items = product
+            new_cart_product.save()
         return cart
 
 # -------------------------------------------------

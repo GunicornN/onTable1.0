@@ -13,7 +13,7 @@ from rest_framework import status
 
 # Models 
 from rest_framework.viewsets import ModelViewSet
-from company.models import Company, Table, PrintStatus, Cart
+from company.models import Company, Table, PrintStatus, Cart, Cart_Items, Product
 
 # routage
 from rest_framework.decorators import action
@@ -22,8 +22,8 @@ from rest_framework.decorators import action
 from company.serializers import (
     TableSerializer, 
     TableInputSerializer,
-    CartOutputSerializer
-
+    CartOutputSerializer,
+    ItemSerializer
 )
 
 # internationalization 
@@ -63,7 +63,6 @@ class OrderStatus(ModelViewSet):
         # commandes passées, qui ont été traitées, le client est parti
         # on recupere dans la queryset une liste de tables 
         filter_date = datetime.today() - timedelta(hours=1)
-        print(filter_date)
         table = self.get_queryset()
         orders = Cart.objects.filter(table__in=table).exclude(created_on__gt=filter_date).exclude(printstatus__status=100)
         
@@ -77,8 +76,15 @@ class OrderStatus(ModelViewSet):
         tables = self.get_queryset()
         filter_date = datetime.today() - timedelta(hours=1)
         orders = Cart.objects.filter(table__in=tables).exclude(created_on__lt=filter_date)
-        #serializer = TableSerializer(queryset,many=True,read_only=True)
-        output_serializer = CartOutputSerializer(orders,many=True,read_only=True)
+        
+        cart_items = Cart_Items.objects.filter(cart__in=orders)
+        #print("Cart_Items :",Cart_Items.objects.filter(cart=13))
+
+        products = Product.objects.filter(products__in=cart_items)
+        #print("Items ",products)
+        
+        output_serializer = CartOutputSerializer(orders,many=True,read_only=True,context={'prd':products})
+
         return Response(output_serializer.data)
         
     @action(detail=True,methods=['GET'])
@@ -89,8 +95,13 @@ class OrderStatus(ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self,request,company_slug,pk):
-        # TODO
-        order = self.get_queryset()
+        company = get_object_or_404(Company,slug=company_slug)
+        order = get_object_or_404(Cart,company=company,id=pk)
+        cart_items = Cart_Items.objects.filter(cart=order.id)  
+        products = Product.objects.filter(products__in=cart_items)
+
+        output_serializer_products = ItemSerializer(products,many=True,read_only=True)
+        return Response(output_serializer_products.data)
 
 class TablesViewSet(ModelViewSet):
     """

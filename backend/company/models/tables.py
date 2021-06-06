@@ -62,8 +62,8 @@ class Cart_Items(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     vat = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
 
-    cart = models.ForeignKey(Cart, related_name='cart_items',on_delete=models.CASCADE)
-    items = models.ForeignKey(Product, on_delete=models.CASCADE,blank=True, null=True) #Can be null   # JSON 
+    cart = models.ForeignKey(Cart, related_name='items',on_delete=models.CASCADE)
+    items = models.ForeignKey(Product, related_name='products',on_delete=models.CASCADE,blank=True, null=True) #Can be null   # JSON 
     formulas = models.ForeignKey(Formula, on_delete=models.CASCADE,blank=True, null=True) #Can be null  # JSON 
 
 class PrintStatus(models.Model):
