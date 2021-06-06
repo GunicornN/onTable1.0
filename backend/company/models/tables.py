@@ -40,7 +40,7 @@ class Cart(models.Model):
     slug = models.SlugField(max_length = 250, null = True, blank = True)
 
     def save(self,*args,**kwargs):
-        self.slug = slugify(self.name)
+        self.slug = slugify(self.person_name)
         super(Cart, self).save(*args, **kwargs)
 
     def set_total_amount(self):
@@ -59,55 +59,12 @@ class Cart(models.Model):
             #formula.__categories
 
 class Cart_Items(models.Model):
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    vat = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    vat = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
 
     cart = models.ForeignKey(Cart, related_name='cart_items',on_delete=models.CASCADE)
     items = models.ForeignKey(Product, on_delete=models.CASCADE,blank=True, null=True) #Can be null   # JSON 
     formulas = models.ForeignKey(Formula, on_delete=models.CASCADE,blank=True, null=True) #Can be null  # JSON 
-
-    def validate_items():
-        pass
-
-    def validate_formulas():
-        pass
-        """  
-        - on vérifie qu'une formule est bien de la forme :
-            "formulas": [
-                {
-                    "category_slug" : "CAT_XP4",
-                    "products":[
-                        "slug_entree_prod1",
-                        "slug_entree_prod2"
-                    ]
-                },
-                {
-                    "category_slug" : "CAT_XP5",
-                    "products":[
-                        "slug_entree_prod",
-                        "slug_plat_prod",
-                        "slug_dessert_prod"
-                    ]
-                }
-            ]
-
-        - pour chaque produit des formules envoyés, vérifier si le slug du produit appartiennent bien à une formule 
-        """
-
-    def update_cart_price():
-        # on recupere la liste des Cart_Items -> items d'un panier 
-        # price = 0
-        # for item in items :
-        #       current_item = Product.get.objects(slug=item.slug)
-        #       price += current_item.price 
-        # for formule in formulas :
-        #       for product in formule['products']
-        #               current_product = Product.get.objects(slug=product.slug)
-        #               price += current_product.price
-        #               # Verifier qu'une formule a bien les produits
-        # cart.price = price
-
-        pass
 
 class PrintStatus(models.Model):
     # cart id referenced

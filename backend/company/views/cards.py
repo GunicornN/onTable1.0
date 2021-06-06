@@ -52,7 +52,7 @@ class CardsViewSet(ModelViewSet):
             return []
         return [permission() for permission in permission_classes]
 
-    def get_queryset(self,*args,**kwargs):         #PROBLEME ICI 
+    def get_queryset(self,*args,**kwargs):
         if 'slug' in self.kwargs :
             card = get_object_or_404(Card,slug=self.kwargs.get('slug'),company__slug=self.kwargs.get('company_slug'))
             return card 

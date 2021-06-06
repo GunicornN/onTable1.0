@@ -4,7 +4,7 @@ from django.db import models
 
 from rest_framework.serializers import ModelSerializer, Serializer, ListSerializer
 from rest_framework import serializers
-from company.models import Cart, Cart_Items
+from company.models import Cart, Cart_Items, Product
 
 # -------------------------------------------------
 #              Cart PRODUCTS Serializer
@@ -60,6 +60,14 @@ class CartFormulaListInputSerializer(ListSerializer):
 #               Cart Serializer
 # -------------------------------------------------
 
+class CartItemAndFormulasOutputSerializer(ModelSerializer):
+    items = CartItemSerializer
+    formulas = CartFormulaSerializer
+
+    class Meta :
+        model = Cart_Items
+        depth = 2
+        fields = ['items','formulas']
 
 class CartOutputSerializer(ModelSerializer):
     # GET : list 
@@ -74,15 +82,14 @@ class CartOutputSerializer(ModelSerializer):
 
 
     ## TODO : Rajouter le champ numéro de TABLE 
-    #table = TableSerializer()
+    cart_items = CartItemAndFormulasOutputSerializer
 
     class Meta:
         model = Cart
         fields = [
             'person_name','total_amount','paid_amount',
-            'discount','payment_method','created_on','paid_on','table'
+            'discount','payment_method','created_on','paid_on','table','cart_items','id'
         ]      
-
 
 
 
@@ -99,6 +106,39 @@ class CartInputSerializer(ModelSerializer):
         fields = [
             'table_number','payment_method','person_name','company_slug','products','formulas'
         ]
+    
+    
+    def create(self,validated_data):
+        # TODO : FORMULAS
+        #{'table_number': 1, 'payment_method': 'CB', 'person_name': 'Alexis', 'company_slug': '1AJBSA', 'products': [OrderedDict([('slug', 'jambon-truffe'), ('quantity', 2)])], 'formulas': []}
+        current_company = Company.objects.get(slug=validated_data['company_slug'])
+        current_table = Table.objects.get(table_no=validated_data['table_number'],company=current_company)
+        
+        products = validated_data['products']
+        total_price = 0
+        for product in products :
+            price = Product.objects.get(slug=product['slug']).price
+            if not price :
+                price = 10
+            total_price += price 
+
+        cart = Cart()
+        cart.person_name = validated_data['person_name']
+        cart.table=current_table
+        cart.total_amount = total_price
+        cart.paid_amount = total_price
+        cart.discount = 0
+        cart.payment_method=validated_data['payment_method']
+        cart.company=current_company
+        cart.save()
+
+        for product in products :
+            product = Product.objects.get(slug=product['slug'])
+            new_cart_product = Cart_Items()
+            new_cart_product.cart = cart
+            new_cart_product.items = product
+        return cart
+
 # -------------------------------------------------
 #              Tables Cart Serializer
 # -------------------------------------------------  

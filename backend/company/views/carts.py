@@ -57,6 +57,7 @@ class CartsViewSet(ModelViewSet):
         queryset = self.get_queryset()
         serializer = CartInputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True) 
+        serializer.save()
         return Response("Cart Created",status=status.HTTP_201_CREATED)
 
     def list(self,request,company_slug=None):
