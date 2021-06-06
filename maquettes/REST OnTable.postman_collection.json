@@ -9,121 +9,6 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "Tables",
-					"item": [
-						{
-							"name": "Accéder à une commande en particulier",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/<pk>/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"companies",
-										"<company_slug>",
-										"orders",
-										"<pk>",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Finaliser une commande ",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/<pk>/finalize_order/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"companies",
-										"<company_slug>",
-										"orders",
-										"<pk>",
-										"finalize_order",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Accéder à toutes les commandes ",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"companies",
-										"<company_slug>",
-										"orders",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Accéder aux commandes passées",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "http://127.0.0.1:8000/api/companies/<company_slug>/orders/orders_placed/",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "8000",
-									"path": [
-										"api",
-										"companies",
-										"<company_slug>",
-										"orders",
-										"orders_placed",
-										""
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
 					"name": "Register ",
 					"request": {
 						"method": "POST",
@@ -1067,7 +952,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"table_number\" : 12,\n    \"payment_method\" : \"CB\",\n    \"person_name\" : \"Alexis\",\n    \"company_slug\" : \"1AJBSA\", \n    \"products\":[\n    \t{\n\n    \t}\n    ],\n    \"formulas\": [\n    ]\n} ",
+							"raw": "{\n    \"table_number\" : 1,\n    \"payment_method\" : \"CB\",\n    \"person_name\" : \"Jean\",\n    \"company_slug\" : \"une-affaire-de-gout-69006\", \n    \"products\":[\n    \t{\n\t\t\t\"slug\":\"jambon-truffe\",\n\t\t\t\"quantity\":2\n    \t},\n       \t{\n\t\t\t\"slug\":\"jambon-truffe\",\n\t\t\t\"quantity\":4\n    \t}\n    ],\n    \"formulas\": [\n    ]\n} ",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1075,7 +960,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/companies/AHA/carts/",
+							"raw": "http://127.0.0.1:8000/api/companies/une-affaire-de-gout-69006/carts/",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1087,7 +972,7 @@
 							"path": [
 								"api",
 								"companies",
-								"AHA",
+								"une-affaire-de-gout-69006",
 								"carts",
 								""
 							]
@@ -1210,6 +1095,178 @@
 								"23-linattendu-69006",
 								"documents",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tables",
+			"item": [
+				{
+					"name": "Accéder à une commande en particulier NO IMPLEMENTED",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 36162a347b1c8bc3caaaae8f2019b2fc6df36cab",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/une-affaire-de-gout-69006/orders/43/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"une-affaire-de-gout-69006",
+								"orders",
+								"43",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finaliser une commande ",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 36162a347b1c8bc3caaaae8f2019b2fc6df36cab",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/une-affaire-de-gout-69006/orders/27/finalize",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"une-affaire-de-gout-69006",
+								"orders",
+								"27",
+								"finalize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accéder à toutes les commandes ",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 36162a347b1c8bc3caaaae8f2019b2fc6df36cab",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/une-affaire-de-gout-69006/orders/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"une-affaire-de-gout-69006",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accéder aux commandes passées",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "Token 36162a347b1c8bc3caaaae8f2019b2fc6df36cab",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/companies/une-affaire-de-gout-69006/orders/placed",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies",
+								"une-affaire-de-gout-69006",
+								"orders",
+								"placed"
 							]
 						}
 					},
