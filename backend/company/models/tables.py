@@ -68,7 +68,7 @@ class Cart_Items(models.Model):
 
 class PrintStatus(models.Model):
     # cart id referenced
-    cart_id = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart_id = models.ForeignKey(Cart, related_name='printstatus',on_delete=models.CASCADE)
 
     # status of printing
     # 0 = first print

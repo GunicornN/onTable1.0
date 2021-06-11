@@ -76,23 +76,20 @@ class OrderStatus(ModelViewSet):
         tables = self.get_queryset()
         filter_date = datetime.today() - timedelta(hours=1)
         orders = Cart.objects.filter(table__in=tables).exclude(created_on__lt=filter_date)
-        
+        printstatus = PrintStatus.objects.filter(cart_id__in=orders).exclude(status=100)
+        orders = orders.filter(printstatus__in=printstatus)
         cart_items = Cart_Items.objects.filter(cart__in=orders)
-        #print("Cart_Items :",Cart_Items.objects.filter(cart=13))
-
-        products = Product.objects.filter(products__in=cart_items)
-        #print("Items ",products)
-        
+        products = Product.objects.filter(products__in=cart_items)        
         output_serializer = CartOutputSerializer(orders,many=True,read_only=True,context={'prd':products})
 
         return Response(output_serializer.data)
         
     @action(detail=True,methods=['GET'])
     def finalize(self,request,company_slug,pk):
-        order = self.get_queryset()
-        order.status = 100
-        order.save() # celle-ci
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        order_status = self.get_queryset()
+        order_status.status = 100
+        order_status.save()
+        return Response(_('La commande a été finalisée.'),status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self,request,company_slug,pk):
         company = get_object_or_404(Company,slug=company_slug)
@@ -122,7 +119,7 @@ class TablesViewSet(ModelViewSet):
             tables = Table.objects.filter(company=self.kwargs.get('company_pk'))
             if tables :
                 return tables 
-            raise NotFound()        #ADAPTER CETTE PARTIE AUX AUTRES MODELS 
+            raise NotFound()
 
     def list(self,request,company_pk=None):
         # retourne les tables d'un restaurant avec leurs commandes 

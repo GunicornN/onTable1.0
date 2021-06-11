@@ -2,7 +2,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 
-from company.serializers import CompanyOutputSerializer
+from company.serializers import CompanyOutputSerializerPatch
 from company.models import Company
 
 from rest_framework.response import Response
@@ -22,7 +22,7 @@ class CompanyOfUser(RetrieveModelMixin,generics.GenericAPIView):
         if request.user:
             # Récupérer un Restaurant à partir du token
              company = request.user.company
-             serializer = CompanyOutputSerializer(company)
+             serializer = CompanyOutputSerializerPatch(company)
              return Response(serializer.data, status=200)
         else:
              content = {'message': "No Unauthenticated, can\'t access to Company details."}

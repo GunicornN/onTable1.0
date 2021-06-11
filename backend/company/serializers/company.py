@@ -9,6 +9,11 @@ class CompanyOutputSerializer(ModelSerializer):
         model = Company
         fields = ['name','address1','city','country','zip_code','location','profilPicture','slug']
 
+class CompanyOutputSerializerPatch(ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ['name','address1','city','country','zip_code','location','profilPicture','slug','id']
+
 class CompanyPictureProfilOutputSerializer(ModelSerializer):
     """
     Output : Image of company 
@@ -54,7 +59,7 @@ class CompanySettingsInputSerializer(serializers.ModelSerializer):
             'address1',
             'address2',
             'zip_code',
-            'profilPicture',
+            'profilPicture',     
         ]
         
     def update(self, pk, validated_data):
