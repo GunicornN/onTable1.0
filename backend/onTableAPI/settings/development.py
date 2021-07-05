@@ -10,18 +10,17 @@ DEBUG = int(os.environ.get("DEBUG", default=1))
 
 # ------------------------------------------------------------------------------
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'REDACTED_SECRET_KEY' #regenerate secret key 
 
-SECRET_KEY = os.environ.get("SECRET_KEY","REDACTED_SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-env")
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(" ")
 
 # ------------------------------------------------------------------------------
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("SQL_ENGINE", "django.contrib.gis.db.backends.postgis"), # django.db.backends.postgresql for postgres only
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.contrib.gis.db.backends.postgis"),
         "NAME": os.environ.get("SQL_DATABASE", "ontable"),
-        "USER": os.environ.get("SQL_USER", "alexisdubanchet"),
+        "USER": os.environ.get("SQL_USER", "user"),
         "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
         "HOST": os.environ.get("SQL_HOST", "0.0.0.0"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
@@ -38,33 +37,26 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'testing@example.com'
-# ------------------------------------------------------------------------------
-# Emails Settings
-# More infos at :
-#   https://byteschool.io/post/sending-email-with-smtp-on-aws-and-django/
-# ------------------------------------------------------------------------------
 
-#feedback-smtp.eu-west-1.amazonses.com
 # ------------------------------------------------------------------------------
 # Captcha by Google
 # ------------------------------------------------------------------------------
-RECAPTCHA_PUBLIC_KEY = 'REDACTED_RECAPTCHA_PUBLIC'
-RECAPTCHA_PRIVATE_KEY = 'REDACTED_RECAPTCHA_PRIVATE'
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY", "")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY", "")
+RECAPTCHA_USE_SSL = True
 
-RECAPTCHA_USE_SSL = True     # Defaults to False
 # ------------------------------------------------------------------------------
-#Contact us
+# Contact
 # ------------------------------------------------------------------------------
-SERVER_EMAIL = 'contact@example.com'
+SERVER_EMAIL = os.environ.get("SERVER_EMAIL", "contact@example.com")
 
 # ------------------------------------------------------------------------------
 # Google MAP API keys
 # ------------------------------------------------------------------------------
-GOOGLE_MAP_API_KEY = 'REDACTED_GOOGLE_MAPS_KEY'
+GOOGLE_MAP_API_KEY = os.environ.get("GOOGLE_MAP_API_KEY", "")
 
 # ------------------------------------------------------------------------------
 # FACEBOOK API keys
 # ------------------------------------------------------------------------------
-SOCIAL_AUTH_FACEBOOK_KEY = 'REDACTED_FACEBOOK_APP_ID'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET ='REDACTED_FACEBOOK_SECRET' #app key
-
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("SOCIAL_AUTH_FACEBOOK_KEY", "")
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("SOCIAL_AUTH_FACEBOOK_SECRET", "")

@@ -156,7 +156,17 @@ dmypy.json
 
 data/
 
-## NODE JS 
+# Project-specific
+conf/.env.dev
+conf/.env.prod
+conf/.env.*
+!conf/.env.example
+media/
+maquettes/
+backups/
+backend/static/staticfiles/
+
+## NODE JS
 
 node_modules
 /dist
