@@ -1,6 +1,7 @@
 <template>
     <div id="nav">
-      <router-link :to="{name: 'Order',params:{ company_slug: 'le-coq-69006'}}">Order</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/companies/">Restaurants</router-link>
 
       <router-view/>
     </div>
