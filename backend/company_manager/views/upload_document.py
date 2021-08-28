@@ -27,7 +27,6 @@ from django.contrib import messages
 
 from django.conf import settings
 
-#languages
 from django.utils.translation import gettext as _
 
 
@@ -42,19 +41,19 @@ def model_form_upload(request):
     if request.method == 'POST':
         form = PictureCardForm(request.POST, request.FILES)
         if len(lsDocument)  >= settings.MAX_DOCUMENTS_PER_ACCOUNT:
-            messages.info(request, _('La limite de fichiers de votre compte est de {}').format(settings.MAX_DOCUMENTS_PER_ACCOUNT))
+            messages.info(request, _('Your account file limit is {}').format(settings.MAX_DOCUMENTS_PER_ACCOUNT))
         elif form.is_valid():
             file = form.cleaned_data['picture']
             if pictureCard.objects.filter(name=form.cleaned_data['name'],company=current_company).exists():
-                messages.info(request, _('Vous avez déjà envoyé un document avec le même nom.'))        
+                messages.info(request, _('You have already uploaded a document with the same name.'))
             else :
                 if int(file.size) > settings.MAX_UPLOAD_SIZE:
-                    messages.info(request, _("La taille maximum est de 10MB."))
+                    messages.info(request, _("Maximum file size is 10MB."))
                 else :
                     # If the document doesn't exist, respect the max size, then create this new document
                     with transaction.atomic():
                         form.save(company=current_company,upload_by=current_company.name,)
-                        messages.success(request, _('Votre document est entrain d\'être ajouté.'))
+                        messages.success(request, _('Your document is being added.'))
     else:
         form = PictureCardForm()
 
@@ -76,9 +75,9 @@ def delete_upload(request,document_name):
             pictures = pictureCard.objects.get_images_from_company_card(company=current_company,card_name=document_name)
             for picture in pictures :
                 picture.delete()
-        messages.info(request, _("Le Document a bien été supprimé."))
+        messages.info(request, _("Document deleted successfully."))
     except ObjectDoesNotExist:
-        messages.error(request, _('Une erreur est survenue.'))
+        messages.error(request, _('An error occurred.'))
     return redirect('CSUploadDocument')
 
 

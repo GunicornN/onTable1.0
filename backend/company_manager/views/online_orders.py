@@ -39,7 +39,7 @@ def delete_online_orders(request,online_order_id):
         with transaction.atomic():
             onlineOrders = OnlineOrders.objects.get(id=online_order_id)
             onlineOrders.delete()
-        messages.info(request, "La commande a bien été supprimée.")
+        messages.info(request, "Order deleted successfully.")
     except ObjectDoesNotExist:
-        messages.error(request, 'Une erreur est survenue.')
+        messages.error(request, 'An error occurred.')
     return redirect('CSOnlineOrders')

@@ -10,7 +10,7 @@ class AdvertisementForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'ex. : 12/11/2000',
-                    'label' : 'Nom',
+                    'label' : 'Name',
                     'type' : 'date',
                 }
             ),
@@ -22,7 +22,7 @@ class AdvertisementForm(forms.ModelForm):
             'url': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'exemple.com'
+                    'placeholder': 'example.com'
                 }
             )
 

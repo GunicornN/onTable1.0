@@ -14,11 +14,9 @@ class SettingsCompanyForm(ModelForm):
             'zip_code',
         ]
         labels = {
-            'name': 'Nom De votre Entreprise :',
-            'address1' : 'Adresse 1 :',
-            'address2' : 'Adresse 2 :',
-            'city' : 'Ville :',
-            'zip_code' : 'Code Postal :',
-
-
+            'name': 'Company Name:',
+            'address1' : 'Address 1:',
+            'address2' : 'Address 2:',
+            'city' : 'City:',
+            'zip_code' : 'Zip Code:',
         }

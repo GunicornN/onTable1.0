@@ -26,13 +26,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from company_manager.decorators import profil_completed, allowed_users
 from allauth.account.decorators import verified_email_required
 
-#languages
 from django.utils.translation import gettext as _
 
 #---------------------------------------------------------
 # View : Settings
-#---------------------------------------------------------
-#These functions are used to change settings of the company
 #---------------------------------------------------------
 
 @verified_email_required
@@ -60,7 +57,7 @@ def settings_view(request):
                         current_user.save()
                         current_user.setGroup()
 
-        messages.success(request, _('Vos paramètres ont bien été enregistrés. '))
+        messages.success(request, _('Your settings have been saved.'))
 
     else :
         try:

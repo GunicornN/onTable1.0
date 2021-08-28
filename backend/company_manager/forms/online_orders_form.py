@@ -7,15 +7,15 @@ class OnlineOrdersForm(forms.ModelForm):
         model = OnlineOrders
         fields = ('first_name', 'last_name','description','custom_QRCodes','number_for_choice1','number_for_choice2', 'address1','city','zip_code')
         labels = {
-            'first_name': 'Prénom',
-            'last_name' : 'Nom',
+            'first_name': 'First Name',
+            'last_name' : 'Last Name',
             'description' : 'Description',
-            'custom_QRCodes' : 'QR-Codes Personnalisés',
-            'number_for_choice1' : 'Nombre de stickers',
-            'number_for_choice2' : 'Nombre de présentoirs',
-            'address1' : 'Addresse de livraison',
-            'city' : 'Ville de livraison',
-            'zip_code' : 'Code Postale de livraison',
+            'custom_QRCodes' : 'Custom QR Codes',
+            'number_for_choice1' : 'Number of stickers',
+            'number_for_choice2' : 'Number of displays',
+            'address1' : 'Shipping Address',
+            'city' : 'Shipping City',
+            'zip_code' : 'Shipping Zip Code',
         }
 
 

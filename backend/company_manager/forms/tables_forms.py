@@ -15,6 +15,6 @@ from django import forms
 
 class AddTableForm(forms.Form):
     table_data= forms.IntegerField(
-        label="Nombre de tables que vous souhaitez créer.",
+        label="Number of tables to create.",
         widget=forms.TextInput()
     )

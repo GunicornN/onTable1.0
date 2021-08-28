@@ -72,18 +72,17 @@ def employee_manager_view(request):
                                     frequest, created = EmployeeRequest.objects.get_or_create(
                             			from_user=company,
                             			to_user=toUser)
-                                    messages.success(request, _('Une demande a été envoyée à votre employé.'))
+                                    messages.success(request, _('A request has been sent to your employee.'))
                             elif toUser.company_id == current_user.company_id and toUser == current_user :
-                                messages.info(request, _('Vous ne pouvez pas vous envoyer des invitations.'))
+                                messages.info(request, _('You cannot send invitations to yourself.'))
                             elif toUser.groups.filter(name='companyGroup').exists():
-                                messages.info(request, _('Cette personne possède un compte entreprise.'))
-                                messages.info(request, _('Vous ne pouvez ajouter que des comptes employés.'))
+                                messages.info(request, _('This person has a company account.'))
+                                messages.info(request, _('You can only add employee accounts.'))
                             else :
-                                messages.info(request, 'Cette personne a déjà une entreprise.')
-                            #Rajouter des messages : Si une invitation a déjà été envoyée
+                                messages.info(request, 'This person already has a company.')
 
                         except ObjectDoesNotExist :
-                            messages.error(request,_("Aucun employé n'est associé à cet email."))
+                            messages.error(request,_("No employee is associated with this email."))
 
             #Remove an Employee
             if buttons.startswith("button-remove-id"):
@@ -93,9 +92,9 @@ def employee_manager_view(request):
                         employee = CustomUser.objects.get(id=idEmployee)
                         employee.company_id = None
                         employee.save()
-                    messages.info(request, _("L'Employé a bien été supprimé."))
+                    messages.info(request, _("Employee has been removed."))
                 except ObjectDoesNotExist:
-                    messages.error(request, _('Une erreur est survenue.'))
+                    messages.error(request, _('An error occurred.'))
 
             #Remove an Invitation
             if buttons.startswith("button-cancel-id"):
@@ -104,9 +103,9 @@ def employee_manager_view(request):
                     with transaction.atomic():
                         employee = CustomUser.objects.get(email=mailEmployee)
                         request = EmployeeRequest.objects.get(to_user=employee.id,from_user=current_user.id).delete()
-                    messages.info(request, _("L'Employé a bien été supprimé."))
+                    messages.info(request, _("Employee has been removed."))
                 except ObjectDoesNotExist:
-                    messages.error(request, _('Une erreur est survenue.'))
+                    messages.error(request, _('An error occurred.'))
 
 
     elif user_exist == False or request.method == "GET" :
