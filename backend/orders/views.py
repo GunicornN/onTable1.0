@@ -25,7 +25,7 @@ def CustomerInfo(request,company_code):
                 customer_infos_form = customer_infos_form.save(commit=False)
                 customer_infos_form.company = company
                 customer_infos_form.save()
-                messages.success(request, 'Merci de vos Informations.')
+                messages.success(request, 'Thank you for your information.')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -45,7 +45,7 @@ def company_home(request,company_code):
             current_ad = 0
         company.current_ad = current_ad
         company.save()
-        #optimiser la requete ici
+        # TODO: optimize this query
         ad = get_object_or_404(Advertisement,companies__id=company.id,id=ls_ads[current_ad].id)
         context['ad']  = ad
         ad.view += 1

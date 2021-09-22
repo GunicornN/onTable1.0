@@ -75,7 +75,6 @@ def make_many_qr_pdf(lsTablesNumbers,identifiantEntreprise,lsIdOfTables):
 
         pdf.text(text_x, text_y, txt=subtitles[i])
 
-        # Bordure à 0 ou 1
         pdf.cell(w=cellw, h=cellh, border=1, ln=i%2, align='C', fill=False)
 
 
@@ -148,7 +147,6 @@ def make_1qr_pdf(tableNumber, identifiantEntreprise):
 
     pdf.text(text_x, text_y, txt=subtitles)
 
-    # Bordure à 0 ou 1
     pdf.cell(w=cellw, h=cellh, border=1, ln=i%2, align='C', fill=False)
 
     url = None
@@ -205,7 +203,6 @@ def make_many_same_qr_pdf(number, identifiantEntreprise):
         pdf.text(text_x, text_y, txt=(identifiantEntreprise))
 
 
-        # Bordure à 0 ou 1
         pdf.cell(w=cellw, h=cellh, border=1, ln=i%2, align='C', fill=False)
 
         url = None
@@ -222,9 +219,6 @@ def make_many_same_qr_pdf(number, identifiantEntreprise):
     return "media/temp/qrcode_img{}.png".format(identifiantEntreprise)
 
 
-"""
-Exemple de requete
-"""
 def main():
     #make_many_qr_pdf([1,2,3,4,5],'XAAA',['XA','ZA','ZA','ZA','ZE'])
     #make_many_same_qr_pdf(4,'')

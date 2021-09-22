@@ -6,10 +6,7 @@ from django.utils.translation import (
     LANGUAGE_SESSION_KEY, check_for_language, get_language,
 )
 
-#Import forms
 from company_manager.forms import PictureCardFormset
-
-#languages
 from django.utils.translation import gettext as _
 
 def homePage_view(request):
@@ -50,7 +47,7 @@ def addCardToCompany(request,company_id):
     #Check if there are documents imported by the Restaurant
     company_documents = pictureCard.objects.get_cards_from_company(company=company)
     if not company_documents and company_documents[0].upload_by == 'company':
-        messages.info(request, _("Vous ne pouvez pas ajouter de documents."))
+        messages.info(request, _("You cannot add documents."))
 
     if request.method == 'POST':
         file = form.cleaned_data['document']
@@ -58,18 +55,18 @@ def addCardToCompany(request,company_id):
         if file_name.endswith('.png'):
             try:
                 test_file = Document.objects.get(name=form.cleaned_data['name'],company=company)
-                messages.info(request, _('Vous avez déjà envoyé un document avec le même nom.'))
+                messages.info(request, _('You have already uploaded a document with the same name.'))
             except Document.DoesNotExist :
                 print(file.size)
                 if int(file.size) > settings.MAX_UPLOAD_SIZE:
-                    messages.info(request, _("La taille maximum est de 10MB."))
+                    messages.info(request, _("Maximum file size is 10MB."))
                 else :
                     with transaction.atomic():
                         document_to_upload = form.save(commit=False)
                         document_to_upload.company = company
                         document_to_upload.upload_by = 'unknown'
                         document_to_upload.save()
-                        messages.success(request, _('Votre PDF a bien été rajouté.'))
+                        messages.success(request, _('Your PDF has been added.'))
                         #need to add doc to img models 
 #----------------------------------------------------------------------------
 # END REMOVE THIS 

@@ -5,8 +5,8 @@ import random
 conn = psycopg2.connect("dbname=ontable user=alexisdubanchet password=password host=127.0.0.1")
 conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 
-itemParCommande = range(1, 5)
-nombreDeCommande = 10
+items_per_order = range(1, 5)
+num_orders = 10
 companyId = 1
 
 
@@ -42,10 +42,10 @@ def main():
     print(tables)
 
     cur = conn.cursor()
-    for comm in range(nombreDeCommande):
+    for comm in range(num_orders):
         #{getRandomElemFromArray(companys)},
 
-        # insert  dans le panier
+        # Insert into cart
         companyCartInsert = f"""
             INSERT INTO 
             company_cart(
@@ -72,8 +72,8 @@ def main():
             """
         cur.execute(companyCartInsert)
         idcart = cur.fetchone()[0]
-        # insert  dans les cart items
-        for platCounter in itemParCommande:
+        # Insert into cart items
+        for item_counter in items_per_order:
             plat = f"""
             INSERT INTO
             company_cart_items(
@@ -91,7 +91,7 @@ def main():
             );
             """
             cur.execute(plat)
-            print(platCounter)
+            print(item_counter)
     conn.commit()
 
 

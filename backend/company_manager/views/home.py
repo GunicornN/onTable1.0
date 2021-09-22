@@ -1,38 +1,24 @@
 #---------------------------------------------------------
-# Importation des modules
+# Imports
 #---------------------------------------------------------
 
-
-#Importation des modules de manage des requetes
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-
-#Importation des modèles
-from company.models import *
 from company.models import Company, QRCode
 
-#Importation des formulaires
-from django import forms
-from company_manager.forms import *
-
-#Importation des modules de manage des Utilisateurs
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-
-#Exceptions:
 from django.core.exceptions import ObjectDoesNotExist
 
-#Import decorators
 from company_manager.decorators import profil_completed, allowed_users
 from allauth.account.decorators import verified_email_required
 
-#QR-Codes
 from functionalities import get_qrCode
+from django.core.mail import send_mail
+
 #---------------------------------------------------------
 # View : Home
 #---------------------------------------------------------
-from django.core.mail import send_mail
 
 @verified_email_required
 @login_required(login_url="account_login")

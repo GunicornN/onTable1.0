@@ -47,14 +47,14 @@ class pictureCard(models.Model):
             pass #lever une erreur ici 
         
         super().delete(*args, **kwargs)
-#--------------------------------------------------
-# TRASH
-#--------------------------------------------------
+# --------------------------------------------------
+# DEPRECATED - scheduled for removal in a future release.
+# Still referenced by: home/views.py, functionalities/pdf_to_jpeg.py,
+# company_manager/tasks.py, company/views/documents.py.
+# Migrate to pictureCard before removing.
+# --------------------------------------------------
 class Document(models.Model):
-    """
-    This Model : bye bye
-    PLEASE REMOVE THIS IF I FORGOT IT
-    """
+    """Deprecated document model. Use pictureCard instead."""
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     document = models.FileField(upload_to='documents/',blank=True)
