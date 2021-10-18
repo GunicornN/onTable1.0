@@ -30,11 +30,11 @@ class PictureCardInputSerializer(Serializer):
         company.save()
         
     def validate_picture(self,value):
-        # there are BUGS HERE
+        # TODO: fix broken validation logic
         if len(lsDocument)  >= settings.MAX_DOCUMENTS_PER_ACCOUNT:
-            raise(_('La limite de fichiers de votre compte est de {}').format(settings.MAX_DOCUMENTS_PER_ACCOUNT))
+            raise(_('Your account file limit is {}').format(settings.MAX_DOCUMENTS_PER_ACCOUNT))
         if pictureCard.objects.filter(name=form.cleaned_data['name'],company=current_company).exists():
-            raise(_('Vous avez déjà envoyé un document avec le même nom.'))
+            raise(_('You have already uploaded a document with the same name.'))
         if int(file.size) > settings.MAX_UPLOAD_SIZE:
-            raise(serializers.ValidationError( _("La taille maximum est de 10MB.")))
+            raise(serializers.ValidationError( _("Maximum file size is 10MB.")))
         return value

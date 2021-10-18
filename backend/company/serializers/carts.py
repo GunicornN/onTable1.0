@@ -65,13 +65,6 @@ class ItemSerializer(ModelSerializer):
         model = Product
         fields = ['slug']
 
-class CartItemSerializer2(ModelSerializer):
-    items = ItemSerializer
-
-    class Meta :
-        model = Cart_Items
-        fields = ['items','price','vat']
-
 class CartOutputSerializer(ModelSerializer):
     # GET : list 
     # 

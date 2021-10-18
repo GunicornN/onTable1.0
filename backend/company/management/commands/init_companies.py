@@ -41,11 +41,9 @@ def get_categories():
         driver.set_window_size(1600, 950)
         driver.get("https://www.tripadvisor.fr/Restaurants-g187265-Lyon_Rhone_Auvergne_Rhone_Alpes.html")
 
-        # RECUPERER les categories de restaurants
+        time.sleep(3)
 
-        time.sleep(3) # laisser le temps que la page charge
-
-        # obtenir les sources de la page
+        # Get page source
         page_source = driver.page_source
         soup = BeautifulSoup(page_source,'html.parser')
         soup.prettify()
@@ -58,9 +56,9 @@ def get_categories():
 
         for category in company_categories:
             driver.get("{}{}".format(MAIN_URL,category['url']))
-            time.sleep(3) # laisser le temps que la page charge
+            time.sleep(3)
 
-            # récupérer la liste des restaurants pour chaque catégorie 
+            # Get the list of restaurants for each category
             page_source = driver.page_source
             soup = BeautifulSoup(page_source,'html.parser')
             soup.prettify()
@@ -73,7 +71,6 @@ def get_categories():
                     time.sleep(1) # Waiting the end of API calls 
 
 
-            # RECUPERER les Restaurants 
             page_source = driver.page_source
             soup = BeautifulSoup(page_source,'html.parser')
             soup.prettify()
@@ -85,16 +82,12 @@ def get_categories():
         with open("companies.json","w") as file :
             json.dump(company_categories,file)
         
-        # ----> On obtient la liste des restaurants par Catégorie
+        # List of restaurants by category obtained
 
 
 
 def get_company_details():
-    """
-    Récupérer l'adresse
-    Le numéro de téléphone
-
-    """
+    """Retrieve company address and phone number."""
     with open("companies.json",'r') as f: 
         data = json.loads(f.read())
 
@@ -102,13 +95,11 @@ def get_company_details():
             driver.set_window_position(0, 0)
             driver.set_window_size(1600, 950)
             for indexCat,category in enumerate(data):
-                for indexCo,company in enumerate(category['companies']): # on a ici les keys du dictionnaire 
-                    
+                for indexCo,company in enumerate(category['companies']):
+
                     print("{}{}".format(MAIN_URL,company['url']))
                     driver.get("{}{}".format(MAIN_URL,company['url']))
-                    #time.sleep(2)
 
-                    # RECUPERER les sources du restaurant 
                     page_source = driver.page_source
                     soup = BeautifulSoup(page_source,'html.parser')
                     soup.prettify()
@@ -148,7 +139,7 @@ def get_company_details():
                                 driver.execute_script("arguments[0].click();", more_buttons[x])
                                 time.sleep(1) # Waiting the end of API calls 
                         
-                        # RECUPERER LES NOMS DES MENUS
+                        # Get menu names
                         page_source = driver.page_source
                         soup = BeautifulSoup(page_source,'html.parser')
                         soup.prettify()
@@ -159,7 +150,7 @@ def get_company_details():
                         # Beautiful soup variables 
                         menus_name = []
                         company_cards = []
-                        # Les noms des menus sont dans des labels des divs _3nq6E0dI
+                        # Menu names are in div labels with class _3nq6E0dI
 
                         #print(soup.find('div',{'class':'_3nq6E0dI'}))
 
@@ -191,11 +182,11 @@ def get_company_details():
                                 soup = BeautifulSoup(page_source,'html.parser')
                                 soup.prettify()
 
-                                raw_meals = soup.find_all('div',{'class':'_3Yhd5Duy'}) # result : class 'bs4.element.ResultSet #_2N7zl-v2
-                                # RECUPERER CHAQUE PLAT D'UN MENU
-                                for meal_menu in raw_meals : # plat_menu type :  class 'bs4.element.Tag 
+                                raw_meals = soup.find_all('div',{'class':'_3Yhd5Duy'})
+                                # Get each dish from a menu
+                                for meal_menu in raw_meals :
                                     meals = []
-                                    unparsed_meals = meal_menu.find_all('div',{'class':'_2N7zl-v2'}) # récupérer les plats d'un menu
+                                    unparsed_meals = meal_menu.find_all('div',{'class':'_2N7zl-v2'})
                                     for unparsed_meal in unparsed_meals :
                                         meals.append(unparsed_meal.getText())
                         
@@ -206,7 +197,7 @@ def get_company_details():
                                     for meal in meals :  
                                         company_cards[x]['products'].append(meal)
 
-                                    # Recuperer le prix 
+                                    # Get price
                                     prices = soup.find_all('span',{'class':'_2EcgU5Lr'})
                                     if prices :
                                         company_cards[x]['prices'] = []
@@ -214,7 +205,7 @@ def get_company_details():
                                             if price.getText():
                                                 company_cards[x]['prices'].append(price.getText())
 
-                        # Correction d'erreurs 
+                        # Error correction
                         for x1 in range(1,len(company_cards)):
                             for product_test in company_cards[0]['products']: # should correspond 
                                 for product_rm in company_cards[x1]['products']:
@@ -248,7 +239,7 @@ class Command(BaseCommand):
         with open("companiesDetails.json",'r') as f: 
             data = json.loads(f.read())
             for indexCat,category in enumerate(data):
-                for indexCo,company in enumerate(category['companies']): # on a ici les keys du dictionnaire 
+                for indexCo,company in enumerate(category['companies']):
 
                     # Company Fields
                     name = data[indexCat]['companies'][indexCo]['name']

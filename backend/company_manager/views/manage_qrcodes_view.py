@@ -1,60 +1,36 @@
 #---------------------------------------------------------
-# Import modules
+# Imports
 #---------------------------------------------------------
 
-
-#Importation des modules de manage des requetes
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 
-
-#Importation of models
 from company.models import Company, QRCode
 
-#Importation of forms
-from django import forms
 from company_manager.forms import PrintQRCodesForm, OnlineOrdersForm
 
-#transaction :
 from django.db import transaction, IntegrityError
 
-#Importation of manager user packages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-
 
 from functionalities import make_many_same_qr_pdf
 
-#Exceptions:
 from django.core.exceptions import ObjectDoesNotExist
-
-#messages :
 from django.contrib import messages
 
 import os
 from django.conf import settings
 
-#Import decorators
 from company_manager.decorators import profil_completed, allowed_users
 from allauth.account.decorators import verified_email_required
 
-#Online orders : Send Mail
 from django.core.mail import send_mail
-from django.conf import settings
-
-#languages
 from django.utils.translation import gettext as _
 
-#QR-Codes
 from functionalities import get_qrCode
+
 #---------------------------------------------------------
-# Views : Tables
-#---------------------------------------------------------
-#   View that allow the user to create/manage the tables
-#   He can't add/or remove tables
-#   But he can print the QRCode of the tables
-#   Add later : Button that desactivate one table or alls the tables
-#
+# Views : QR Codes
 #---------------------------------------------------------
 
 @verified_email_required
@@ -86,18 +62,18 @@ def manage_qrcodes_view(request):
             raise Http404
         if formOrderQRCodes.is_valid():
             if formOrderQRCodes.cleaned_data['number_for_choice1'] != 0 and formOrderQRCodes.cleaned_data['number_for_choice1'] != 0 :
-                mail_message = "DEVIS DEMANDE PAR : \n \
-                NOM : {} \n \
-                PRENOM : {} \n \
-                MAIL : {} \n \
-                NOM Entreprise : {} \n \
-                LIVRAISON : \n \
-                Addresse : {} , {}\n \
-                Code Postal : {}  \n \
-                Customisation de QRCode : {} \n \
-                Nombre de stickers : {} \n \
-                Nombre de présentoirs  : {} \n \
-                Description : {} \n \ ".format(
+                mail_message = "QUOTE REQUESTED BY: \n \
+                LAST NAME: {} \n \
+                FIRST NAME: {} \n \
+                EMAIL: {} \n \
+                Company Name: {} \n \
+                SHIPPING: \n \
+                Address: {} , {}\n \
+                Zip Code: {}  \n \
+                QR Code Customization: {} \n \
+                Number of stickers: {} \n \
+                Number of displays: {} \n \
+                Description: {} \n \ ".format(
                     #personnals data
                     formOrderQRCodes.cleaned_data['first_name'],
                     formOrderQRCodes.cleaned_data['last_name'],
@@ -118,7 +94,7 @@ def manage_qrcodes_view(request):
 
                 )
                 send_mail(
-                    '[DEVIS] : {}'.format(iCompany.name),
+                    '[QUOTE] : {}'.format(iCompany.name),
                     mail_message,
                     settings.EMAIL_HOST_USER,
                     [settings.SERVER_EMAIL],
@@ -127,9 +103,9 @@ def manage_qrcodes_view(request):
                 orderQRCodes = formOrderQRCodes.save(commit=False)
                 orderQRCodes.company = iCompany
                 orderQRCodes.save()
-                messages.success(request, _('Votre demande a été transmise.'))
+                messages.success(request, _('Your request has been submitted.'))
             else :
-                messages.warning(request,_('Veuillez entrer un nombre de stickers/cartes.'))
+                messages.warning(request,_('Please enter a number of stickers/cards.'))
 
 
     else :

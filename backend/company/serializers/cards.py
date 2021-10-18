@@ -54,10 +54,10 @@ class CardInputSerializer(ModelSerializer):
         fields = ['name','description']
 
     def create(self,validated_data):
-        # On vérifie s'il existe une carte avec le même nom ici 
+        # Check if a card with the same name already exists
         card = Card.objects.get(name=validated_data['name'],company_id=validated_data['company_id'])
         if card :
-            raise serializers.ValidationError("Deux cartes ne peuvent avoir le même nom.")
+            raise serializers.ValidationError("Two cards cannot have the same name.")
         return Card.objects.create(**validated_data)
 
 

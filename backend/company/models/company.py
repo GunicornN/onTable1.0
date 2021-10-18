@@ -24,10 +24,6 @@ from django.contrib.gis.db.models.functions import Distance
 # Type Of Company  
 # ----------------------------------------------------------------
 
-"""
-Ici j'ai changé un nom : Category -> Type 
-Peut avoir des bugs 
-"""
 
 class TypeManager(models.Manager):
     def get_company_from_category(self,category,*args,**kwargs):
@@ -43,7 +39,7 @@ class Type(models.Model):
     """
     Type of Restaurant like a Gastronomic, Fast-Food, ...
     """
-    name = models.CharField("Catégorie de Restaurant",max_length=100) 
+    name = models.CharField("Restaurant Category",max_length=100)
 
     #Manager 
     objects = TypeManager()
@@ -99,14 +95,14 @@ class Company(models.Model):
     See the MLD to have more informations
 
     """
-    name = models.CharField("Nom de l'entreprise",max_length=200)
+    name = models.CharField("Company Name",max_length=200)
 
-    address1 = models.CharField("addresse", max_length=200)
-    address2 = models.CharField("seconde addresse", max_length=200, blank=True)
+    address1 = models.CharField("Address", max_length=200)
+    address2 = models.CharField("Second Address", max_length=200, blank=True)
 
-    city = models.CharField("ville", max_length=64, default="")
-    country = models.CharField("pays", max_length=64, default="France")
-    zip_code = models.IntegerField("code postal", default=0)
+    city = models.CharField("City", max_length=64, default="")
+    country = models.CharField("Country", max_length=64, default="France")
+    zip_code = models.IntegerField("Zip Code", default=0)
 
     _location = models.PointField(geography=True, default=Point(0.0, 0.0))
     #Company code used to define the restaurant in the QRCode

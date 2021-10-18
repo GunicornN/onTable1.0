@@ -1,53 +1,33 @@
 #---------------------------------------------------------
-# Import modules
+# Imports
 #---------------------------------------------------------
 
-
-#Importation des modules de manage des requetes
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-
-#Importation of models
 from company.models import Company, Tables
 
-#Importation of forms
 from django import forms
 from company_manager.forms import AddTableForm
 
-#transaction :
 from django.db import transaction, IntegrityError
 
-#Importation of manager user packages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 
 from functionalities import table_code_generator, make_1qr_pdf, make_many_qr_pdf
 
-#Exceptions:
 from django.core.exceptions import ObjectDoesNotExist
-
-#messages :
 from django.contrib import messages
 
-#CHANGE THIS CONF
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
 
-#Import decorators
 from company_manager.decorators import profil_completed, allowed_users
-
 from allauth.account.decorators import verified_email_required
 
 #---------------------------------------------------------
 # Views : Tables
-#---------------------------------------------------------
-#   View that allow the user to create/manage the tables
-#   He can't add/or remove tables
-#   But he can print the QRCode of the tables
-#   Add later : Button that desactivate one table or alls the tables
-#
 #---------------------------------------------------------
 
 @verified_email_required
@@ -80,7 +60,7 @@ def manage_tables_view(request):
 
                     numberOfTablesToCreate = formAddTables.cleaned_data['table_data']
                     if numberOfTablesToCreate >= 200 :
-                        messages.info(request, "Il n'est pas possible d'avoir plus de 200 tables.")
+                        messages.info(request, "Cannot have more than 200 tables.")
                     else :
                         try:
                             lastNumberOfTable = listOfTables.last().tableNo
@@ -100,11 +80,11 @@ def manage_tables_view(request):
                 if formAddTable.is_valid():
                     tableNumber = formAddTable.cleaned_data['table_data']
                     if tableNumber >= 200 :
-                        messages.info(request, "Il n'est pas possible d'avoir plus de 200 tables.")
+                        messages.info(request, "Cannot have more than 200 tables.")
                     else :
                         try:
                             tableNumberAlreadyExist = Tables.objects.get(tableNo=tableNumber,company=iCompany)
-                            messages.error(request, 'Cette table existe déjà.')
+                            messages.error(request, 'This table already exists.')
                         except ObjectDoesNotExist:
                             #The object doesn't exist so we create one
                             with transaction.atomic():
@@ -121,7 +101,7 @@ def manage_tables_view(request):
                     tableDelete = Tables.objects.get(tableNo=tableNumber,company=iCompany)
                     tableDelete.delete()
                 except ObjectDoesNotExist:
-                    messages.error(request, 'Une erreur est survenue.')
+                    messages.error(request, 'An error occurred.')
 
             #Print All the QRCodes
             if buttons.startswith('printAllQRCodeBtn') :
@@ -154,7 +134,7 @@ def manage_tables_view(request):
                     table =  Tables.objects.get(tableNo=tableNumber,company=iCompany)
 
                 except ObjectDoesNotExist:
-                    messages.error(request, 'Il y a eu une erreur')
+                    messages.error(request, 'An error occurred.')
                 try:
                     link = make_1qr_pdf(tableNumber,iCompany.CompanyCode,table.tableCode)
                     file_path = os.path.join(settings.MEDIA_ROOT, link)

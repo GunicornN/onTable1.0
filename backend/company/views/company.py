@@ -76,7 +76,7 @@ class CompanyReadViewSet(ModelViewSet):
         return Response(output_serializer.data)
 
     @action(detail=False,methods=['POST'])
-    def location(self, request):           #change this name
+    def nearby(self, request):
         """
         Get nearbest companies 
 
@@ -85,7 +85,7 @@ class CompanyReadViewSet(ModelViewSet):
         request params : longitude, latitude 
         For : authenticated users and unauthorised users
         """
-        input_serializer = CompanyLocationInputSerializer(data=request.data) #MAUVAIS INPUT SERIALIZER 
+        input_serializer = CompanyLocationInputSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True)
 
         companies = Company.objects.get_nearby(input_serializer.data['latitude'],input_serializer.data['longitude'])
@@ -121,11 +121,11 @@ class CompanyReadViewSet(ModelViewSet):
 
         Check if it's for Authenticated Users Only, and if the Auth User have the company 
 
-        Renvoie les données envoyées 
+        Returns the sent data.
         """
         queryset = self.get_queryset()
 
-        input_serializer = CompanySettingsInputSerializer(data=request.data,partial=True) #partial=True pour ne pas créer d'objet
+        input_serializer = CompanySettingsInputSerializer(data=request.data,partial=True)
         input_serializer.is_valid(raise_exception=True)
 
         input_serializer.update(slug,input_serializer.validated_data)

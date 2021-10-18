@@ -61,9 +61,6 @@ class CartsViewSet(ModelViewSet):
         return Response("Cart Created",status=status.HTTP_201_CREATED)
 
     def list(self,request,company_slug=None):
-        # retourne la liste des Paniers (Cart)
-        # retourne aussi les produits (items_cart) liés à ce panier
-
         queryset = self.get_queryset()
         serializer = CartOutputSerializer(queryset,many=True,read_only=True)
 

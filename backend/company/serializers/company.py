@@ -63,8 +63,8 @@ class CompanySettingsInputSerializer(serializers.ModelSerializer):
         ]
         
     def update(self, pk, validated_data):
-        company = Company.objects.get(pk=pk)# récupère les objets grâce à la clé étrangère passée via l'url
+        company = Company.objects.get(pk=pk)
         for data in validated_data:
-            setattr(company, data, validated_data.get(data))# assimile à un attribut de la classe Company, le contenu d'une variable
+            setattr(company, data, validated_data.get(data))
         company.save()
         

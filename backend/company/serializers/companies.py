@@ -6,9 +6,7 @@ from rest_framework.serializers import ModelSerializer, Serializer
 from company.models import Company
 
 class CompaniesPositionInputSerializer(Serializer):
-    """
-    Renvoie les entreprises les plus proches selon la localisation envoyée
-    """
+    """Returns the nearest companies based on the provided location."""
     latitude = serializers.DecimalField(max_digits=18, decimal_places=15)
     longitude = serializers.DecimalField(max_digits=18, decimal_places=15)
 

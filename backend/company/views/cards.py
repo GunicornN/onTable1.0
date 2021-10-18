@@ -57,7 +57,7 @@ class CardsViewSet(ModelViewSet):
             card = get_object_or_404(Card,slug=self.kwargs.get('slug'),company__slug=self.kwargs.get('company_slug'))
             return card 
 
-            #categories = card.categories.all() # get all categories obj via une cardinalité avec l'obj carte 
+            #categories = card.categories.all()
             #return categories
         else :
             cards = Card.objects.filter(company__slug=self.kwargs.get('company_slug'))
@@ -67,7 +67,7 @@ class CardsViewSet(ModelViewSet):
     def list(self,request,company_slug=None):
         # Return many cards
         queryset = self.get_queryset()
-        serializer = CardOutputSerializer(queryset,many=True,read_only=True)# many=True pour dire que la requête est un tableau de plusieurs cartes 
+        serializer = CardOutputSerializer(queryset,many=True,read_only=True)
         return Response(serializer.data)
 
     def retrieve(self,request,company_slug=None,slug=None):
@@ -79,12 +79,11 @@ class CardsViewSet(ModelViewSet):
     def create(self,request,company_slug=None):
         company = get_object_or_404(Company,slug=company_slug)
         input_serializer = CardInputSerializer(data=request.data)
-        input_serializer.is_valid(raise_exception=True) #test if request.data is correct
-        # Enregistrer l'objet :
+        input_serializer.is_valid(raise_exception=True)
 
         input_serializer.save(company_id=company.id)
 
-        return Response(_("La carte a bien été ajouté."),status=status.HTTP_204_NO_CONTENT)
+        return Response(_("Card added successfully."),status=status.HTTP_204_NO_CONTENT)
 
     def partial_update(self,request,company_slug=None,slug=None):
         """
@@ -94,7 +93,7 @@ class CardsViewSet(ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         serializer.update(slug,serializer.validated_data)
-        return Response(_("La carte a bien été modifiée."),status=status.HTTP_206_PARTIAL_CONTENT)
+        return Response(_("Card updated successfully."),status=status.HTTP_206_PARTIAL_CONTENT)
 
     def delete(self,request,company_slug=None,slug=None):
         """
@@ -104,8 +103,8 @@ class CardsViewSet(ModelViewSet):
         card = self.get_queryset()
         if len(card) == 0 : #Maybe it will be 1, we should test 
             card.delete()
-            return Response(_("La carte a bien été supprimé."),status=status.HTTP_204_NO_CONTENT)
-        return Response(_("Plusieurs cartes ne peuvent être supprimés simultanément."),status=status.HTTP_400_BAD_REQUEST)
+            return Response(_("Card deleted successfully."),status=status.HTTP_204_NO_CONTENT)
+        return Response(_("Multiple cards cannot be deleted simultaneously."),status=status.HTTP_400_BAD_REQUEST)
 
         
 class ProductsViewSet(ModelViewSet):
@@ -164,11 +163,11 @@ class ProductsViewSet(ModelViewSet):
         serializer = ProductPartialInputSerializer(data=request.data,partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.update(slug,serializer.validated_data)
-        return Response(_("Le produit a bien été modifié."),status=status.HTTP_206_PARTIAL_CONTENT)
+        return Response(_("Product updated successfully."),status=status.HTTP_206_PARTIAL_CONTENT)
 
     def delete(self,request,company_slug=None,slug=None): #Do this 
         product = self.get_queryset()
         if len(product) == 0 : #Maybe it will be 1, we should test 
             product.delete()
-            return Response(_("Le produit a bien été supprimé."),status=status.HTTP_204_NO_CONTENT)
-        return Response(_("Plusieurs Produits ne peuvent être supprimés simultanément."),status=status.HTTP_400_BAD_REQUEST)
+            return Response(_("Product deleted successfully."),status=status.HTTP_204_NO_CONTENT)
+        return Response(_("Multiple products cannot be deleted simultaneously."),status=status.HTTP_400_BAD_REQUEST)

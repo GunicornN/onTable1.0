@@ -41,35 +41,28 @@ class OrderStatus(ModelViewSet):
     permission_classes = [IsAuthenticatedAndOwner]
 
     def get_queryset(self):
-        if 'pk' in self.kwargs : # cart_slug pour accéder au status d'une commande
-            # Si la requete possède pk dans son url, c'est pour accéder à une commande particulière
+        if 'pk' in self.kwargs:
+            # If pk is in the URL, retrieve a specific order
             company = get_object_or_404(Company,slug=self.kwargs.get('company_slug'))
-            #table = get_object_or_404(Table,table_no=self.kwargs.get('pk'),company=company.id)
-            
             cart = get_object_or_404(Cart,id=self.kwargs.get('pk'),company=company.id)
-            
             order_status = get_object_or_404(PrintStatus,cart_id=cart.id)
-            return order_status 
-        else : 
-            # si la requete possede company_slug, on retourne des tables
+            return order_status
+        else :
+            # If only company_slug, return tables
             company = get_object_or_404(Company,slug=self.kwargs.get('company_slug'))
             tables = Table.objects.filter(company=company.id)
             if tables :
-                return tables 
+                return tables
             raise NotFound()
 
     @action(detail=False,methods=['GET'])
     def placed(self,request,company_slug):
-        # commandes passées, qui ont été traitées, le client est parti
-        # on recupere dans la queryset une liste de tables 
+        # Past orders that have been processed (customer has left)
         filter_date = datetime.today() - timedelta(hours=1)
         table = self.get_queryset()
         orders = Cart.objects.filter(table__in=table).exclude(created_on__gt=filter_date).exclude(printstatus__status=100)
-        
-        # le serializer retourne le nom du client, la table, ce qu'il a commandé, le prix 
+
         output_serializer = CartOutputSerializer(orders,many=True,read_only=True)
-        # on a besoin de récupérer les order_status 
-        # puis on filtre toutes celles qui ont un status=100
         return Response(output_serializer.data)
 
     def list(self,request,company_slug):
@@ -89,7 +82,7 @@ class OrderStatus(ModelViewSet):
         order_status = self.get_queryset()
         order_status.status = 100
         order_status.save()
-        return Response(_('La commande a été finalisée.'),status=status.HTTP_204_NO_CONTENT)
+        return Response(_('The order has been finalized.'),status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self,request,company_slug,pk):
         company = get_object_or_404(Company,slug=company_slug)
@@ -101,20 +94,16 @@ class OrderStatus(ModelViewSet):
         return Response(output_serializer_products.data)
 
 class TablesViewSet(ModelViewSet):
-    """
-    To Do List :
-    Vérifier si les permissions sont bonnes
-    """
+    """ViewSet for managing restaurant tables."""
     queryset = Table.objects.all()
     serializer_class = TableSerializer
     permission_classes = [IsAuthenticatedAndOwner]
 
     def get_queryset(self):
         if 'pk' in self.kwargs :
-            # Si la requete possède pk dans son url, c'est pour accéder à une Table particulière
+            # If pk is in the URL, retrieve a specific table
             table = get_object_or_404(Table,table_no=self.kwargs.get('pk'),company=self.kwargs.get('company_pk'))
-            print("table : ",table)
-            return table 
+            return table
         else : 
             tables = Table.objects.filter(company=self.kwargs.get('company_pk'))
             if tables :
@@ -122,36 +111,29 @@ class TablesViewSet(ModelViewSet):
             raise NotFound()
 
     def list(self,request,company_pk=None):
-        # retourne les tables d'un restaurant avec leurs commandes 
         queryset = self.get_queryset()
         serializer = TableSerializer(queryset,many=True,read_only=True)
         return Response(serializer.data)
 
     def retrieve(self,request,company_pk=None,pk=None):
-        # retourne une table d'un restaurant 
-        
         queryset = self.get_queryset()
         serializer = TableSerializer(queryset,read_only=True)
         return Response(serializer.data)
 
     def create(self,request,company_pk=None):
-        # Vérifier s'il y a pas 2 tables ayant le même numéro, retourner une erreur sinon 
-        # Get the company 
         company = get_object_or_404(Company,id=company_pk)
         
         input_serializer = TableInputSerializer(data=request.data)
         input_serializer.is_valid(raise_exception=True)
 
         input_serializer.save(company_id=company.id)
-        return Response(_('La table a bien été crée'),status=status.HTTP_204_NO_CONTENT)
+        return Response(_('Table created successfully.'),status=status.HTTP_204_NO_CONTENT)
 
-    def delete(self,request,company_pk=None,pk=None):       # <----------- BUG HERE 
-        # Vérifier si on peut supprimer la table d'autres Restaurants 
-        #Impossible de supprimer des tables
+    def delete(self,request,company_pk=None,pk=None):
         queryset = self.get_queryset()
-        if len(queryset) == 0 : #Maybe it will be 1, we should test 
+        if len(queryset) == 0 : #Maybe it will be 1, we should test
             queryset.delete()
-            return Response(_('La table a bien été supprimée'),status=status.HTTP_204_NO_CONTENT)
-        return Response(_("Plusieurs tables ne peuvent être supprimés simultanément."),status=status.HTTP_400_BAD_REQUEST)
+            return Response(_('Table deleted successfully.'),status=status.HTTP_204_NO_CONTENT)
+        return Response(_("Multiple tables cannot be deleted simultaneously."),status=status.HTTP_400_BAD_REQUEST)
         
 

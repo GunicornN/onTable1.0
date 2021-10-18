@@ -20,7 +20,6 @@ class CompanyOfUser(RetrieveModelMixin,generics.GenericAPIView):
 
     def get(self,request):
         if request.user:
-            # Récupérer un Restaurant à partir du token
              company = request.user.company
              serializer = CompanyOutputSerializerPatch(company)
              return Response(serializer.data, status=200)

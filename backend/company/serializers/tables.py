@@ -14,32 +14,25 @@ from django.utils.translation import gettext as _
 # -------------------------------------------------
 
 class TableSerializer(ModelSerializer):
-    """
-    Serialise une table d'un restaurant passé en parametre
-    """
+    """Serializes a restaurant table."""
 
     class Meta :
         model = Table
         fields = ['table_no','updated_on','table_code']
 
 class TableInputSerializer(ModelSerializer):
-    """
-    Serialize les données d'une requete pour vérifier qu'elle est correcte
-    """
+    """Validates request data for table creation."""
     class Meta:
         model = Table
         fields = ['table_no']
 
 
     def create(self,validated_data):
-        # On vérifie s'il existe une carte avec le même nom ici 
         try :
-            # Verifie s'il n'y pas déjà un objet avec le même numéro (table_no)
+            # Check if a table with the same number already exists
             table = Table.objects.get(table_no=validated_data['table_no'],company=validated_data['company_id'])
-            # Si c'est le cas, lève une erreur 
-            raise serializers.ValidationError(_("Deux tables ne peuvent avoir le même numéro."))
+            raise serializers.ValidationError(_("Two tables cannot have the same number."))
         except Table.DoesNotExist:
-            # Si la vérification échoue, alors crée l'objet 
             return Table.objects.create(**validated_data)
             
 

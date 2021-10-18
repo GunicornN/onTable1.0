@@ -1,43 +1,27 @@
 #---------------------------------------------------------
-# Importation des modules
+# Imports
 #---------------------------------------------------------
 
-
-#Import packages to manage requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-
-#Import messages
 from django.contrib import messages
 
-#Importation des modèles
 from company.models import Company, Categories, Cards, Products
 
-#Importation des formulaires
 from django import forms
 from django.forms import modelformset_factory
-from company_manager.forms.cardsForms import CategoriesFormset, ProductsFormset, addFormulasOrCardsForm
+from company_manager.forms.cards_forms import CategoriesFormset, ProductsFormset, addFormulasOrCardsForm
 
-#Importation des modules de manage des Utilisateurs
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-
-#Import transactions and errors
 from django.db import transaction
-
-#Import errors
 from django.core.exceptions import ObjectDoesNotExist
 
-#Import decorators
 from company_manager.decorators import profil_completed, allowed_users
 
-#languages
 from django.utils.translation import gettext as _
 
 #---------------------------------------------------------
 # View : Cards
-#---------------------------------------------------------
-#These functions are used to see, create,... cards
 #---------------------------------------------------------
 
 
@@ -125,7 +109,7 @@ def add_formulas_or_cards_view(request):
                 try:
                     #test if a card exist
                     card = Cards.objects.get(name=cardName,id=current_user.company_id)
-                    messages.info(request, _('Une carte avec le même nom a déjà été créée.'))
+                    messages.info(request, _('A card with the same name already exists.'))
                 except ObjectDoesNotExist :
                     with transaction.atomic():
                         CardName = Cards.objects.get_or_create(
@@ -134,7 +118,7 @@ def add_formulas_or_cards_view(request):
                             description=addFormulasOrCards.cleaned_data['description']
                             )
 
-                    messages.info(request, _('Votre carte a bien été créée.'))
+                    messages.info(request, _('Your card has been created.'))
     else :
         addFormulasOrCards = addFormulasOrCardsForm()
 

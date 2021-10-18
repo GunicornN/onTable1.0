@@ -24,7 +24,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-#languages
 from django.utils.translation import gettext as _
 
 @verified_email_required
@@ -49,10 +48,9 @@ def manage_customer_infos_view(request):
 def delete_customer_infos(request,customer_id):
     try:
         with transaction.atomic():
-            #CAN BE HACKED HERE IF THERE ARE NOT COMPANY ARG
             customer_infos = Customer.objects.get(id=customer_id)
             customer_infos.delete()
-        messages.info(request, _("Les informations de ce client ont bien été supprimés."))
+        messages.info(request, _("Customer information has been deleted."))
     except ObjectDoesNotExist:
-        messages.error(request, _('Une erreur est survenue.'))
+        messages.error(request, _('An error occurred.'))
     return redirect('CSCustomersInfos')

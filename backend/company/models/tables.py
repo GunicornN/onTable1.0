@@ -44,19 +44,13 @@ class Cart(models.Model):
         super(Cart, self).save(*args, **kwargs)
 
     def set_total_amount(self):
-        price = 0.0
-        cart_items = self.cart_items.all()
-        formulas = []
-        for cart_item in carts_items:
-            if cart_item.formulas :
-                formulas.append(carts_items)
-            else :
-                product_price = cart_item.product.price
-                price += product_price
-
-        for formula in formulas:
-            pass
-            #formula.__categories
+        """Calculate total amount from cart items."""
+        total = 0
+        for cart_item in self.items.all():
+            if cart_item.items and cart_item.items.price:
+                total += cart_item.items.price
+        self.total_amount = total
+        self.save()
 
 class Cart_Items(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
@@ -75,7 +69,7 @@ class PrintStatus(models.Model):
     # 1 = printed
     # 2 = error
     # 3 = make duplicata (aka re-print)
-    # 100 = Commande finalisée
+    # 100 = Order finalized
 
     status = models.IntegerField(choices=CHOICES_PRINT_STATUS,default=0)
 
