@@ -1,6 +1,6 @@
 <template>
     <div>
-        Entreprise
+        Company
     </div>
 </template>
 

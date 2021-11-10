@@ -1,5 +1,5 @@
 {% extends 'company/base.html' %}
-{% load customNameTags %}
+{% load custom_name_tags %}
 {% load static %}
 {% load i18n %}
 
@@ -98,24 +98,24 @@
                 </div>
                 <hr class="w-100 mx-3" />
                 <div class="col-md-6">
-                  {% trans "Nombre de stickers désirés" %}
+                  {% trans "Number of desired stickers" %}
                   {{formOrderQRCodes.number_for_choice1}}
                 </div>
                 <div class="col-md-6">
-                  {% trans "Nombre de cartes désirés" %}
+                  {% trans "Number of desired cards" %}
                   {{formOrderQRCodes.number_for_choice2}}
                 </div>
                 <div class="col-md-6 mt-2">
                   {{formOrderQRCodes.custom_QRCodes}}
-                  {% trans "QR-Codes customisés" %}
+                  {% trans "Custom QR Codes" %}
                 </div>
                 <hr class="w-100 mx-3" />
                 <div class="col-md-12">
-                  {% trans "Commentaire (dimensions, requête spécifique...)" %}
+                  {% trans "Comment (dimensions, specific request...)" %}
                   {{formOrderQRCodes.description}}
                 </div>
                 <div class="col-md-12 d-flex justify-content-center">
-                  <button type="submit" class="btn btn-success mt-3">{% trans "Demander un devis" %}</button>
+                  <button type="submit" class="btn btn-success mt-3">{% trans "Request a quote" %}</button>
                 </div>
               </div>
           </form>

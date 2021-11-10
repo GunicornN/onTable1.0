@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">
-                <label >Choisissez vos plats  </label>
+                <label>Choose your dishes</label>
             </div>
 
             <b-list-group>
@@ -18,7 +18,8 @@
 <script>
 
 import Product from './Product.vue'
-import axios from 'axios';
+import axios from 'axios'
+import config from '../config'
 
 export default {
     name: "ProductList",
@@ -35,18 +36,15 @@ export default {
         return {
             company_products: {}
         }
-    },  
+    },
     created() {
-        // Fetches posts when the component is created.
-        //console.log(this.products)
-        var api_address = 'http://127.0.0.1:8000/api/companies/'+this.company_slug+'/products/' 
+        const api_address = `${config.API_BASE_URL}/api/companies/${this.company_slug}/products/`
         axios.get(api_address)
         .then(response => {
-        // JSON responses are automatically parsed.
-        this.company_products = response.data
+            this.company_products = response.data
         })
         .catch(e => {
-        console.log(e)
+            console.log(e)
         })
     },
 }

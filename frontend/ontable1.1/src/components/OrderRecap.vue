@@ -2,7 +2,7 @@
     <div>
       <b-card
         border-variant="primary"
-        header="Récapitulatif de votre commande"
+        header="Order Summary"
         header-bg-variant="primary"
         header-text-variant="white"
         align="center"
@@ -11,7 +11,7 @@
             <div v-for="(product_quantity,idx) in products_quantiy" :key="idx">
                 {{ products[idx] }}
                 {{ product_quantity }}
-                <b-button variant="danger" v-on:click="removeProductFromCart(idx)">Enlever</b-button>
+                <b-button variant="danger" v-on:click="removeProductFromCart(idx)">Remove</b-button>
             </div>
         </b-card-text>
       </b-card>
@@ -24,7 +24,7 @@
 export default {
     name: "OrderRecap",
     computed: {
-        // TO DO: products_quantiy ne se met pas à jour car il ne considere pas que le tableau a changé
+        // TODO: products_quantity does not update because Vue does not detect array mutations
         products(){
             return this.$store.getters.getOrder['products']
         },

@@ -5,11 +5,11 @@
         </div>
 
         <div class="total">
-            Total de la commande : {{ total }}€
+            Order total: {{ total }}€
         </div>
 
         <b-row class="mt-2">
-            <b-col lg="12"><b-button size="lg" v-on:click="addPaymentMethod">Valider votre commande</b-button></b-col>
+            <b-col lg="12"><b-button size="lg" v-on:click="addPaymentMethod">Validate your order</b-button></b-col>
         </b-row>
     </div>
 </template>
@@ -30,10 +30,7 @@ export default {
     },
     computed: {
         step(){
-            // accès direct, c'est pas la bonne façon de le faire
-            // return this.$store.state.order
-
-            // Getters, pour simplifier l'accès aux données
+            // Use getters for simplified data access
             return this.$store.getters.getCurrentStep
         }
     },

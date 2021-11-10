@@ -2,7 +2,7 @@
     <div>
 
         <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-brand href="#">: Commande en ligne</b-navbar-brand>
+            <b-navbar-brand href="#">: Online Order</b-navbar-brand>
 
         </b-navbar>
         <div class="row">
@@ -17,7 +17,7 @@
                     <div v-else-if="step ==2">
                         <ProductList :company_slug="company_slug"/>
                         <OrderRecap/>
-                        <b-button variant="success" v-on:click="next">Suivant</b-button>
+                        <b-button variant="success" v-on:click="next">Next</b-button>
                     </div>
 
                     <div v-else-if="step == 3" id="order-recap">
@@ -60,10 +60,7 @@ export default {
     },
     computed: {
         step(){
-            // accès direct, c'est pas la bonne façon de le faire
-            // return this.$store.state.order
-
-            // Getters, pour simplifier l'accès aux données
+            // Use getters for simplified data access
             return this.$store.getters.getCurrentStep
         },
     },

@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-card-group deck>
-            <b-card header="Carte Bancaire" class="text-center">
+            <b-card header="Credit Card" class="text-center">
 
                 <b-card-body>
                     <div class="choice-payment-method-cb">
@@ -11,7 +11,7 @@
                 </b-card-body>
             </b-card>
 
-            <b-card header="Espèces" class="text-center">
+            <b-card header="Cash" class="text-center">
 
                 <b-card-body>
                     <div class="choice-payment-method-cash">
@@ -21,7 +21,7 @@
                 </b-card-body>
             </b-card>
 
-            <b-card header="Chèque" class="text-center">
+            <b-card header="Check" class="text-center">
 
                 <b-card-body>
                     <div class="choice-payment-method-bank-check">
@@ -33,7 +33,7 @@
             
         </b-card-group>
         <b-row class="mt-2">
-            <b-col lg="12"><b-button size="lg" v-on:click="addPaymentMethod">Suivant</b-button></b-col>
+            <b-col lg="12"><b-button size="lg" v-on:click="addPaymentMethod">Next</b-button></b-col>
         </b-row>
 
     </div>
@@ -52,10 +52,7 @@ export default {
             return this.$store.getters.getPaymentMethod
         },
         step(){
-            // accès direct, c'est pas la bonne façon de le faire
-            // return this.$store.state.order
-
-            // Getters, pour simplifier l'accès aux données
+            // Use getters for simplified data access
             return this.$store.getters.getCurrentStep
         }
     },

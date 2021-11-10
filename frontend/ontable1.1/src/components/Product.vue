@@ -16,7 +16,7 @@
                 ></b-form-input>
             </div>
             <div class="col-3">
-                <b-button variant="primary" v-on:click="ajouterAuPanier">Ajouter</b-button>
+                <b-button variant="primary" v-on:click="addToCart">Add</b-button>
             </div>
         </div>        
 
@@ -35,7 +35,7 @@ export default {
         }
     },
     computed: {
-        // TO DO: products_quantiy ne se met pas à jour
+        // TODO: products_quantity does not update
         index_product_quantiy_stored(){
             return this.$store.getters.getProductIndex(this.product.slug)
         }
@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        ajouterAuPanier(){
+        addToCart(){
             //console.log(this.product.slug)
             //console.log(this.quantity)
             var quantity = this.quantity
