@@ -1,26 +1,40 @@
-Django
-djangorestframework
-celery
-redis
-django-filter
-django-rest-auth
-requests
-python-baseconv
-django-phonenumber-field
-phonenumbers
-Pillow
-django-allauth
-django-extensions
-gunicorn
-psycopg2-binary
-django-crispy-forms
-pdf2image
-selenium
-sklearn
-PyPDF2
-bs4
-fpdf
-pyqrcode
-pypng
-django-celery-results
-django-cors-headers
+# Core
+Django>=3.0,<4.0
+djangorestframework>=3.12,<4.0
+gunicorn>=20.0
+
+# Database
+psycopg2-binary>=2.8
+
+# Authentication
+django-allauth>=0.44
+django-rest-auth>=0.9
+
+# Task queue
+celery>=4.4,<6.0
+redis>=3.5
+django-celery-results>=2.0
+
+# API utilities
+django-filter>=2.4
+django-cors-headers>=3.7
+django-crispy-forms>=1.11
+
+# QR codes & PDF
+pyqrcode>=1.2
+pypng>=0.0.20
+fpdf>=1.7
+PyPDF2>=1.26
+pdf2image>=1.14
+
+# Image processing
+Pillow>=8.0
+
+# Phone numbers
+django-phonenumber-field>=5.0
+phonenumbers>=8.12
+
+# Utilities
+requests>=2.25
+python-baseconv>=1.2
+django-extensions>=3.1
